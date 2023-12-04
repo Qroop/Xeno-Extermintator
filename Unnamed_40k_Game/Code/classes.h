@@ -3,57 +3,60 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 
-class Game_Engine
-{
+// class Game_Engine
+// {
 
 
-    private:
-    std::vector<Abstract_Game_State*> states;
-    bool running;
-    int active_state;
-};
+//     private:
+//     std::vector<Abstract_Game_State*> states;
+//     bool running;
+//     int active_state;
+// };
 
-class Abstract_Game_State
-{
+// class Abstract_Game_State
+// {
 
-};
+// };
 
-class Play_State
-{
-    public:
-    std::vector<Game_Object*> load(std::string file_name);
+// class Play_State
+// {
+//     public:
+//     std::vector<Game_Object*> load(std::string file_name);
 
-    private:
-    std::vector<Game_Object*> level;
-};
+//     private:
+//     std::vector<Game_Object*> level;
+// };
 
-class Menu_State
-{
+// class Menu_State
+// {
 
-};
+// };
 
-class Game_Over_State
-{
+// class Game_Over_State
+// {
 
-};
+// };
 
 class Game_Object
 {
     public:
-    Game_Object(sf::Vector2f coordinates, double width = 32, double height = 32);
-    virtual ~Game_Object();
+    Game_Object(sf::Vector2f coordinates, 
+            double width = 32, 
+            double height = 32); 
+            // const std::string& texture_path = "../Static/missing.png");
+    virtual ~Game_Object() = 0;
 
-    double get_x_coordinate();
-    double get_y_coordinate();
-    double get_height();
-    double get_width();
-    virtual void draw(sf::RenderWindow window) const = 0;
+    sf::Vector2f get_coordinates() const;
+    double get_height() const;
+    double get_width() const;
+    void draw(sf::RenderWindow& window);
 
     protected:
     sf::Vector2f coordinates;
     double width;
     double height;
-    sf::RectangleShape shape;
+    sf::RectangleShape hitbox;
+    sf::Texture texture;
 };
 
 
@@ -78,43 +81,51 @@ class Entity : public Game_Object
     virtual ~Entity() = 0;
 
     
-    virtual void update() const = 0;
-    virtual bool attack() const = 0;
-    virtual void move() const = 0;
+    virtual void update(double delta_time) = 0;
+    // virtual bool attack() const = 0;
+    virtual void move(double delta_time) = 0;
     
 
     protected:
-    double rotation;
     int health_points;
     int damage;
     int speed;
+    double rotation;
 };
 
 
 class Player : public Entity
 {
     public:
-    Player(sf::Vector2f coordinates, double width, double height, int health_points);
+    Player(sf::Vector2f coordinates, 
+            double width, 
+            double height, 
+            int health_points,
+            int damage,
+            int speed);
+            // const std::string& texturePath = "");
+    ~Player();
     
-    sf::Vector2f move() override;
-
-    private:
+    sf::Vector2f find_direction() const;
+    void update(double delta_time) override;
+    // bool attack() const override;
+    void move(double delta_time) override;
 };
 
 
-class Enemy : public Entity
-{
+// class Enemy : public Entity
+// {
 
-};
-
-
-class Grunt : public Entity
-{
-
-};
+// };
 
 
-class Projectile : public Entity
-{
+// class Grunt : public Entity
+// {
 
-};
+// };
+
+
+// class Projectile : public Entity
+// {
+
+// };
