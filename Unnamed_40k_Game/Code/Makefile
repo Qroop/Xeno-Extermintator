@@ -10,6 +10,7 @@ SFML_FLAGS := -lsfml-graphics -lsfml-window -lsfml-system
 # Source files and executable name
 SRC = main.cc
 EXECUTABLE = game
+ICON = ../Static/ultramarine_logo.png
 
 all: $(EXECUTABLE)
 
