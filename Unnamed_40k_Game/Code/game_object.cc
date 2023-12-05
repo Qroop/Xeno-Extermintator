@@ -1,9 +1,11 @@
 #include "classes.h"
 
-Game_Object::Game_Object(sf::Vector2f coordinates, double width, double height) // const std::string& texture_path)
-: coordinates{coordinates}, width{width}, height{height}
+Game_Object::Game_Object(sf::Vector2f coordinates)
+: coordinates{coordinates}
 {
-    hitbox.setSize(sf::Vector2f(static_cast<float>(width), static_cast<float>(height)));
+    width = 32;
+    height = 32;
+    hitbox.setSize(sf::Vector2f(width, height));
     hitbox.setPosition(coordinates);
     hitbox.setOrigin(width / 2.0f, height / 2.0f);
 }

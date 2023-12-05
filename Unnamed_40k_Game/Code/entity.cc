@@ -3,8 +3,8 @@
 #include <SFML/Window/Mouse.hpp>
 #include <cmath>
 
-Entity::Entity(sf::Vector2f coordinates, double width, double height, int health_points, int damage, int speed)
-: Game_Object(coordinates, width, height), health_points(health_points), damage(damage), speed(speed) {}
+Entity::Entity(sf::Vector2f coordinates, int health_points, int damage, int speed)
+: Game_Object(coordinates), health_points(health_points), damage(damage), speed(speed) {}
 
 
 Entity::~Entity() {}

@@ -16,7 +16,9 @@ int main()
     window.setKeyRepeatEnabled(true);
     window.setVerticalSyncEnabled(true);
 
-    Player player(sf::Vector2f(window_width / 2, window_height / 2), 32, 32, 10, 10, 300);
+    Player player(sf::Vector2f(window_width / 2, window_height / 2), 10, 10, 300);
+    Enemy enemy(sf::Vector2f(900, 900), 10, 10, 10, player);
+
     sf::Clock clock;
 
     bool quit = false;

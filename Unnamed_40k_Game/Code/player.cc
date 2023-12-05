@@ -8,14 +8,15 @@
 #include <iostream>
 
 
-Player::Player(sf::Vector2f coordinates, double width, double height, int health_points, int damage, int speed)
-: Entity(coordinates, width, height, health_points, damage, speed)
+Player::Player(sf::Vector2f coordinates, int health_points, int damage, int speed)
+: Entity(coordinates, health_points, damage, speed)
 {
     // sf::Texture texture;
     // texture.loadFromFile("player.png");
 }
 
 Player::~Player() {}
+
 
 sf::Vector2f Player::find_direction() const
 {
@@ -47,10 +48,26 @@ void Player::move(double delta_time, size_t window_width, size_t window_height)
 }
 
 
-void Player::rotate(sf::RenderWindow& window)
+sf::Vector2f Player::find_mouse(sf::RenderWindow& window)
 {
-    sf::Vector2i mouse_position = sf::Mouse::getPosition(window);
-    float angle = std::atan2(mouse_position.y - coordinates.y, mouse_position.x - coordinates.x);
+    sf::Vector2f mouse_position{sf::Mouse::getPosition(window)};
+    return mouse_position;
+}
+
+
+// void Player::rotate(sf::RenderWindow& window)
+// {
+//     sf::Vector2i mouse_position = sf::Mouse::getPosition(window);
+//     float angle = std::atan2(mouse_position.y - coordinates.y, mouse_position.x - coordinates.x);
+//     angle = angle * 180 /  3.14159265;
+
+//     rotation = angle;
+// }
+
+
+void Player::rotate(sf::Vector2f& direction)
+{
+    float angle = std::atan2(direction.y - coordinates.y, direction.x - coordinates.x);
     angle = angle * 180 /  3.14159265;
 
     rotation = angle;
@@ -59,6 +76,7 @@ void Player::rotate(sf::RenderWindow& window)
 
 void Player::update(double delta_time, sf::RenderWindow& window, size_t window_width, size_t window_height)
 {
+    sf::Vector2f mouse_coordinates{find_mouse(window)};
     move(delta_time, window_width, window_height);
-    rotate(window);
+    rotate(mouse_coordinates);
 }

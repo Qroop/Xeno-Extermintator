@@ -18,19 +18,19 @@
 
 // };
 
-class Play_State
-{
-    public:
-    Play_State();
+// class Play_State
+// {
+//     public:
+//     Play_State();
 
-    void run(double delta_time, Player player);
-    // std::vector<Game_Object*> load(std::string file_name);
+//     void run(double delta_time, Player player);
+//     // std::vector<Game_Object*> load(std::string file_name);
 
-    private:
-    Player player;
-    std::vector<Enemy*> enemies;
-    //std::vector<Game_Object*> level;
-};
+//     private:
+//     Player player;
+//     std::vector<Enemy*> enemies;
+//     //std::vector<Game_Object*> level;
+// };
 
 // class Menu_State
 // {
@@ -45,9 +45,7 @@ class Play_State
 class Game_Object
 {
     public:
-    Game_Object(sf::Vector2f coordinates, 
-            double width = 32, 
-            double height = 32); 
+    Game_Object(sf::Vector2f coordinates); 
     virtual ~Game_Object() = 0;
 
 
@@ -77,12 +75,7 @@ class Wall : public Game_Object
 class Entity : public Game_Object
 {
     public:
-    Entity(sf::Vector2f coordinates, 
-            double width, 
-            double height, 
-            int health_points,
-            int damage,
-            int speed);
+    Entity(sf::Vector2f coordinates, int health_points, int damage, int speed);
     virtual ~Entity() = 0;
 
 
@@ -90,10 +83,11 @@ class Entity : public Game_Object
     virtual void update(double delta_time, 
             sf::RenderWindow& window, 
             size_t window_width,
-            size_t window_height) = 0;
+            size_t window_height); //  = 0;
     // virtual bool attack() const = 0;
-    virtual void move(double delta_time, size_t window_width, size_t window_height) = 0;
-    virtual void rotate(sf::RenderWindow& window) = 0;
+    virtual void move(double delta_time, size_t window_width, size_t window_height); // = 0;
+    // virtual void rotate(sf::RenderWindow& window) = 0;
+    virtual void rotate(sf::Vector2f& direction); // = 0;
 
 
     protected:
@@ -107,37 +101,37 @@ class Entity : public Game_Object
 class Player : public Entity
 {
     public:
-    Player(sf::Vector2f coordinates, 
-            double width, 
-            double height, 
-            int health_points,
-            int damage,
-            int speed);
+    Player(sf::Vector2f coordinates, int health_points, int damage, int speed);
     ~Player();
     
-
     sf::Vector2f find_direction() const;
-    void update(double delta_time, 
-            sf::RenderWindow& window, 
-            size_t window_width,
-            size_t window_height) override;
+    void update(double delta_time, sf::RenderWindow& window, size_t window_width, size_t window_height) override;
     // bool attack() const override;
     void move(double delta_time, size_t window_width, size_t window_height) override;
-    void rotate(sf::RenderWindow& window) override;
+    // void rotate(sf::RenderWindow& window) override;
+    sf::Vector2f find_mouse(sf::RenderWindow& window);
+    void rotate(sf::Vector2f& direction) override;
 };
 
 
 class Enemy : public Entity
 {
-    Enemy();
-    virtual ~Enemy() = 0;
+    public:
+    Enemy(sf::Vector2f coordinates, int health_points, int damage, int speed, Player& player);
+    ~Enemy();
+
+    //void update(double delta_time, sf::RenderWindow& window, size_t window_width, size_t window_height) override;
+    //void move(double delta_time, size_t window_width, size_t window_height) override;
+
+    protected:
+    Player& player;
 };
 
 
-// class Grunt : public Entity
-// {
+class Grunt : public Entity
+{
 
-// };
+};
 
 
 // class Projectile : public Entity
