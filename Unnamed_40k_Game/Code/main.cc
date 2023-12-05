@@ -6,17 +6,17 @@
 #include <cmath>
 #include <iostream>
 
-const size_t width = 1024;
-const size_t height = 1024; //1024
+const size_t window_width = 1024;
+const size_t window_height = 1024; //1024
 
 int main()
 {
-    sf::RenderWindow window{sf::VideoMode{width, height}, "Demo"};
+    sf::RenderWindow window{sf::VideoMode{window_width, window_height}, "Demo"};
 
     window.setKeyRepeatEnabled(true);
     window.setVerticalSyncEnabled(true);
 
-    Player player(sf::Vector2f(width / 2, height / 2), 32, 32, 10, 10, 200);
+    Player player(sf::Vector2f(window_width / 2, window_height / 2), 32, 32, 10, 10, 300);
     sf::Clock clock;
 
     bool quit = false;
@@ -41,7 +41,7 @@ int main()
         }
 
         // Handle game logic and update here
-        player.update(clock.restart().asSeconds());
+        player.update(clock.restart().asSeconds(), window, window_width, window_height);
         
         window.clear(); // Clear the window
 

@@ -5,6 +5,7 @@ Game_Object::Game_Object(sf::Vector2f coordinates, double width, double height) 
 {
     hitbox.setSize(sf::Vector2f(static_cast<float>(width), static_cast<float>(height)));
     hitbox.setPosition(coordinates);
+    hitbox.setOrigin(width / 2.0f, height / 2.0f);
 }
 
 Game_Object::~Game_Object() {}
