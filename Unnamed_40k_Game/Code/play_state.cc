@@ -1,8 +1,16 @@
 #include "classes.h"
+#include "play_state.h"
 #include <fstream>
 #include <iostream>
+#include <SFML/Graphics.hpp>
 
-std::vector<Game_Object*> Play_State::load(std::string file_name)
+
+Play_State::Play_State()
+    :level{}
+{}
+
+//creates a vector containing all game objects
+void Play_State::load(std::string file_name)
 {
     std::ifstream fs;
     fs.open("../Static/" + file_name);
@@ -11,7 +19,7 @@ std::vector<Game_Object*> Play_State::load(std::string file_name)
     {
         std::cerr << "Error: no file with such name";
     }
-    std::vector<Game_Object*> level;
+    std::vector<Game_Object*> loaded;
     sf::Vector2f coords;
     while ( !fs.eof() )
     {
@@ -39,6 +47,34 @@ std::vector<Game_Object*> Play_State::load(std::string file_name)
                 break;
         }
     }
+    fs.close();
+    level = loaded;
+}
 
-    sf:
+//std::vector<Game_Object*> const& objects
+void Play_State::render() const
+{
+    for (Game_Object* curr_object : level)
+    {
+        Entity* entity = dynamic_cast<Entity*> (curr_object);
+        Wall* wall = dynamic_cast<Wall*> (curr_object);
+        if (entity)
+        {
+            //entity -> update();
+            Enemy* enemy = dynamic_cast<Enemy*> (entity);
+            Player* player = dynamic_cast<Player*> (entity);
+            if (enemy)
+            {
+                std::cout << "it is enemy" << std::endl;
+            }
+            else if ( player )
+            {
+                std::cout << "it is player" << std::endl;
+            }
+        }
+        else if (wall)
+        {
+            std::cout << "it is wall" << std::endl;
+        }
+    }
 }

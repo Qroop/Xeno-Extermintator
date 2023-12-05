@@ -13,6 +13,9 @@ Player::Player(sf::Vector2f coordinates, double width, double height, int health
     // texture.loadFromFile("player.png");
 }
 
+Player::Player(sf::Vector2f coordinates)
+: Entity(coordinates, width, height, health_points, damage, speed)
+{}
 
 Player::~Player() {}
 
@@ -40,7 +43,7 @@ void Player::move(double delta_time)
     coordinates.x += direction.x * speed * delta_time;
     coordinates.y += direction.y * speed * delta_time;
     
-    std::cout << direction << std::endl;
+    // std::cout << direction << std::endl;
     // std::cout << "Position: (" << coordinates.x << ", " << coordinates.y << ")\n";
 }
 
