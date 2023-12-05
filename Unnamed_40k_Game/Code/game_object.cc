@@ -1,4 +1,4 @@
-#include "classes.h"
+#include "game_object.h"
 
 Game_Object::Game_Object(sf::Vector2f coordinates, double width, double height) // const std::string& texture_path)
 : coordinates{coordinates}, width{width}, height{height}

@@ -1,4 +1,4 @@
-#include "classes.h"
+#include "player.h"
 #include "point.h"
 #include "standard.h"
 
@@ -11,11 +11,9 @@ Player::Player(sf::Vector2f coordinates, double width, double height, int health
 {
     // sf::Texture texture;
     // texture.loadFromFile("player.png");
+    graphic.setSize(sf::Vector2f(width, height));
+    graphic.setPosition(coordinates.x +16, coordinates.y +16);
 }
-
-Player::Player(sf::Vector2f coordinates)
-: Entity(coordinates, width, height, health_points, damage, speed)
-{}
 
 Player::~Player() {}
 
@@ -51,4 +49,9 @@ void Player::move(double delta_time)
 void Player::update(double delta_time)
 {
     move(delta_time);
+}
+
+void Player::render(sf::RenderWindow & window) 
+{
+    window.draw(graphic);
 }

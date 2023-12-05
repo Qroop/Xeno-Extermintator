@@ -1,5 +1,7 @@
-#include "classes.h"
 #include "play_state.h"
+#include "wall.h"
+#include "player.h"
+#include "grunt.h"
 #include <fstream>
 #include <iostream>
 #include <SFML/Graphics.hpp>
@@ -7,6 +9,9 @@
 
 Play_State::Play_State()
     :level{}
+{}
+
+Play_State::~Play_State()
 {}
 
 //creates a vector containing all game objects
@@ -27,15 +32,15 @@ void Play_State::load(std::string file_name)
         switch(character)
         {
             case '#':
-                level.push_back(new Wall(coords));
+                loaded.push_back(new Wall(coords, 32, 32));
                 coords.x += 32;
                 break;
             case '@':
-                level.push_back(new Player(coords));
+                loaded.push_back(new Player(coords, 32, 32, 3, 1, 1));
                 coords.x += 32;
                 break;
             case 'X':
-                level.push_back(new Enemy(coords));
+                loaded.push_back(new Grunt(coords, 32, 32, 3, 1, 1));
                 coords.x += 32;
                 break;
             case '\n':
@@ -52,29 +57,31 @@ void Play_State::load(std::string file_name)
 }
 
 //std::vector<Game_Object*> const& objects
-void Play_State::render() const
+void Play_State::render(sf::RenderWindow & window) 
 {
     for (Game_Object* curr_object : level)
     {
-        Entity* entity = dynamic_cast<Entity*> (curr_object);
-        Wall* wall = dynamic_cast<Wall*> (curr_object);
-        if (entity)
-        {
-            //entity -> update();
-            Enemy* enemy = dynamic_cast<Enemy*> (entity);
-            Player* player = dynamic_cast<Player*> (entity);
-            if (enemy)
-            {
-                std::cout << "it is enemy" << std::endl;
-            }
-            else if ( player )
-            {
-                std::cout << "it is player" << std::endl;
-            }
-        }
-        else if (wall)
-        {
-            std::cout << "it is wall" << std::endl;
-        }
+        curr_object -> render(window);
+        
     }
 }
+// Entity* entity = dynamic_cast<Entity*> (curr_object);
+        // Wall* wall = dynamic_cast<Wall*> (curr_object);
+        // if (entity)
+        // {
+        //     //entity -> update();
+        //     Enemy* enemy = dynamic_cast<Enemy*> (entity);
+        //     Player* player = dynamic_cast<Player*> (entity);
+        //     if (enemy)
+        //     {
+        //         std::cout << "it is enemy" << std::endl;
+        //     }
+        //     else if ( player )
+        //     {
+        //         std::cout << "it is player" << std::endl;
+        //     }
+        // }
+        // else if (wall)
+        // {
+        //     std::cout << "it is wall" << std::endl;
+        // }

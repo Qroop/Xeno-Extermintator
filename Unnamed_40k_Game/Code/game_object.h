@@ -14,6 +14,7 @@ class Game_Object
     double get_height() const;
     double get_width() const;
     void draw(sf::RenderWindow& window);
+    virtual void render(sf::RenderWindow & window) = 0;
 
     protected:
     sf::Vector2f coordinates;
