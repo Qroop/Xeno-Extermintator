@@ -82,7 +82,7 @@ class Entity : public Game_Object
     void draw(sf::RenderWindow& window) override;
     // virtual bool attack() const = 0;
     virtual void move(double delta_time, size_t window_width, size_t window_height) = 0;
-    void rotate(sf::Vector2f& direction);
+    virtual void rotate(sf::Vector2f& direction);
 
 
     protected:
@@ -129,6 +129,7 @@ class Grunt : public Enemy
 
     void update(double delta_time, size_t window_width, size_t window_height) override;
     void move(double delta_time, size_t window_width, size_t window_height) override;
+    void rotate(sf::Vector2f& direction) override;
 };
 
 
