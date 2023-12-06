@@ -47,7 +47,7 @@ void Grunt::move(double delta_time, size_t window_width, size_t window_height)
     cout << window_width << window_height << endl;
 }
 
-void Grunt::rotate(sf::Vector2f& direction)
-{
-    
-}
+// void Grunt::rotate(sf::Vector2f& direction)
+// {
+
+// }
