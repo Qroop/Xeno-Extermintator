@@ -2,6 +2,8 @@
 #include "wall.h"
 #include "player.h"
 #include "grunt.h"
+
+
 #include <fstream>
 #include <iostream>
 #include <SFML/Graphics.hpp>
@@ -43,7 +45,7 @@ void Play_State::load(std::string file_name)
                 coords.x += 32;
                 break;
             case 'X':   // Grunt
-                loaded.push_back(new Grunt(coords, 3, 1, 1, dynamic_cast<Player&> (*loaded[0]))); // dynamic_cast<Player&>(*loaded[0])
+                loaded.push_back(new Grunt(coords, 3, 1, 50, dynamic_cast<Player&> (*loaded[0]))); // dynamic_cast<Player&>(*loaded[0])
                 coords.x += 32;
                 break;
             case '\n':
@@ -70,10 +72,22 @@ void Play_State::render(sf::RenderWindow & window)
     }
 }
 
-// void Play_State::update(std::vector<Game_Object*> level, 
-//         double delta_time, 
-//         sf::RenderWindow& window, 
-//         size_t screen_width)
+void Play_State::update(double delta_time, sf::RenderWindow& window, size_t window_width, size_t window_height)
+{
+    for (Game_Object* object : level)
+    {
+        Grunt* grunt = dynamic_cast<Grunt*> (object);
+        Player* player = dynamic_cast<Player*> (object);
+        if (grunt)
+        {
+            grunt -> update(delta_time, window_width, window_height);
+        }
+        else if(player)
+        {
+            player -> update(delta_time, window, window_width, window_height);
+        }
+    }
+}
 
 // Entity* entity = dynamic_cast<Entity*> (curr_object);
         // Wall* wall = dynamic_cast<Wall*> (curr_object);

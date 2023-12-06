@@ -27,7 +27,7 @@ void Grunt::move(double delta_time, size_t window_width, size_t window_height)
     float distance_to_player{length(offset_from_player)};
 
     float distance_to_keep{500};
-    if(distance_to_player < distance_to_keep)
+    if(distance_to_player <= distance_to_keep)
     {
         // Move away from the player
         sf::Vector2f direction = normalize(offset_from_player);
@@ -42,11 +42,8 @@ void Grunt::move(double delta_time, size_t window_width, size_t window_height)
         coordinates.y -= direction.y * distance_to_move;
     }
 
+
     // Skriver ut bara för att dem ska användas.
-    cout << window_width << window_height << endl;
+    cout << "it moves" << window_width << window_height <<
+    "\n" << "Player coords : " << player.get_coordinates().x << " : " << player.get_coordinates().y << endl;
 }
-
-// void Grunt::rotate(sf::Vector2f& direction)
-// {
-
-// }

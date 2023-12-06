@@ -15,6 +15,7 @@ class Play_State
 
     void load(std::string file_name);
     void render(sf::RenderWindow & window);
+    void update(double delta_time, sf::RenderWindow& window, size_t window_width, size_t window_height);
 
     private:
     std::vector<Game_Object*> level;
