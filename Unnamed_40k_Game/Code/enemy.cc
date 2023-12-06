@@ -10,7 +10,9 @@ Enemy::Enemy(sf::Vector2f coordinates, int health_points, int damage, int speed,
     hitbox.setFillColor(sf::Color(100, 250, 50));
 }
 
+Enemy::~Enemy() {}
+
 // void Enemy::update(double delta_time, sf::RenderWindow& window, size_t window_width, size_t window_height)
 // {
-//     cout << delta_time << 
+    
 // }

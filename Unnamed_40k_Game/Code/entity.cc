@@ -9,6 +9,16 @@ Entity::Entity(sf::Vector2f coordinates, int health_points, int damage, int spee
 
 Entity::~Entity() {}
 
+
+void Entity::rotate(sf::Vector2f& direction)
+{
+    float angle = std::atan2(direction.y - coordinates.y, direction.x - coordinates.x);
+    angle = angle * 180 /  3.14159265;
+
+    rotation = angle;
+}
+
+
 void Entity::draw(sf::RenderWindow& window)
 {
     hitbox.setPosition(coordinates);

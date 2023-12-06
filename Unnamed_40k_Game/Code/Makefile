@@ -8,7 +8,7 @@ CXXFLAGS := -g -std=c++17 -Wall -Wextra
 SFML_FLAGS := -lsfml-graphics -lsfml-window -lsfml-system
 
 # Source files and executable name
-SRC = main.cc player.cc game_object.cc entity.cc
+SRC = main.cc player.cc game_object.cc entity.cc enemy.cc grunt.cc
 EXECUTABLE = game
 
 all: $(EXECUTABLE)

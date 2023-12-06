@@ -17,7 +17,7 @@ int main()
     window.setVerticalSyncEnabled(true);
 
     Player player(sf::Vector2f(window_width / 2, window_height / 2), 10, 10, 300);
-    Enemy enemy(sf::Vector2f(900, 900), 10, 10, 10, player);
+    Grunt enemy(sf::Vector2f(900, 900), 10, 10, 10, player);
 
     sf::Clock clock;
 
@@ -42,13 +42,17 @@ int main()
             break;
         }
 
+        double delta_time{clock.restart().asSeconds()};
+
         // Handle game logic and update here
-        player.update(clock.restart().asSeconds(), window, window_width, window_height);
-        
+        player.update(delta_time, window, window_width, window_height);
+        enemy.update(delta_time, window_width, window_height);
+
         window.clear(); // Clear the window
 
         // Draw your game objects here
         player.draw(window);
+        enemy.draw(window);
 
         window.display();
     }

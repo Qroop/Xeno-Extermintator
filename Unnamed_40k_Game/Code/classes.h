@@ -80,14 +80,9 @@ class Entity : public Game_Object
 
 
     void draw(sf::RenderWindow& window) override;
-    virtual void update(double delta_time, 
-            sf::RenderWindow& window, 
-            size_t window_width,
-            size_t window_height); //  = 0;
     // virtual bool attack() const = 0;
-    virtual void move(double delta_time, size_t window_width, size_t window_height); // = 0;
-    // virtual void rotate(sf::RenderWindow& window) = 0;
-    virtual void rotate(sf::Vector2f& direction); // = 0;
+    virtual void move(double delta_time, size_t window_width, size_t window_height) = 0;
+    void rotate(sf::Vector2f& direction);
 
 
     protected:
@@ -105,12 +100,10 @@ class Player : public Entity
     ~Player();
     
     sf::Vector2f find_direction() const;
-    void update(double delta_time, sf::RenderWindow& window, size_t window_width, size_t window_height) override;
+    void update(double delta_time, sf::RenderWindow& window, size_t window_width, size_t window_height);
     // bool attack() const override;
     void move(double delta_time, size_t window_width, size_t window_height) override;
-    // void rotate(sf::RenderWindow& window) override;
     sf::Vector2f find_mouse(sf::RenderWindow& window);
-    void rotate(sf::Vector2f& direction) override;
 };
 
 
@@ -118,19 +111,24 @@ class Enemy : public Entity
 {
     public:
     Enemy(sf::Vector2f coordinates, int health_points, int damage, int speed, Player& player);
-    ~Enemy();
+    virtual ~Enemy() = 0;
 
-    //void update(double delta_time, sf::RenderWindow& window, size_t window_width, size_t window_height) override;
-    //void move(double delta_time, size_t window_width, size_t window_height) override;
+    virtual void update(double delta_time, size_t window_width, size_t window_height) = 0;
+    // void move(double delta_time, size_t window_width, size_t window_height) override;
 
     protected:
     Player& player;
 };
 
 
-class Grunt : public Entity
+class Grunt : public Enemy
 {
+    public:
+    Grunt(sf::Vector2f coordinates, int health_points, int damage, int speed, Player& player);
+    ~Grunt();
 
+    void update(double delta_time, size_t window_width, size_t window_height) override;
+    void move(double delta_time, size_t window_width, size_t window_height) override;
 };
 
 

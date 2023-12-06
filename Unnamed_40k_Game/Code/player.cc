@@ -55,23 +55,13 @@ sf::Vector2f Player::find_mouse(sf::RenderWindow& window)
 }
 
 
-// void Player::rotate(sf::RenderWindow& window)
+// void Player::rotate(sf::Vector2f& direction)
 // {
-//     sf::Vector2i mouse_position = sf::Mouse::getPosition(window);
-//     float angle = std::atan2(mouse_position.y - coordinates.y, mouse_position.x - coordinates.x);
+//     float angle = std::atan2(direction.y - coordinates.y, direction.x - coordinates.x);
 //     angle = angle * 180 /  3.14159265;
 
 //     rotation = angle;
 // }
-
-
-void Player::rotate(sf::Vector2f& direction)
-{
-    float angle = std::atan2(direction.y - coordinates.y, direction.x - coordinates.x);
-    angle = angle * 180 /  3.14159265;
-
-    rotation = angle;
-}
 
 
 void Player::update(double delta_time, sf::RenderWindow& window, size_t window_width, size_t window_height)
