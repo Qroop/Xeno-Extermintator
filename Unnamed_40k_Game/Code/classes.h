@@ -129,7 +129,7 @@ class Grunt : public Enemy
 
     void update(double delta_time, size_t window_width, size_t window_height) override;
     void move(double delta_time, size_t window_width, size_t window_height) override;
-    void rotate(sf::Vector2f& direction) override;
+    //void rotate(sf::Vector2f& direction) override;
 };
 
 
