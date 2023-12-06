@@ -4,17 +4,14 @@
 class Game_Object
 {
     public:
-    Game_Object(sf::Vector2f coordinates, 
-            double width = 32, 
-            double height = 32); 
-            // const std::string& texture_path = "../Static/missing.png");
+    Game_Object(sf::Vector2f coordinates); 
     virtual ~Game_Object() = 0;
 
     sf::Vector2f get_coordinates() const;
+    void set_coordinates(sf::Vector2f set_coordinates);
     double get_height() const;
     double get_width() const;
-    void draw(sf::RenderWindow& window);
-    virtual void render(sf::RenderWindow & window) = 0;
+    virtual void draw(sf::RenderWindow& window);
 
     protected:
     sf::Vector2f coordinates;

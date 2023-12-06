@@ -14,7 +14,7 @@ Play_State::Play_State()
 Play_State::~Play_State()
 {}
 
-//creates a vector containing all game objects
+// Creates a vector containing all game objects
 void Play_State::load(std::string file_name)
 {
     std::ifstream fs;
@@ -24,47 +24,57 @@ void Play_State::load(std::string file_name)
     {
         std::cerr << "Error: no file with such name";
     }
+    
     std::vector<Game_Object*> loaded;
-    sf::Vector2f coords;
+    sf::Vector2f coords{16, 16};
+    loaded.push_back(new Player(coords, 3, 1, 300));
+    // Player& player_object = dynamic_cast<Player&> (loaded[0]);
     while ( !fs.eof() )
     {
         char character = fs.get();
         switch(character)
         {
-            case '#':
-                loaded.push_back(new Wall(coords, 32, 32));
+            case '#':   // Wall
+                loaded.push_back(new Wall(coords));
                 coords.x += 32;
                 break;
-            case '@':
-                loaded.push_back(new Player(coords, 32, 32, 3, 1, 1));
+            case '@':   // Player
+                loaded[0]->set_coordinates(coords);
                 coords.x += 32;
                 break;
-            case 'X':
-                loaded.push_back(new Grunt(coords, 32, 32, 3, 1, 1));
+            case 'X':   // Grunt
+                loaded.push_back(new Grunt(coords, 3, 1, 1, dynamic_cast<Player&> (*loaded[0]))); // dynamic_cast<Player&>(*loaded[0])
                 coords.x += 32;
                 break;
             case '\n':
                 coords.y += 32;
-                coords.x = 0;
+                coords.x = 16;
                 break;
-            case ' ':
+            case ',':   // Whitespace
                 coords.x += 32;
                 break;
         }
     }
     fs.close();
+    
     level = loaded;
 }
 
-//std::vector<Game_Object*> const& objects
+
 void Play_State::render(sf::RenderWindow & window) 
 {
     for (Game_Object* curr_object : level)
     {
-        curr_object -> render(window);
+        curr_object -> draw(window);
         
     }
 }
+
+// void Play_State::update(std::vector<Game_Object*> level, 
+//         double delta_time, 
+//         sf::RenderWindow& window, 
+//         size_t screen_width)
+
 // Entity* entity = dynamic_cast<Entity*> (curr_object);
         // Wall* wall = dynamic_cast<Wall*> (curr_object);
         // if (entity)

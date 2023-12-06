@@ -5,21 +5,18 @@
 class Entity : public Game_Object
 {
     public:
-    Entity(sf::Vector2f coordinates,
-            double width, 
-            double height, 
+    Entity(sf::Vector2f coordinates, 
             int health_points = 3,
             int damage = 1,
             int speed = 1);
 
     virtual ~Entity() = 0;
 
-    
-    virtual void update(double delta_time) = 0;
+    void draw(sf::RenderWindow& window) override;
+    // virtual void update(double delta_time, sf::RenderWindow& window, size_t window_width, size_t window_height) = 0;
     // virtual bool attack() const = 0;
-    virtual void move(double delta_time) = 0;
-    virtual void render(sf::RenderWindow & window) = 0;
-    
+    virtual void move(double delta_time, size_t window_width, size_t window_height) = 0;
+    virtual void rotate(sf::Vector2f& direction);
 
     protected:
     int health_points;

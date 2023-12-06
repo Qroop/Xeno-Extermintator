@@ -2,6 +2,8 @@
 #include "standard.h"
 #include "play_state.h"
 #include "player.h"
+#include "grunt.h"
+
 #include <SFML/Graphics.hpp>
 #include <cmath>
 #include <iostream>

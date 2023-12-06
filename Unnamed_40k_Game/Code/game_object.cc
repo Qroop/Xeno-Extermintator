@@ -28,6 +28,11 @@ sf::Vector2f Game_Object::get_coordinates() const
     return coordinates;
 }
 
+void Game_Object::set_coordinates(sf::Vector2f set_coordinates)
+{
+    coordinates = set_coordinates;
+}
+
 void Game_Object::draw(sf::RenderWindow& window)
 {
     hitbox.setPosition(coordinates);

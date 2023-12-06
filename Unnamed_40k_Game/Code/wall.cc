@@ -1,19 +1,12 @@
 #include "wall.h"
 #include <iostream>
 
-Wall::Wall(sf::Vector2f coordinates, double width, double height)
-: Game_Object(coordinates, width, height)
+Wall::Wall(sf::Vector2f coordinates)
+: Game_Object(coordinates)
 {
-    graphic.setSize(sf::Vector2f(width, height));
-    graphic.setPosition(coordinates.x +16, coordinates.y +16);
+    hitbox.setSize(sf::Vector2f(width, height));
+    hitbox.setPosition(coordinates.x, coordinates.y);
 }
 
 Wall::~Wall()
 {}
-
-void Wall::render(sf::RenderWindow & window)
-{
-    // sf::RectangleShape(sf::Vector2f(width, height));
-    // std::cout << "is wall" << coordinates.x << coordinates.y << std::endl;
-    window.draw(graphic);
-}

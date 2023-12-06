@@ -13,8 +13,8 @@ Player::Player(sf::Vector2f coordinates, int health_points, int damage, int spee
 {
     // sf::Texture texture;
     // texture.loadFromFile("player.png");
-    graphic.setSize(sf::Vector2f(width, height));
-    graphic.setPosition(coordinates.x +16, coordinates.y +16);
+    hitbox.setSize(sf::Vector2f(width, height));
+    hitbox.setPosition(coordinates.x +16, coordinates.y +16);
 }
 
 Player::~Player() {}
@@ -57,16 +57,9 @@ sf::Vector2f Player::find_mouse(sf::RenderWindow& window)
 }
 
 
-// void Player::rotate(sf::Vector2f& direction)
-// {
-//     float angle = std::atan2(direction.y - coordinates.y, direction.x - coordinates.x);
-//     angle = angle * 180 /  3.14159265;
-
-//     rotation = angle;
-// }
-
-
 void Player::update(double delta_time, sf::RenderWindow& window, size_t window_width, size_t window_height)
 {
-    move(delta_time);
+    sf::Vector2f mouse_position{find_mouse(window)};
+    rotate(mouse_position);
+    move(delta_time, window_width, window_height);
 }

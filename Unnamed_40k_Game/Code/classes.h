@@ -50,6 +50,7 @@ class Game_Object
 
 
     sf::Vector2f get_coordinates() const;
+    void set_coordinates(float x, float y);
     double get_height() const;
     double get_width() const;
     virtual void draw(sf::RenderWindow& window);

@@ -1,14 +1,12 @@
-#include "classes.h"
 #include "standard.h"
 #include "point.h"
+#include "player.h"
+#include "grunt.h"
 
 #include <cmath>
 
 Grunt::Grunt(sf::Vector2f coordinates, int health_points, int damage, int speed, Player& player)
-: Enemy(coordinates, health_points, damage, speed, player)
-{
-
-}
+: Enemy(coordinates, health_points, damage, speed, player) {}
 
 Grunt::~Grunt() {}
 
@@ -24,7 +22,6 @@ void Grunt::update(double delta_time, size_t window_width, size_t window_height)
 void Grunt::move(double delta_time, size_t window_width, size_t window_height)
 {
     double distance_to_move{delta_time * speed};
-    //double radians = rotation * (M_PI / 180.0);
 
     sf::Vector2f offset_from_player{coordinates.x - player.get_coordinates().x, coordinates.y - player.get_coordinates().y};
     float distance_to_player{length(offset_from_player)};
@@ -44,6 +41,8 @@ void Grunt::move(double delta_time, size_t window_width, size_t window_height)
         coordinates.x -= direction.x * distance_to_move;
         coordinates.y -= direction.y * distance_to_move;
     }
+
+    // Skriver ut bara för att dem ska användas.
     cout << window_width << window_height << endl;
 }
 

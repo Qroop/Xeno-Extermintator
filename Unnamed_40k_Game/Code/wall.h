@@ -5,11 +5,7 @@
 class Wall : public Game_Object
 {
     public:
-    Wall(sf::Vector2f coordinates, double width, double height);
+    Wall(sf::Vector2f coordinates);
     ~Wall();
-    void render(sf::RenderWindow & window) override;
-
-    private:
-    sf::RectangleShape graphic;
 };
 

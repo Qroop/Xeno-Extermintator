@@ -5,9 +5,7 @@
 class Player : public Entity
 {
     public:
-    Player(sf::Vector2f coordinates, 
-            double width, 
-            double height, 
+    Player(sf::Vector2f coordinates,
             int health_points,
             int damage,
             int speed);
@@ -15,11 +13,8 @@ class Player : public Entity
     ~Player();
     
     sf::Vector2f find_direction() const;
-    void update(double delta_time) override;
+    void update(double delta_time, sf::RenderWindow& window, size_t window_width, size_t window_height);
     // bool attack() const override;
-    void move(double delta_time) override;
-    void render(sf::RenderWindow & window) override;
-
-    private:
-    sf::RectangleShape graphic;
+    void move(double delta_time, size_t window_width, size_t window_height);
+    sf::Vector2f find_mouse(sf::RenderWindow& window);
 };
