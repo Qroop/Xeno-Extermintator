@@ -17,6 +17,7 @@ class Entity : public Game_Object
     // virtual bool attack() const = 0;
     virtual void move(double delta_time, size_t window_width, size_t window_height) = 0;
     virtual void rotate(sf::Vector2f& direction);
+    sf::Vector2f check_boundury_collision(sf::Vector2f direction, double distance_to_move, size_t window_width, size_t window_height);
 
     protected:
     int health_points;
