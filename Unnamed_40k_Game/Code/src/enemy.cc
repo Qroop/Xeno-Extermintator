@@ -33,17 +33,11 @@ void Enemy::rotate(sf::Vector2f& direction, double delta_time)
     double desired_rotation = std::atan2(direction.y - coordinates.y, direction.x - coordinates.x) * (180.0 / M_PI);
     double rotation_difference{shortest_angular_distance(rotation, desired_rotation)};
 
-    // Ensure that rotation doesn't overshoot
+    // Förhindra att fienden roterar 
     if (std::abs(rotation_difference) > rotation_speed * delta_time)
     {
         rotation_difference = (rotation_difference > 0) ? rotation_speed * delta_time : -rotation_speed * delta_time;
     }
 
-    cout << "Rotation difference : " << rotation_difference << endl;
-    cout << "Current rotation : " << rotation << endl;
-    cout << "Desired rotation : " << desired_rotation << endl;
-    cout << "Rotation speed : " << rotation_speed << endl;
-
     rotation += rotation_difference;
 }
-
