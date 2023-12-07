@@ -40,14 +40,9 @@ sf::Vector2f Player::find_direction() const
 void Player::move(double delta_time, size_t window_width, size_t window_height)
 {
     sf::Vector2f direction = find_direction();
+    double distance_to_move{speed * delta_time};
 
-    float new_x = coordinates.x + direction.x * speed * delta_time;
-    float new_y = coordinates.y + direction.y * speed * delta_time;
-
-    if (new_x - (width / 2) >= 0 && new_x + (width / 2) <= window_width)
-        coordinates.x = new_x;
-    if (new_y - (height / 2) >= 0 && new_y + (height / 2) <= window_height)
-        coordinates.y = new_y;
+    coordinates = check_boundury_collision(direction, distance_to_move, window_width, window_height);
 }
 
 
