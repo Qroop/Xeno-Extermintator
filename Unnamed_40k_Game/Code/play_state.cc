@@ -17,7 +17,7 @@ Play_State::~Play_State()
 {}
 
 // Creates a vector containing all game objects
-void Play_State::load(std::string file_name)
+void Play_State::load(std::string const& file_name)
 {
     std::ifstream fs;
     fs.open("../Static/" + file_name);
