@@ -18,6 +18,9 @@ class Play_State
     void update(double delta_time, sf::RenderWindow& window, size_t window_width, size_t window_height);
 
     private:
+    sf::Texture grunt_texture;
+    sf::Texture player_texture;
+    sf::Texture wall_texture;
     std::vector<Game_Object*> level;
 };
 
