@@ -17,6 +17,7 @@ Player::Player(sf::Vector2f coordinates, int health_points, int damage, int spee
     hitbox.setPosition(coordinates.x +16, coordinates.y +16);
 }
 
+
 Player::~Player() {}
 
 
@@ -39,27 +40,15 @@ sf::Vector2f Player::find_direction() const
 void Player::move(double delta_time, size_t window_width, size_t window_height)
 {
     sf::Vector2f direction = find_direction();
+    double distance_to_move{speed * delta_time};
 
-    float new_x = coordinates.x + direction.x * speed * delta_time;
-    float new_y = coordinates.y + direction.y * speed * delta_time;
-
-    if (new_x - (width / 2) >= 0 && new_x + (width / 2) <= window_width)
-        coordinates.x = new_x;
-    if (new_y - (height / 2) >= 0 && new_y + (height / 2) <= window_height)
-        coordinates.y = new_y;
-}
-
-
-sf::Vector2f Player::find_mouse(sf::RenderWindow& window)
-{
-    sf::Vector2f mouse_position{sf::Mouse::getPosition(window)};
-    return mouse_position;
+    coordinates = check_boundury_collision(direction, distance_to_move, window_width, window_height);
 }
 
 
 void Player::update(double delta_time, sf::RenderWindow& window, size_t window_width, size_t window_height)
 {
-    sf::Vector2f mouse_position{find_mouse(window)};
+    sf::Vector2f mouse_position{sf::Mouse::getPosition(window)};
     rotate(mouse_position);
     move(delta_time, window_width, window_height);
 }

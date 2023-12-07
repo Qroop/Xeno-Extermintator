@@ -16,5 +16,4 @@ class Player : public Entity
     void update(double delta_time, sf::RenderWindow& window, size_t window_width, size_t window_height);
     // bool attack() const override;
     void move(double delta_time, size_t window_width, size_t window_height);
-    sf::Vector2f find_mouse(sf::RenderWindow& window);
 };

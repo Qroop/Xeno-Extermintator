@@ -11,7 +11,4 @@ class Grunt : public Enemy
     // void render(sf::RenderWindow & window) override;
     void update(double delta_time, size_t window_width, size_t window_height) override;
     void move(double delta_time, size_t window_width, size_t window_height) override;
-
-    private:
-    sf::CircleShape hitbox;
 };

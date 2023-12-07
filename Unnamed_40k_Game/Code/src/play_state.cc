@@ -20,7 +20,7 @@ Play_State::~Play_State()
 void Play_State::load(std::string const& file_name)
 {
     std::ifstream fs;
-    fs.open("../Static/" + file_name);
+    fs.open("../Static/Levels/" + file_name);
 
     if (!fs.is_open())
     {
@@ -52,7 +52,7 @@ void Play_State::load(std::string const& file_name)
                 coords.y += 32;
                 coords.x = 16;
                 break;
-            case ',':   // Whitespace
+            default :   // Whitespace
                 coords.x += 32;
                 break;
         }

@@ -18,7 +18,7 @@ int main()
     window.setKeyRepeatEnabled(true);
     window.setVerticalSyncEnabled(true);
 
-    // Player player(sf::Vector2f(window_width / 2, window_height / 2), 10, 10, 300);
+    // Player pplayer(sf::Vector2f(window_width / 2, window_height / 2), 10, 10, 300);
     // Grunt enemy(sf::Vector2f(900, 900), 10, 10, 100, player);
 
     Play_State level{};
