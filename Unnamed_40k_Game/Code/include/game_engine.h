@@ -19,5 +19,5 @@ public:
 private:
     std::array<Abstract_Game_State*, 3> states;
     bool running;
-    int active_state = 0;
+    int active_state;
 };
