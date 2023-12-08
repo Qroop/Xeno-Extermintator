@@ -4,7 +4,10 @@
 #include <cmath>
 
 Entity::Entity(sf::Vector2f coordinates, sf::Texture& texture, int health_points, int damage, int speed)
-: Game_Object(coordinates, texture), health_points(health_points), damage(damage), speed(speed) {}
+: Game_Object(coordinates, texture), health_points(health_points), damage(damage), speed(speed) 
+{
+    dead = false;
+}
 
 
 Entity::~Entity() {}
@@ -18,6 +21,7 @@ void Entity::rotate(sf::Vector2f& direction)
     rotation = angle;
 }
 
+
 void Entity::draw(sf::RenderWindow& window)
 {
     // Set the position and rotation when initializing the sprite
@@ -28,7 +32,6 @@ void Entity::draw(sf::RenderWindow& window)
     //window.draw(hitbox);
     window.draw(sprite);
 }
-
 
 
 sf::Vector2f Entity::check_boundury_collision(sf::Vector2f direction, double distance_to_move, size_t window_width, size_t window_height)
@@ -43,4 +46,28 @@ sf::Vector2f Entity::check_boundury_collision(sf::Vector2f direction, double dis
         coordinates.y = new_y;
 
     return coordinates;
+}
+
+
+bool Entity::is_dead()
+{
+    return dead;
+}
+
+
+void Entity::set_speed(int new_speed)
+{
+    speed = new_speed;
+}
+
+
+void Entity::set_texture(sf::Texture& new_texture)
+{
+    sprite.setTexture(new_texture);
+}
+
+
+void Entity::set_attack_speed(double new_speed)
+{
+    attack_speed = new_speed;
 }

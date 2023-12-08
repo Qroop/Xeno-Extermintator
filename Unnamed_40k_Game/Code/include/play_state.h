@@ -21,7 +21,10 @@ class Play_State
     sf::Texture grunt_texture;
     sf::Texture player_texture;
     sf::Texture wall_texture;
+    sf::Texture dead_grunt_texture;
+
     std::vector<Game_Object*> level;
+    std::vector<Game_Object*> dead_entities;
 };
 
 // std::vector<Game_Object*>& operator=(std::vector<Game_Object*> lhs, std::vector<Game_Object*> && rhs);

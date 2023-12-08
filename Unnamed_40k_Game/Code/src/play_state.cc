@@ -10,11 +10,12 @@
 
 
 Play_State::Play_State()
-    :level{}
+: level{}
 {
     grunt_texture.loadFromFile("../Static/Textures/grunt_texture.png");
     player_texture.loadFromFile("../Static/Textures/player_texture.png");
     wall_texture.loadFromFile("../Static/Textures/wall_texture.png");
+    dead_grunt_texture.loadFromFile("../Static/Textures/dead_grunt_texture.png");
 }
 
 Play_State::~Play_State()
@@ -68,49 +69,47 @@ void Play_State::load(std::string file_name)
 
 void Play_State::render(sf::RenderWindow & window) 
 {
+    for (Game_Object* current_object : dead_entities)
+    {
+        current_object -> draw(window);
+    }
     for (Game_Object* curr_object : level)
     {
-        curr_object -> draw(window);
-        
+        curr_object -> draw(window);   
     }
 }
 
 void Play_State::update(double delta_time, sf::RenderWindow& window, size_t window_width, size_t window_height)
 {
-    // sf::Texture grunt_texture;
-    // grunt_texture.loadFromFile("../Static/Textures/xenos_texture.png");
-    for (Game_Object* object : level)
+    for (auto it = level.begin(); it != level.end(); )
     {
-        Grunt* grunt = dynamic_cast<Grunt*> (object);
-        Player* player = dynamic_cast<Player*> (object);
+        Grunt* grunt = dynamic_cast<Grunt*>(*it);
+        Player* player = dynamic_cast<Player*>(*it);
+
         if (grunt)
         {
-            grunt -> update(delta_time, window_width, window_height);
+            if (grunt -> is_dead())
+            {
+                grunt->set_texture(dead_grunt_texture);
+                grunt->set_speed(0);
+                grunt->set_rotation_speed(0);
+                grunt->set_attack_speed(0);
+                dead_entities.push_back(grunt);
+
+                it = level.erase(it);
+                delete grunt;
+                continue;
+            }
+            else
+            {
+                grunt->update(delta_time, window_width, window_height);
+            }
         }
-        else if(player)
+        else if (player)
         {
-            player -> update(delta_time, window, window_width, window_height);
+            player->update(delta_time, window, window_width, window_height);
         }
+
+        ++it; // Increment iterator
     }
 }
-
-// Entity* entity = dynamic_cast<Entity*> (curr_object);
-        // Wall* wall = dynamic_cast<Wall*> (curr_object);
-        // if (entity)
-        // {
-        //     //entity -> update();
-        //     Enemy* enemy = dynamic_cast<Enemy*> (entity);
-        //     Player* player = dynamic_cast<Player*> (entity);
-        //     if (enemy)
-        //     {
-        //         std::cout << "it is enemy" << std::endl;
-        //     }
-        //     else if ( player )
-        //     {
-        //         std::cout << "it is player" << std::endl;
-        //     }
-        // }
-        // else if (wall)
-        // {
-        //     std::cout << "it is wall" << std::endl;
-        // }

@@ -13,6 +13,7 @@ class Enemy : public Entity
     virtual void update(double delta_time, size_t window_width, size_t window_height) = 0;
     void rotate(sf::Vector2f& direction, double delta_time);
     double shortest_angular_distance(double from, double to) const;
+    void set_rotation_speed(double new_rotation_speed);
 
     protected:
     Player& player;

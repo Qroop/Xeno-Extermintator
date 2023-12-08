@@ -12,12 +12,14 @@ Grunt::Grunt(sf::Vector2f coordinates, sf::Texture& texture, int health_points, 
     : Enemy(coordinates, texture, health_points, damage, speed, player)
 {
     // Initialize the random number generator seed
-    srand(static_cast<unsigned>(time(nullptr)));
+    srand(coordinates.x);
+    int max{350};
+    int min{250};
+    distance_to_keep = (std::rand() % (max - min + 1) + min);
+    
     walk_left = rand() % 2 == 0;
     rotation_speed = 65;
-    int max{350};
-    int min{200};
-    distance_to_keep = std::rand() % (max - min + 1) + min;
+    cout << distance_to_keep << "\n" << endl;
 }
 
 Grunt::~Grunt() {}
@@ -25,10 +27,13 @@ Grunt::~Grunt() {}
 
 void Grunt::update(double delta_time, size_t window_width, size_t window_height)
 {
-    sf::Vector2f player_coordinates{player.get_coordinates()};
-    rotate(player_coordinates, delta_time);
-    move(delta_time, window_width, window_height);
-    hitbox.setPosition(coordinates);
+    if(!dead)
+    {
+        sf::Vector2f player_coordinates{player.get_coordinates()};
+        rotate(player_coordinates, delta_time);
+        move(delta_time, window_width, window_height);
+        hitbox.setPosition(coordinates);
+    }
 }
 
 

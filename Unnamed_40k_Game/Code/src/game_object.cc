@@ -32,7 +32,7 @@ double Game_Object::get_width() const
 {
     return width;
 }
-
+    
 sf::Vector2f Game_Object::get_coordinates() const
 {
     return coordinates;
