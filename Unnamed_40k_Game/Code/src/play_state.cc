@@ -18,7 +18,15 @@ Play_State::Play_State()
 }
 
 Play_State::~Play_State()
-{}
+{
+    if ( !level.empty() )
+    {
+        for ( Game_Object* i : level)
+        {
+            delete i;
+        }
+    }
+}
 
 // Creates a vector containing all game objects
 void Play_State::load(std::string const& file_name)
@@ -63,6 +71,10 @@ void Play_State::load(std::string const& file_name)
     fs.close();
     
     level = loaded;
+    for ( Game_Object* i : loaded)
+    {
+        delete i;
+    }
 }
 
 

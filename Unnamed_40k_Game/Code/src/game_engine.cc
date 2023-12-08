@@ -8,10 +8,18 @@
 #include <array>
 
 Game_Engine::Game_Engine()
-: states{}, running{true}, active_state{} {}
+: states{}, running{true}, active_state{0} {}
 
 Game_Engine::~Game_Engine()
-{}
+{
+    if( !states[0] )
+    {
+        for (Abstract_Game_State* i : states)
+        {
+            delete i;
+        }
+    }
+}
 
 void Game_Engine::while_running(sf::Event & event, sf::RenderWindow & window, sf::Clock & clock, std::array<Abstract_Game_State*, 3>& states)
 {
@@ -34,7 +42,7 @@ void Game_Engine::while_running(sf::Event & event, sf::RenderWindow & window, sf
         {
             break;
         }
-        else if ( sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) )
+        else if ( states[0] -> get_resume() == true && sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) )
         {
             if ( active_state == 0 )
             {
