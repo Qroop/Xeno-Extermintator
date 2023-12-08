@@ -4,7 +4,7 @@
 class Game_Object
 {
     public:
-    Game_Object(sf::Vector2f coordinates); 
+    Game_Object(sf::Vector2f coordinates, sf::Texture& texture); 
     virtual ~Game_Object() = 0;
 
     sf::Vector2f get_coordinates() const;
@@ -18,5 +18,6 @@ class Game_Object
     double width;
     double height;
     sf::RectangleShape hitbox;
-    sf::Texture texture;
+    sf::Texture* texture;
+    sf::Sprite sprite;
 };

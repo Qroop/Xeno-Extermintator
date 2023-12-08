@@ -6,10 +6,10 @@ class Player : public Entity
 {
     public:
     Player(sf::Vector2f coordinates,
+            sf::Texture& texture,
             int health_points,
             int damage,
             int speed);
-            // const std::string& texturePath = "");
     ~Player();
     
     sf::Vector2f find_direction() const;

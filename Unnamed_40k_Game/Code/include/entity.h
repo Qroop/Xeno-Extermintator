@@ -5,7 +5,8 @@
 class Entity : public Game_Object
 {
     public:
-    Entity(sf::Vector2f coordinates, 
+    Entity(sf::Vector2f coordinates,
+            sf::Texture& texture, 
             int health_points = 3,
             int damage = 1,
             int speed = 1);
@@ -24,4 +25,5 @@ class Entity : public Game_Object
     int damage;
     int speed;
     double rotation;
+    float texture_scale;
 };

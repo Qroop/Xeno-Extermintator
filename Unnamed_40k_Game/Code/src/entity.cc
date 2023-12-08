@@ -3,8 +3,8 @@
 #include <SFML/Window/Mouse.hpp>
 #include <cmath>
 
-Entity::Entity(sf::Vector2f coordinates, int health_points, int damage, int speed)
-: Game_Object(coordinates), health_points(health_points), damage(damage), speed(speed) {}
+Entity::Entity(sf::Vector2f coordinates, sf::Texture& texture, int health_points, int damage, int speed)
+: Game_Object(coordinates, texture), health_points(health_points), damage(damage), speed(speed) {}
 
 
 Entity::~Entity() {}
@@ -20,10 +20,15 @@ void Entity::rotate(sf::Vector2f& direction)
 
 void Entity::draw(sf::RenderWindow& window)
 {
-    hitbox.setPosition(coordinates);
-    hitbox.setRotation(rotation);
-    window.draw(hitbox);
+    // Set the position and rotation when initializing the sprite
+    sprite.setPosition(coordinates);
+    sprite.setRotation(rotation + 90.0);
+
+    // Draw the sprite
+    //window.draw(hitbox);
+    window.draw(sprite);
 }
+
 
 
 sf::Vector2f Entity::check_boundury_collision(sf::Vector2f direction, double distance_to_move, size_t window_width, size_t window_height)

@@ -5,7 +5,7 @@
 class Wall : public Game_Object
 {
     public:
-    Wall(sf::Vector2f coordinates);
+    Wall(sf::Vector2f coordinates, sf::Texture& texture);
     ~Wall();
 };
 

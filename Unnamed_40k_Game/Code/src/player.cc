@@ -8,13 +8,20 @@
 #include <iostream>
 
 
-Player::Player(sf::Vector2f coordinates, int health_points, int damage, int speed)
-: Entity(coordinates, health_points, damage, speed)
+Player::Player(sf::Vector2f coordinates, sf::Texture& texture, int health_points, int damage, int speed)
+    : Entity(coordinates, texture, health_points, damage, speed)
 {
-    // sf::Texture texture;
-    // texture.loadFromFile("player.png");
+    texture_scale = 3;
+    width = width * texture_scale / 2;
+    height = height * texture_scale / 2;
+    
+    // Set the sprite scale
+    sprite.setScale(texture_scale, texture_scale);
+
+    // Set the hitbox size and position (considering scaling)
     hitbox.setSize(sf::Vector2f(width, height));
-    hitbox.setPosition(coordinates.x +16, coordinates.y +16);
+    hitbox.setOrigin(width / 2.0f, height / 2.0f);  // Set the origin at the center
+    hitbox.setPosition(coordinates);
 }
 
 
@@ -51,4 +58,5 @@ void Player::update(double delta_time, sf::RenderWindow& window, size_t window_w
     sf::Vector2f mouse_position{sf::Mouse::getPosition(window)};
     rotate(mouse_position);
     move(delta_time, window_width, window_height);
+    hitbox.setPosition(coordinates);
 }

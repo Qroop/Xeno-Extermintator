@@ -1,11 +1,13 @@
 #include "wall.h"
 #include <iostream>
+#include <SFML/Graphics.hpp>
 
-Wall::Wall(sf::Vector2f coordinates)
-: Game_Object(coordinates)
+Wall::Wall(sf::Vector2f coordinates, sf::Texture& texture)
+: Game_Object(coordinates, texture)
 {
     hitbox.setSize(sf::Vector2f(width, height));
-    hitbox.setPosition(coordinates.x, coordinates.y);
+    hitbox.setPosition(coordinates);
+    hitbox.setFillColor(sf::Color::Black);
 }
 
 Wall::~Wall()
