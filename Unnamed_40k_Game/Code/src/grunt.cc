@@ -19,7 +19,6 @@ Grunt::Grunt(sf::Vector2f coordinates, sf::Texture& texture, int health_points, 
     
     walk_left = rand() % 2 == 0;
     rotation_speed = 65;
-    cout << distance_to_keep << "\n" << endl;
 }
 
 Grunt::~Grunt() {}
@@ -71,6 +70,12 @@ void Grunt::move(double delta_time, size_t window_width, size_t window_height)
 
         direction = forward_direction + lateral_direction;
     }
-
     coordinates = check_boundury_collision(direction, distance_to_move, window_width, window_height);
+}
+
+void Grunt::attack(sf::RenderWindow& window) const
+{
+    sf::RectangleShape test;
+    test.setSize(sf::Vector2f(width, height));
+    window.draw(test);
 }

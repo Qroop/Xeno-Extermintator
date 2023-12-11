@@ -15,7 +15,7 @@ class Entity : public Game_Object
 
     void draw(sf::RenderWindow& window) override;
     // virtual void update(double delta_time, sf::RenderWindow& window, size_t window_width, size_t window_height) = 0;
-    // virtual bool attack() const = 0;
+    virtual void attack(sf::RenderWindow& window) const = 0;
     virtual void move(double delta_time, size_t window_width, size_t window_height) = 0;
     void rotate(sf::Vector2f& direction);
     sf::Vector2f check_boundury_collision(sf::Vector2f direction, double distance_to_move, size_t window_width, size_t window_height);
@@ -33,4 +33,5 @@ class Entity : public Game_Object
     float texture_scale;
     double attack_speed;
     bool dead;
+    double attack_distance;
 }; 

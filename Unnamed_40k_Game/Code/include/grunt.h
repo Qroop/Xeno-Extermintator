@@ -10,6 +10,7 @@ class Grunt : public Enemy
 
     void update(double delta_time, size_t window_width, size_t window_height) override;
     void move(double delta_time, size_t window_width, size_t window_height) override;
+    void attack(sf::RenderWindow& window) const override;
     sf::Vector2f get_lateral_direction() const;
 
     private:
