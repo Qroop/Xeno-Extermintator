@@ -39,16 +39,16 @@ void Play_State::load(std::string const& file_name)
         std::cerr << "Error: no file with such name";
     }
     
-    std::vector<Game_Object*> loaded;
+    std::vector<std::shared_ptr<Game_Object>> loaded;
     sf::Vector2f coords{16, 16};
-    loaded.push_back(new Player(coords, player_texture, 3, 1, 300));
+    loaded.push_back(std::make_shared<Game_Object> (Player(coords, player_texture, 3, 1, 300)));
     while ( !fs.eof() )
     {
         char character = fs.get();
         switch(character)
         {
             case '#':   // Wall
-                loaded.push_back(new Wall(coords, wall_texture));
+                loaded.push_back(std::make_shared<Game_Object> (Wall(coords, wall_texture)));
                 coords.x += 32;
                 break;
             case '@':   // Player
@@ -56,7 +56,11 @@ void Play_State::load(std::string const& file_name)
                 coords.x += 32;
                 break;
             case 'X':   // Grunt
-                loaded.push_back(new Grunt(coords, grunt_texture, 3, 1, 50, dynamic_cast<Player&> (*loaded[0]))); // dynamic_cast<Player&>(*loaded[0])
+                // loaded.push_back(std::make_shared<Game_Object> (Grunt(coords, grunt_texture, 3, 1, 50, static_cast<Player&> (*loaded[0])))); // dynamic_cast<Player&>(*loaded[0])
+                // enemies.push_back(std::static_pointer_cast<std::shared_ptr<Grunt>> (loaded.at(loaded.size())));
+                enemies.push_back(std::make_shared<Grunt> (Grunt(coords, grunt_texture, 3, 1, 50, static_cast<Player&> (*loaded[0])))); // dynamic_cast<Player&>(*loaded[0])
+                loaded.push_back( enemies.at(enemies.size()) );
+                
                 coords.x += 32;
                 break;
             case '\n':
@@ -71,16 +75,16 @@ void Play_State::load(std::string const& file_name)
     fs.close();
     
     level = loaded;
-    for ( Game_Object* i : loaded)
-    {
-        delete i;
-    }
+    // for ( Game_Object* i : loaded)
+    // {
+    //     delete i;
+    // }
 }
 
 
 void Play_State::render(sf::RenderWindow & window) 
 {
-    for (Game_Object* curr_object : level)
+    for (std::shared_ptr curr_object : level)
     {
         curr_object -> draw(window);
         
@@ -91,16 +95,22 @@ void Play_State::update(double delta_time, sf::RenderWindow& window, size_t wind
 {
     // sf::Texture grunt_texture;
     // grunt_texture.loadFromFile("../Static/Textures/xenos_texture.png");
-    for (Game_Object* object : level)
+    for (std::shared_ptr<Game_Object> object : level)
     {
-        Grunt* grunt = dynamic_cast<Grunt*> (object);
+        std::shared_ptr<Grunt> grunt = std::dynamic_pointer_cast<std::shared_ptr<Grunt>> (object);
         Player* player = dynamic_cast<Player*> (object);
         if (grunt)
         {
             grunt -> update(delta_time, window_width, window_height);
+            if ( grunt->get_health() <= 0 )
+            {
+                for ( )
+                delete grunt;
+            }
         }
         else if(player)
         {
+            //gör så att entity tar in window& i konstruktorn och 
             player -> update(delta_time, window, window_width, window_height);
         }
     }
@@ -126,3 +136,8 @@ void Play_State::update(double delta_time, sf::RenderWindow& window, size_t wind
         // {
         //     std::cout << "it is wall" << std::endl;
         // }
+
+int Play_State::get_enemy_count()
+{
+    return enemies.size();
+}

@@ -11,7 +11,7 @@ public:
     ~Game_Engine();
 
     void run();
-    void while_running(sf::Event & event, sf::RenderWindow & window, sf::Clock & clock, std::array<Abstract_Game_State*, 3>& states);
+    void while_running(sf::Event & event, sf::RenderWindow & window, sf::Clock & clock, std::array<Abstract_Game_State*, 3>& states, Play_State* play_state);
     void quit();
     void change_state(int index);
     int get_state();

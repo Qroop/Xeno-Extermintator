@@ -31,7 +31,7 @@ void Menu_State::set_resume()
 void Menu_State::update(double delta_time, sf::RenderWindow& window, size_t window_width, size_t window_height)
 {
     mouse_pos = sf::Mouse::getPosition(window);
-    if (entries[0].hitbox.)
+    //if (entries[0].hitbox.)
     
 }
 

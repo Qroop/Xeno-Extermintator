@@ -69,3 +69,8 @@ void Grunt::move(double delta_time, size_t window_width, size_t window_height)
 
     coordinates = check_boundury_collision(direction, distance_to_move, window_width, window_height);
 }
+
+int Grunt::get_health()
+{
+    return health_points;
+}

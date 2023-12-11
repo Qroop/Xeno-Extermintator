@@ -21,7 +21,7 @@ Game_Engine::~Game_Engine()
     }
 }
 
-void Game_Engine::while_running(sf::Event & event, sf::RenderWindow & window, sf::Clock & clock, std::array<Abstract_Game_State*, 3>& states)
+void Game_Engine::while_running(sf::Event & event, sf::RenderWindow & window, sf::Clock & clock, std::array<Abstract_Game_State*, 3>& states, Play_State* play_state)
 {
     while ( running )
     {
@@ -42,22 +42,22 @@ void Game_Engine::while_running(sf::Event & event, sf::RenderWindow & window, sf
         {
             break;
         }
-        else if ( states[0] -> get_resume() == true && sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) )
-        {
-            if ( active_state == 0 )
-            {
-                change_state(1);
-            }
-            else if ( active_state == 1 )
-            {
-                change_state(0);
-            }
-            else
-            {
-                running = false;
-                break;
-            }
-        }
+        // else if ( states[0] -> get_resume() == true && sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) )
+        // {
+        //     if ( active_state == 0 )
+        //     {
+        //         change_state(1);
+        //     }
+            // else if ( active_state == 1 )
+        //     {
+        //         change_state(0);
+        //     }
+        //     else
+        //     {
+        //         running = false;
+        //         break;
+        //     }
+        // }
 
         double delta_time{clock.restart().asSeconds()};
 
@@ -66,6 +66,10 @@ void Game_Engine::while_running(sf::Event & event, sf::RenderWindow & window, sf
         window.clear();
         states[active_state] -> render(window);
         window.display();
+        if ( play_state -> get_enemy_count() == 0)
+        {
+            change_state(1);
+        }
     }
 }
 
@@ -77,10 +81,10 @@ void Game_Engine::run()
     window.setVerticalSyncEnabled(true);
 
     std::array<std::string, 3> levels = {"level_1.txt", "level_2.txt", "level_3.txt"};
-    states[0] = new Menu_State;
-    states[1] = new Play_State;
-    states[2] = new Game_Over_State;
-    Play_State* current_level = static_cast<Play_State*> (states[1]);
+    // states[0] = new Menu_State;
+    states[0] = new Play_State;
+    states[1] = new Game_Over_State;
+    Play_State* current_level = static_cast<Play_State*> (states[0]);
     sf::Clock clock;
 
     for (std::string & i : levels)
@@ -89,7 +93,7 @@ void Game_Engine::run()
         sf::Event event;
         if ( running )
         {
-            Game_Engine::while_running(event, window, clock, states);
+            Game_Engine::while_running(event, window, clock, states, current_level);
         }
         else{ break; }
     }
