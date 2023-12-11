@@ -8,8 +8,8 @@
 #include <iostream>
 
 
-Player::Player(sf::Vector2f coordinates, sf::Texture& texture, int health_points, int damage, int speed)
-    : Entity(coordinates, texture, health_points, damage, speed)
+Player::Player(sf::Vector2f coordinates, sf::Texture& texture, sf::RenderWindow& window, int health_points, int damage, int speed)
+    : Entity(coordinates, texture, window, health_points, damage, speed)
 {
     texture_scale = 3;
     width = width * texture_scale / 2;
@@ -54,7 +54,7 @@ void Player::move(double delta_time, size_t window_width, size_t window_height)
 }
 
 
-void Player::update(double delta_time, sf::RenderWindow& window, size_t window_width, size_t window_height)
+void Player::update(double delta_time)
 {
     sf::Vector2f mouse_position{sf::Mouse::getPosition(window)};
     rotate(mouse_position);
@@ -91,4 +91,14 @@ void Player::attack(sf::RenderWindow& window) const
 
     window.draw(attack_hitbox);
     //cout << "Attack!" << endl;
+}
+
+bool Player::is_dead()
+{
+    return dead;
+}
+
+void Player::death()
+{
+    dead = true;
 }

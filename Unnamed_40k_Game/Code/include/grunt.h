@@ -5,14 +5,17 @@
 class Grunt : public Enemy
 {
     public:
-    Grunt(sf::Vector2f coordinates, sf::Texture& texture, int health_points, int damage, int speed, Player& player);    
+    Grunt(sf::Vector2f coordinates, sf::Texture& texture, sf::Texture& dead_texture, sf::RenderWindow& window, int health_points, int damage, int speed, Player& player);    
     ~Grunt();
 
-    void update(double delta_time, size_t window_width, size_t window_height) override;
+    void update(double delta_time) override;
     void move(double delta_time, size_t window_width, size_t window_height) override;
     void attack(sf::RenderWindow& window) const override;
+    bool is_dead() override;
+    void death() override;
     sf::Vector2f get_lateral_direction() const;
     int get_health();
+
 
     private:
     double distance_to_keep;

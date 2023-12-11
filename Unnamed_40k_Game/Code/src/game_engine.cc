@@ -6,22 +6,54 @@
 
 #include <string>
 #include <array>
+#include <memory>
 
 Game_Engine::Game_Engine()
 : states{}, running{true}, active_state{0} {}
 
 Game_Engine::~Game_Engine()
 {
-    if( !states[0] )
+    // if( !states[0] )
+    // {
+    //     for (std::shared_ptr<Abstract_Game_State> i : states)
+    //     {
+    //         states.;
+    //     }
+    // }
+}
+
+void Game_Engine::run()
+{
+
+    sf::RenderWindow window{sf::VideoMode{1024, 1024}, "W40k Game"};
+    window.setKeyRepeatEnabled(true);
+    window.setVerticalSyncEnabled(true);
+
+    std::array<std::string, 3> levels = {"level_1.txt", "level_2.txt", "level_3.txt"};
+    // states[0] = new Menu_State;
+    states[0] = std::make_shared<Abstract_Game_State> (Play_State());
+    states[1] = std::make_shared<Abstract_Game_State> (Game_Over_State());
+    std::shared_ptr<Play_State> current_level = std::make_shared<Play_State> (states[0]);
+    sf::Clock clock;
+
+    for (std::string & i : levels)
     {
-        for (Abstract_Game_State* i : states)
+        current_level -> load(i, window);
+        sf::Event event;
+        if ( running )
         {
-            delete i;
+            while_running(event, window, clock, states, current_level);
         }
+        else{ break; }
     }
 }
 
-void Game_Engine::while_running(sf::Event & event, sf::RenderWindow & window, sf::Clock & clock, std::array<Abstract_Game_State*, 3>& states, Play_State* play_state)
+
+void Game_Engine::while_running(sf::Event & event, 
+                                sf::RenderWindow & window, 
+                                sf::Clock & clock, 
+                                std::array<std::shared_ptr<Abstract_Game_State>, 2>& states, 
+                                std::shared_ptr<Play_State> play_state)
 {
     while ( running )
     {
@@ -42,22 +74,6 @@ void Game_Engine::while_running(sf::Event & event, sf::RenderWindow & window, sf
         {
             break;
         }
-        // else if ( states[0] -> get_resume() == true && sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) )
-        // {
-        //     if ( active_state == 0 )
-        //     {
-        //         change_state(1);
-        //     }
-            // else if ( active_state == 1 )
-        //     {
-        //         change_state(0);
-        //     }
-        //     else
-        //     {
-        //         running = false;
-        //         break;
-        //     }
-        // }
 
         double delta_time{clock.restart().asSeconds()};
 
@@ -68,38 +84,23 @@ void Game_Engine::while_running(sf::Event & event, sf::RenderWindow & window, sf
         window.display();
         if ( play_state -> get_enemy_count() == 0)
         {
-            change_state(1);
+            change_state(1, false);
         }
-    }
-}
-
-void Game_Engine::run()
-{
-
-    sf::RenderWindow window{sf::VideoMode{1024, 1024}, "W40k Game"};
-    window.setKeyRepeatEnabled(true);
-    window.setVerticalSyncEnabled(true);
-
-    std::array<std::string, 3> levels = {"level_1.txt", "level_2.txt", "level_3.txt"};
-    // states[0] = new Menu_State;
-    states[0] = new Play_State;
-    states[1] = new Game_Over_State;
-    Play_State* current_level = static_cast<Play_State*> (states[0]);
-    sf::Clock clock;
-
-    for (std::string & i : levels)
-    {
-        current_level -> load(i);
-        sf::Event event;
-        if ( running )
+        else if ( play_state -> get_player_dead() )
         {
-            Game_Engine::while_running(event, window, clock, states, current_level);
+            change_state(1, true);
         }
-        else{ break; }
     }
 }
 
-void Game_Engine::change_state(int index)
+
+
+void Game_Engine::change_state(int index, bool win)
 {
     active_state = index;
+    if ( index == 1 )
+    {
+        auto game_over = std::make_shared<Game_Over_State>(states[1]);
+        game_over -> set_win( win );
+    }
 }

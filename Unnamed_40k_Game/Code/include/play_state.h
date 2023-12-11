@@ -16,10 +16,11 @@ class Play_State : public Abstract_Game_State
     Play_State(Play_State && other) = delete;
     Play_State& operator=(Play_State && other) = delete;
 
-    void load(std::string const& file_name);
+    void load(std::string const& file_name, sf::RenderWindow& window);
     void render(sf::RenderWindow & window) override;
     void update(double delta_time, sf::RenderWindow& window, size_t window_width, size_t window_height) override;
     int get_enemy_count();
+    bool get_player_dead();
 
     private:
     sf::Texture grunt_texture;
@@ -28,8 +29,10 @@ class Play_State : public Abstract_Game_State
     sf::Texture dead_grunt_texture;
 
     std::vector<std::shared_ptr<Game_Object>> level;
-    std::vector<Game_Object*> dead_entities;
+    std::vector<std::shared_ptr<Game_Object>> dead_entities;
     std::vector<std::shared_ptr<Grunt>> enemies;
+
+    std::shared_ptr<Player> player_object;
 };
 
 // std::vector<Game_Object*>& operator=(std::vector<Game_Object*> lhs, std::vector<Game_Object*> && rhs);

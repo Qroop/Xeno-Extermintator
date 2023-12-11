@@ -3,8 +3,8 @@
 #include <SFML/Window/Mouse.hpp>
 #include <cmath>
 
-Entity::Entity(sf::Vector2f coordinates, sf::Texture& texture, int health_points, int damage, int speed)
-: Game_Object(coordinates, texture), health_points(health_points), damage(damage), speed(speed) 
+Entity::Entity(sf::Vector2f coordinates, sf::Texture& texture, sf::RenderWindow& window, int health_points, int damage, int speed)
+: Game_Object(coordinates, texture, window), health_points(health_points), damage(damage), speed(speed) 
 {
     dead = false;
 }

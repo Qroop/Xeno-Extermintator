@@ -8,8 +8,8 @@
 #include <cstdlib>
 #include <random>
 
-Grunt::Grunt(sf::Vector2f coordinates, sf::Texture& texture, int health_points, int damage, int speed, Player& player)
-    : Enemy(coordinates, texture, health_points, damage, speed, player)
+Grunt::Grunt(sf::Vector2f coordinates, sf::Texture& texture, sf::Texture& dead_texture, sf::RenderWindow& window, int health_points, int damage, int speed, Player& player)
+    : Enemy(coordinates, texture, dead_texture, window, health_points, damage, speed, player)
 {
     // Initialize the random number generator seed
     srand(coordinates.x);
@@ -24,7 +24,7 @@ Grunt::Grunt(sf::Vector2f coordinates, sf::Texture& texture, int health_points, 
 Grunt::~Grunt() {}
 
 
-void Grunt::update(double delta_time, size_t window_width, size_t window_height)
+void Grunt::update(double delta_time)
 {
     if(!dead)
     {
@@ -32,6 +32,10 @@ void Grunt::update(double delta_time, size_t window_width, size_t window_height)
         rotate(player_coordinates, delta_time);
         move(delta_time, window_width, window_height);
         hitbox.setPosition(coordinates);
+        if ( health_points <= 0 )
+        {
+            death();
+        }
     }
 }
 
@@ -83,4 +87,13 @@ void Grunt::attack(sf::RenderWindow& window) const
     sf::RectangleShape test;
     test.setSize(sf::Vector2f(width, height));
     window.draw(test);
+}
+
+void Grunt::death()
+{
+    dead = true;
+    set_texture(dead_texture);
+    set_speed(0);
+    set_rotation_speed(0);
+    set_attack_speed(0);
 }
