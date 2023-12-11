@@ -1,4 +1,5 @@
 #include "game_object.h"
+#include <SFML/Graphics.hpp>
 
 Game_Object::Game_Object(sf::Vector2f coordinates, sf::Texture& texture, sf::RenderWindow& window)
 : coordinates{coordinates}, texture{&texture}, window{window}
@@ -50,4 +51,9 @@ void Game_Object::draw(sf::RenderWindow& window)
 {
     hitbox.setPosition(coordinates);
     window.draw(sprite);
+}
+
+sf::FloatRect Game_Object::get_global_bounds() const
+{
+    return hitbox.getGlobalBounds();
 }

@@ -2,11 +2,12 @@
 #include "wall.h"
 #include "player.h"
 #include "grunt.h"
-
+#include "enemy.h"
 
 #include <fstream>
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include <memory>
 
 
 Play_State::Play_State()
@@ -40,17 +41,18 @@ void Play_State::load(std::string const& file_name, sf::RenderWindow& window)
         std::cerr << "Error: no file with such name";
     }
     
-    std::vector<std::shared_ptr<Game_Object>> loaded;
+    std::vector<std::unique_ptr<Game_Object>> loaded;
+    std::vector<std::unique_ptr<Enemy>> loaded_enemies;
+
     sf::Vector2f coords{16, 16};
-    player_object = std::make_shared<Player> (Player(coords, player_texture, window, 3, 1, 300));
-    loaded.push_back(std::make_shared<Game_Object> (*player_object));
+    loaded.push_back(std::make_unique<Player>(coords, player_texture, 3, 1, 200));
     while ( !fs.eof() )
     {
         char character = fs.get();
         switch(character)
         {
             case '#':   // Wall
-                loaded.push_back(std::make_shared<Game_Object> (Wall(coords, wall_texture, window)));
+                loaded.push_back(std::make_unique<Wall>(coords, wall_texture));
                 coords.x += 32;
                 break;
             case '@':   // Player
@@ -58,16 +60,7 @@ void Play_State::load(std::string const& file_name, sf::RenderWindow& window)
                 coords.x += 32;
                 break;
             case 'X':   // Grunt
-                enemies.push_back(std::make_shared<Grunt> (Grunt(coords, 
-                                                                 grunt_texture, 
-                                                                 dead_grunt_texture, 
-                                                                 window, 
-                                                                 3, 
-                                                                 1, 
-                                                                 50, 
-                                                                 *loaded[0]))); 
-                loaded.push_back( enemies.at(enemies.size()) );
-                
+                loaded_enemies.push_back(std::make_unique<Grunt>(coords, grunt_texture, 3, 1, 50, *loaded[0]));
                 coords.x += 32;
                 break;
             case '\n':
@@ -81,21 +74,40 @@ void Play_State::load(std::string const& file_name, sf::RenderWindow& window)
     }
     fs.close();
     
-    level = loaded;
+    Player* player = dynamic_cast<Player*>(loaded[0].get());
+    if (player) {
+        player->set_enemies(enemies);
+    }
+
+    for (auto& enemy : enemies)
+    {
+        Grunt* grunt = dynamic_cast<Grunt*>(enemy.get());
+        if (grunt) {
+            grunt->set_enemies(enemies);
+        }
+    }
+
+    enemies = std::move(loaded_enemies);
+    level = std::move(loaded);
 }
 
 
-void Play_State::render(sf::RenderWindow & window) 
+void Play_State::render(sf::RenderWindow& window)
 {
-    for (std::shared_ptr<Game_Object> current_object : dead_entities)
+    for (const auto& current_object : dead_entities)
     {
-        current_object -> draw(window);
+        current_object->draw(window);
     }
-    for (std::shared_ptr<Game_Object> curr_object : level)
+    for (const auto& curr_object : level)
     {
-        curr_object -> draw(window);   
+        curr_object->draw(window);
+    }
+    for (const auto& current_enemy : enemies)
+    {
+        current_enemy -> draw(window);
     }
 }
+
 
 void Play_State::update(double delta_time, sf::RenderWindow& window, size_t window_width, size_t window_height)
 {

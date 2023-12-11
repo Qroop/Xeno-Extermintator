@@ -11,17 +11,21 @@
 Player::Player(sf::Vector2f coordinates, sf::Texture& texture, sf::RenderWindow& window, int health_points, int damage, int speed)
     : Entity(coordinates, texture, window, health_points, damage, speed)
 {
+
+
     texture_scale = 3;
     width = width * texture_scale / 2;
     height = height * texture_scale / 2;
-    attack_distance = 30;
+    attack_distance = 80;
+    attack_cooldown = 0.5;
+    time_since_last_attack = 0.0;
     
     // Set the sprite scale
     sprite.setScale(texture_scale, texture_scale);
 
     // Set the hitbox size and position (considering scaling)
     hitbox.setSize(sf::Vector2f(width, height));
-    hitbox.setOrigin(width / 2.0f, height / 2.0f);  // Set the origin at the center
+    hitbox.setOrigin(width / 2.0f, height / 2.0f);
     hitbox.setPosition(coordinates);
 }
 
@@ -61,36 +65,46 @@ void Player::update(double delta_time)
     move(delta_time, window_width, window_height);
     hitbox.setPosition(coordinates);
 
-    if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
+    time_since_last_attack += delta_time;
+    if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && can_attack())
     {
-        attack(window);
+        attack();
+        time_since_last_attack = 0.0;
     }
 }
 
-void Player::attack(sf::RenderWindow& window) const 
+
+void Player::attack() const 
 {
-    /*To Do
-    1. Skapa en hitbox i spelarens riktning
-    2. Kolla vilka fiender som är i den
-    3. Om fienden är i den så tar dem skada*/
-    float radians = rotation * (M_PI / 180.0f);
-
-    float offset_x = attack_distance * std::cos(radians);
-    float offset_y = attack_distance * std::sin(radians);
-
-    sf::Vector2f hitbox_position = coordinates + sf::Vector2f(offset_x, offset_y);
+    sf::Vector2f hitbox_position = coordinates;
 
     sf::RectangleShape attack_hitbox;
-    float hitbox_width{50};
-    float hitbox_height{50};
+    float hitbox_width{attack_distance};
+    float hitbox_height{static_cast<float>(width)};
+    sf::Vector2f size{hitbox_width, hitbox_height};
+
     attack_hitbox.setPosition(hitbox_position);
     attack_hitbox.setRotation(rotation);
     attack_hitbox.setFillColor(sf::Color::Black);
-    attack_hitbox.setOrigin(hitbox_width / 2, hitbox_height / 2);
-    attack_hitbox.setSize(sf::Vector2f(hitbox_width, hitbox_height));
+    attack_hitbox.setOrigin(0, hitbox_height / 2);
+    attack_hitbox.setSize(size);
 
-    window.draw(attack_hitbox);
-    //cout << "Attack!" << endl;
+    if (loaded_enemies)
+    {
+        for (auto it = loaded_enemies->begin(); it != loaded_enemies->end(); ++it)
+        {
+            sf::FloatRect enemy_bounds = (*it) -> get_global_bounds();
+            sf::FloatRect attack_bounds = attack_hitbox.getGlobalBounds();
+
+            if (enemy_bounds.intersects(attack_bounds))
+            {
+                (*it) -> take_damage(damage);
+
+            }
+        }
+    }
+
+    // window.draw(attack_hitbox);
 }
 
 bool Player::is_dead()

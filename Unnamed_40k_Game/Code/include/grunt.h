@@ -14,6 +14,7 @@ class Grunt : public Enemy
     bool is_dead() override;
     void death() override;
     sf::Vector2f get_lateral_direction() const;
+    double get_distance_to_player();
     int get_health();
 
 

@@ -2,6 +2,8 @@
 #include "game_object.h"
 #include "abstract_game_state.h"
 #include "grunt.h"
+#include "enemy.h"
+
 #include <vector>
 #include <memory>
 #include <string>
@@ -35,5 +37,3 @@ class Play_State : public Abstract_Game_State
 
     std::shared_ptr<Player> player_object;
 };
-
-// std::vector<Game_Object*>& operator=(std::vector<Game_Object*> lhs, std::vector<Game_Object*> && rhs);

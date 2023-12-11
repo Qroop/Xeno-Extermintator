@@ -1,6 +1,10 @@
 #pragma once
 #include "game_object.h"
+
 #include <SFML/Graphics.hpp>
+
+
+class Enemy;
 
 class Entity : public Game_Object
 {
@@ -16,7 +20,7 @@ class Entity : public Game_Object
 
     void draw(sf::RenderWindow& window) override;
     // virtual void update(double delta_time, sf::RenderWindow& window, size_t window_width, size_t window_height) = 0;
-    virtual void attack(sf::RenderWindow& window) const = 0;
+    virtual void attack() const = 0;
     virtual void move(double delta_time, size_t window_width, size_t window_height) = 0;
     virtual void update(double delta_time) = 0;
     virtual void death() = 0;
@@ -26,6 +30,9 @@ class Entity : public Game_Object
     void set_speed(int new_speed);
     void set_texture(sf::Texture& new_texture);
     void set_attack_speed(double new_speed);
+    bool can_attack() const;
+    void take_damage(int damage_to_take);
+    void set_enemies(std::vector<std::unique_ptr<Enemy>>& enemies);
 
     protected:
     int health_points;
@@ -33,6 +40,9 @@ class Entity : public Game_Object
     int speed;
     double rotation;
     float texture_scale;
-    double attack_speed;
-    double attack_distance;
+    
+    float attack_distance;
+    double attack_cooldown;
+    double time_since_last_attack;
+    std::vector<std::unique_ptr<Enemy>>* loaded_enemies;
 }; 
