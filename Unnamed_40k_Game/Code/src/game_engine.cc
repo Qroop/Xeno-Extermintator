@@ -32,7 +32,7 @@ void Game_Engine::run()
     std::array<std::string, 3> levels = {"level_1.txt", "level_2.txt", "level_3.txt"};
     // states[0] = new Menu_State;
     states[0] = std::make_shared<Abstract_Game_State> (Play_State());
-    states[1] = std::make_shared<Abstract_Game_State> (Game_Over_State());
+    states[1] = std::make_shared<Abstract_Game_State> (Game_Over_State( levels.size() ));
     std::shared_ptr<Play_State> current_level = std::make_shared<Play_State> (states[0]);
     sf::Clock clock;
 
@@ -82,13 +82,13 @@ void Game_Engine::while_running(sf::Event & event,
         window.clear();
         states[active_state] -> render(window);
         window.display();
-        if ( play_state -> get_enemy_count() == 0)
-        {
-            change_state(1, false);
-        }
-        else if ( play_state -> get_player_dead() )
+        if ( active_state == 0 && states[active_state] -> get_change() == 1)
         {
             change_state(1, true);
+        }
+        else if ( active_state == 0 && states[active_state] -> get_change() == 2 )
+        {
+            change_state(1, false);
         }
     }
 }

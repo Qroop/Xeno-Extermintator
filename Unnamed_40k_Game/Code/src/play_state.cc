@@ -58,9 +58,14 @@ void Play_State::load(std::string const& file_name, sf::RenderWindow& window)
                 coords.x += 32;
                 break;
             case 'X':   // Grunt
-                // loaded.push_back(std::make_shared<Game_Object> (Grunt(coords, grunt_texture, 3, 1, 50, static_cast<Player&> (*loaded[0])))); // dynamic_cast<Player&>(*loaded[0])
-                // enemies.push_back(std::static_pointer_cast<std::shared_ptr<Grunt>> (loaded.at(loaded.size())));
-                enemies.push_back(std::make_shared<Grunt> (Grunt(coords, grunt_texture, dead_grunt_texture, window, 3, 1, 50, static_cast<Player&> (*loaded[0])))); // dynamic_cast<Player&>(*loaded[0])
+                enemies.push_back(std::make_shared<Grunt> (Grunt(coords, 
+                                                                 grunt_texture, 
+                                                                 dead_grunt_texture, 
+                                                                 window, 
+                                                                 3, 
+                                                                 1, 
+                                                                 50, 
+                                                                 *loaded[0]))); 
                 loaded.push_back( enemies.at(enemies.size()) );
                 
                 coords.x += 32;
@@ -110,4 +115,16 @@ void Play_State::update(double delta_time, sf::RenderWindow& window, size_t wind
 bool Play_State::get_player_dead()
 {
     return player_object -> is_dead();
+}
+
+int Play_State::get_change()
+{
+    if ( get_enemy_count() == 0)
+    {
+        return 1;
+    }
+    else if ( get_player_dead() == true )
+    {
+        return 2;
+    }
 }

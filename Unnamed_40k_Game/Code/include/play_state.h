@@ -21,6 +21,7 @@ class Play_State : public Abstract_Game_State
     void update(double delta_time, sf::RenderWindow& window, size_t window_width, size_t window_height) override;
     int get_enemy_count();
     bool get_player_dead();
+    int get_change() override;
 
     private:
     sf::Texture grunt_texture;

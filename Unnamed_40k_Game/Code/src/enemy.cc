@@ -6,7 +6,7 @@
 #include <cmath>
 
 
-Enemy::Enemy(sf::Vector2f coordinates, sf::Texture& texture, sf::Texture& dead_texture, sf::RenderWindow& window, int health_points, int damage, int speed, Player& player)
+Enemy::Enemy(sf::Vector2f coordinates, sf::Texture& texture, sf::Texture& dead_texture, sf::RenderWindow& window, int health_points, int damage, int speed, Game_Object& player)
 : Entity(coordinates, texture, window, health_points, damage, speed), player{player}, dead_texture{dead_texture}
 {
     hitbox.setFillColor(sf::Color(100, 250, 50));

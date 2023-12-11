@@ -10,5 +10,6 @@ public:
 
     virtual void update(double delta_time, sf::RenderWindow& window, size_t window_width, size_t window_height) = 0;
     virtual void render(sf::RenderWindow& window) = 0;
+    virtual int get_change() = 0;
 
 };

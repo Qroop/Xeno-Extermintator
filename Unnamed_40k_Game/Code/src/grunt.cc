@@ -8,7 +8,7 @@
 #include <cstdlib>
 #include <random>
 
-Grunt::Grunt(sf::Vector2f coordinates, sf::Texture& texture, sf::Texture& dead_texture, sf::RenderWindow& window, int health_points, int damage, int speed, Player& player)
+Grunt::Grunt(sf::Vector2f coordinates, sf::Texture& texture, sf::Texture& dead_texture, sf::RenderWindow& window, int health_points, int damage, int speed, Game_Object& player)
     : Enemy(coordinates, texture, dead_texture, window, health_points, damage, speed, player)
 {
     // Initialize the random number generator seed
