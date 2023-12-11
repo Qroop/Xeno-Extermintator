@@ -2,11 +2,12 @@
 #include "wall.h"
 #include "player.h"
 #include "grunt.h"
-
+#include "enemy.h"
 
 #include <fstream>
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include <memory>
 
 
 Play_State::Play_State()
@@ -32,16 +33,18 @@ void Play_State::load(std::string file_name)
         std::cerr << "Error: no file with such name";
     }
     
-    std::vector<Game_Object*> loaded;
+    std::vector<std::unique_ptr<Game_Object>> loaded;
+    std::vector<std::unique_ptr<Enemy>> loaded_enemies;
+
     sf::Vector2f coords{16, 16};
-    loaded.push_back(new Player(coords, player_texture, 3, 1, 300));
+    loaded.push_back(std::make_unique<Player>(coords, player_texture, 3, 1, 200));
     while ( !fs.eof() )
     {
         char character = fs.get();
         switch(character)
         {
             case '#':   // Wall
-                loaded.push_back(new Wall(coords, wall_texture));
+                loaded.push_back(std::make_unique<Wall>(coords, wall_texture));
                 coords.x += 32;
                 break;
             case '@':   // Player
@@ -49,7 +52,7 @@ void Play_State::load(std::string file_name)
                 coords.x += 32;
                 break;
             case 'X':   // Grunt
-                loaded.push_back(new Grunt(coords, grunt_texture, 3, 1, 50, dynamic_cast<Player&> (*loaded[0]))); // dynamic_cast<Player&>(*loaded[0])
+                loaded_enemies.push_back(std::make_unique<Grunt>(coords, grunt_texture, 3, 1, 50, *loaded[0]));
                 coords.x += 32;
                 break;
             case '\n':
@@ -63,53 +66,68 @@ void Play_State::load(std::string file_name)
     }
     fs.close();
     
-    level = loaded;
+    Player* player = dynamic_cast<Player*>(loaded[0].get());
+    if (player) {
+        player->set_enemies(enemies);
+    }
+
+    for (auto& enemy : enemies)
+    {
+        Grunt* grunt = dynamic_cast<Grunt*>(enemy.get());
+        if (grunt) {
+            grunt->set_enemies(enemies);
+        }
+    }
+
+    enemies = std::move(loaded_enemies);
+    level = std::move(loaded);
 }
 
 
-void Play_State::render(sf::RenderWindow & window) 
+void Play_State::render(sf::RenderWindow& window)
 {
-    for (Game_Object* current_object : dead_entities)
+    for (const auto& current_object : dead_entities)
     {
-        current_object -> draw(window);
+        current_object->draw(window);
     }
-    for (Game_Object* curr_object : level)
+    for (const auto& curr_object : level)
     {
-        curr_object -> draw(window);   
+        curr_object->draw(window);
+    }
+    for (const auto& current_enemy : enemies)
+    {
+        current_enemy -> draw(window);
     }
 }
+
 
 void Play_State::update(double delta_time, sf::RenderWindow& window, size_t window_width, size_t window_height)
 {
     for (auto it = level.begin(); it != level.end(); )
     {
-        Grunt* grunt = dynamic_cast<Grunt*>(*it);
-        Player* player = dynamic_cast<Player*>(*it);
-
-        if (grunt)
-        {
-            if (grunt -> is_dead())
-            {
-                grunt->set_texture(dead_grunt_texture);
-                grunt->set_speed(0);
-                grunt->set_rotation_speed(0);
-                grunt->set_attack_speed(0);
-                dead_entities.push_back(grunt);
-
-                it = level.erase(it);
-                delete grunt;
-                continue;
-            }
-            else
-            {
-                grunt->update(delta_time, window_width, window_height);
-            }
-        }
-        else if (player)
+        Player* player = dynamic_cast<Player*>(it->get());
+        if (player)
         {
             player->update(delta_time, window, window_width, window_height);
         }
+        ++it;
+    }
 
-        ++it; // Increment iterator
+    for (auto it = enemies.begin(); it != enemies.end(); )
+    {
+        if ((*it)->is_dead())
+        {
+            (*it)->set_texture(dead_grunt_texture);
+            (*it)->set_speed(0);
+            (*it)->set_rotation_speed(0);
+            (*it)->set_attack_speed(0);
+            dead_entities.push_back(std::move(*it));
+            it = enemies.erase(it);
+        }
+        else
+        {
+            (*it)->update(delta_time, window_width, window_height);
+            ++it;
+        }
     }
 }

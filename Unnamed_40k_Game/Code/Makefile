@@ -18,12 +18,18 @@ HEADERS := $(wildcard $(INCLUDE_DIR)/*.h)
 OBJECTS := $(patsubst $(SRC_DIR)/%.cc,$(BUILD_DIR)/%.o,$(SRC))
 EXECUTABLE := game.o
 
+.PHONY: all clean
+
 all: $(EXECUTABLE)
 
 $(EXECUTABLE): $(OBJECTS)
 	$(CXX) $(CXXFLAGS) $^ -o $@ $(SFML_FLAGS)
 
-$(BUILD_DIR)/%.o: $(SRC_DIR)/%.cc $(HEADERS)
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.cc $(INCLUDE_DIR)/%.h
+	$(CXX) $(CXXFLAGS) -I$(INCLUDE_DIR) -c $< -o $@
+
+# Additional rule for main.cc
+$(BUILD_DIR)/main.o: $(SRC_DIR)/main.cc
 	$(CXX) $(CXXFLAGS) -I$(INCLUDE_DIR) -c $< -o $@
 
 clean:

@@ -1,5 +1,6 @@
 #include "entity.h"
 
+#include <iostream>
 #include <SFML/Window/Mouse.hpp>
 #include <cmath>
 
@@ -67,7 +68,30 @@ void Entity::set_texture(sf::Texture& new_texture)
 }
 
 
-void Entity::set_attack_speed(double new_speed)
+void Entity::set_attack_speed(double new_cooldown)
 {
-    attack_speed = new_speed;
+    attack_cooldown = new_cooldown;
+}
+
+
+bool Entity::can_attack() const
+{
+    return time_since_last_attack >= attack_cooldown;
+}
+
+
+void Entity::take_damage(int damage_to_take)
+{
+    std::cerr << "Damage taken: " << damage_to_take << " Health left: " << health_points <<"\n";
+    health_points -= damage_to_take;
+
+    if(health_points <= 0)
+    {
+        dead = true;
+    }
+}
+
+void Entity::set_enemies(std::vector<std::unique_ptr<Enemy>>& enemies)
+{
+    loaded_enemies = &enemies;
 }

@@ -1,5 +1,10 @@
 #pragma once
+
+// #include "enemy.h"
+
 #include <SFML/Graphics.hpp>
+// #include <vector>
+// #include <memory>
 
 class Game_Object
 {
@@ -12,6 +17,8 @@ class Game_Object
     double get_height() const;
     double get_width() const;
     virtual void draw(sf::RenderWindow& window);
+    sf::FloatRect get_global_bounds() const;
+    // virtual void set_enemies(std::vector<std::unique_ptr<Enemy>>& enemies) = 0;
 
     protected:
     sf::Vector2f coordinates;

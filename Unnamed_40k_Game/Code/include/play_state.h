@@ -1,5 +1,8 @@
 #pragma once
 #include "game_object.h"
+#include "enemy.h"
+
+#include <memory>
 #include <vector>
 #include <string>
 
@@ -23,8 +26,7 @@ class Play_State
     sf::Texture wall_texture;
     sf::Texture dead_grunt_texture;
 
-    std::vector<Game_Object*> level;
-    std::vector<Game_Object*> dead_entities;
+    std::vector<std::unique_ptr<Game_Object>> level;
+    std::vector<std::unique_ptr<Game_Object>> dead_entities;
+    std::vector<std::unique_ptr<Enemy>> enemies;
 };
-
-// std::vector<Game_Object*>& operator=(std::vector<Game_Object*> lhs, std::vector<Game_Object*> && rhs);

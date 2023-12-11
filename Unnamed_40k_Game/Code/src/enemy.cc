@@ -6,7 +6,7 @@
 #include <cmath>
 
 
-Enemy::Enemy(sf::Vector2f coordinates, sf::Texture& texture, int health_points, int damage, int speed, Player& player)
+Enemy::Enemy(sf::Vector2f coordinates, sf::Texture& texture, int health_points, int damage, int speed, Game_Object& player)
 : Entity(coordinates, texture, health_points, damage, speed), player{player}
 {
     hitbox.setFillColor(sf::Color(100, 250, 50));
@@ -15,7 +15,6 @@ Enemy::Enemy(sf::Vector2f coordinates, sf::Texture& texture, int health_points, 
 Enemy::~Enemy() {}
 
 
-// Calculate the shortest angular distance between two angles in degrees
 double Enemy::shortest_angular_distance(double from, double to) const
 {
     double distance = to - from;
@@ -33,7 +32,7 @@ void Enemy::rotate(sf::Vector2f& direction, double delta_time)
     double desired_rotation = std::atan2(direction.y - coordinates.y, direction.x - coordinates.x) * (180.0 / M_PI);
     double rotation_difference{shortest_angular_distance(rotation, desired_rotation)};
 
-    // Förhindra att fienden roterar 
+    // Förhindra att fienden roterar för mycket
     if (std::abs(rotation_difference) > rotation_speed * delta_time)
     {
         rotation_difference = (rotation_difference > 0) ? rotation_speed * delta_time : -rotation_speed * delta_time;
