@@ -4,7 +4,7 @@
 class Game_Object
 {
     public:
-    Game_Object(sf::Vector2f coordinates, sf::Texture& texture); 
+    Game_Object(sf::Vector2f coordinates, sf::Texture& texture); // ,sf::Texture& dead_texture); 
     virtual ~Game_Object() = 0;
 
     sf::Vector2f get_coordinates() const;

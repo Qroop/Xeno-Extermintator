@@ -12,12 +12,13 @@ Grunt::Grunt(sf::Vector2f coordinates, sf::Texture& texture, int health_points, 
     : Enemy(coordinates, texture, health_points, damage, speed, player)
 {
     // Initialize the random number generator seed
-    srand(static_cast<unsigned>(time(nullptr)));
+    srand(coordinates.x);
+    int max{350};
+    int min{250};
+    distance_to_keep = (std::rand() % (max - min + 1) + min);
+    
     walk_left = rand() % 2 == 0;
     rotation_speed = 65;
-    int max{350};
-    int min{200};
-    distance_to_keep = std::rand() % (max - min + 1) + min;
 }
 
 Grunt::~Grunt() {}
@@ -25,10 +26,13 @@ Grunt::~Grunt() {}
 
 void Grunt::update(double delta_time, size_t window_width, size_t window_height)
 {
-    sf::Vector2f player_coordinates{player.get_coordinates()};
-    rotate(player_coordinates, delta_time);
-    move(delta_time, window_width, window_height);
-    hitbox.setPosition(coordinates);
+    if(!dead)
+    {
+        sf::Vector2f player_coordinates{player.get_coordinates()};
+        rotate(player_coordinates, delta_time);
+        move(delta_time, window_width, window_height);
+        hitbox.setPosition(coordinates);
+    }
 }
 
 
@@ -66,11 +70,17 @@ void Grunt::move(double delta_time, size_t window_width, size_t window_height)
 
         direction = forward_direction + lateral_direction;
     }
-
     coordinates = check_boundury_collision(direction, distance_to_move, window_width, window_height);
 }
 
 int Grunt::get_health()
 {
     return health_points;
+}
+
+void Grunt::attack(sf::RenderWindow& window) const
+{
+    sf::RectangleShape test;
+    test.setSize(sf::Vector2f(width, height));
+    window.draw(test);
 }

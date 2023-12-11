@@ -14,6 +14,6 @@ class Player : public Entity
     
     sf::Vector2f find_direction() const;
     void update(double delta_time, sf::RenderWindow& window, size_t window_width, size_t window_height);
-    // bool attack() const override;
-    void move(double delta_time, size_t window_width, size_t window_height);
+    void attack(sf::RenderWindow& window) const override;
+    void move(double delta_time, size_t window_width, size_t window_height) override;
 };

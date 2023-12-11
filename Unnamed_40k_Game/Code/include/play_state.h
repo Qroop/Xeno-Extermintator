@@ -25,7 +25,10 @@ class Play_State : public Abstract_Game_State
     sf::Texture grunt_texture;
     sf::Texture player_texture;
     sf::Texture wall_texture;
+    sf::Texture dead_grunt_texture;
+
     std::vector<std::shared_ptr<Game_Object>> level;
+    std::vector<Game_Object*> dead_entities;
     std::vector<std::shared_ptr<Grunt>> enemies;
 };
 

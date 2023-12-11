@@ -41,3 +41,9 @@ void Enemy::rotate(sf::Vector2f& direction, double delta_time)
 
     rotation += rotation_difference;
 }
+
+
+void Enemy::set_rotation_speed(double new_rotation_speed)
+{
+    rotation_speed = new_rotation_speed;
+}
