@@ -20,4 +20,5 @@ class Projectile : public Enemy
     void update(double delta_time) override;
     void attack() const override;
     void move(double delta_time) override;
+    void set_enemies(std::vector<std::shared_ptr<Enemy>>& enemies);
 };

@@ -34,18 +34,18 @@ void Play_State::load(std::string file_name, int window_width, int window_height
         std::cerr << "Error: no file with such name";
     }
     
-    std::vector<std::unique_ptr<Game_Object>> loaded;
-    std::vector<std::unique_ptr<Enemy>> loaded_enemies;
+    std::vector<std::shared_ptr<Game_Object>> loaded;
+    std::vector<std::shared_ptr<Enemy>> loaded_enemies;
 
     sf::Vector2f coords{16, 16};
-    loaded.push_back(std::make_unique<Player>(coords, player_texture, 3, 1, 200, window_width, window_height));
+    loaded.push_back(std::make_shared<Player>(coords, player_texture, 3, 1, 200, window_width, window_height));
     while ( !fs.eof() )
     {
         char character = fs.get();
         switch(character)
         {
             case '#':   // Wall
-                loaded.push_back(std::make_unique<Wall>(coords, wall_texture));
+                loaded.push_back(std::make_shared<Wall>(coords, wall_texture));
                 coords.x += 32;
                 break;
             case '@':   // Player
@@ -53,7 +53,7 @@ void Play_State::load(std::string file_name, int window_width, int window_height
                 coords.x += 32;
                 break;
             case 'X':   // Grunt
-                loaded_enemies.push_back(std::make_unique<Grunt>(coords, grunt_texture, projectile_texture, 3, 1, 50, window_width, window_height,*loaded[0]));
+                loaded_enemies.push_back(std::make_shared<Grunt>(coords, grunt_texture, projectile_texture, 3, 1, 50, window_width, window_height,*loaded[0]));
                 coords.x += 32;
                 break;
             case '\n':
@@ -67,17 +67,18 @@ void Play_State::load(std::string file_name, int window_width, int window_height
     }
     fs.close();
     
+    std::cerr << loaded_enemies.size() << "\n";
+
     Player* player = dynamic_cast<Player*>(loaded[0].get());
     if (player) {
         player->set_enemies(enemies);
+        std::cerr << "Player: "<< player->check_set_enemies();
     }
 
-    for (auto& enemy : enemies)
+    for (auto& enemy : loaded_enemies)
     {
-        Grunt* grunt = dynamic_cast<Grunt*>(enemy.get());
-        if (grunt) {
-            grunt->set_enemies(enemies);
-        }
+        enemy->set_enemies(loaded_enemies);
+        std::cerr << "Enemy: " << enemy -> check_set_enemies();
     }
 
     enemies = std::move(loaded_enemies);
@@ -131,4 +132,5 @@ void Play_State::update(double delta_time, sf::RenderWindow& window)
             ++it;
         }
     }
+    //std::cerr << "Amount of enemies in the vector: " << enemies.size() << "\n";
 }

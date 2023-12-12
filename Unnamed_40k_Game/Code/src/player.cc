@@ -11,8 +11,6 @@
 Player::Player(sf::Vector2f coordinates, sf::Texture& texture, int health_points, int damage, int speed, int window_width, int window_height)
     : Entity(coordinates, texture, health_points, damage, speed, window_width, window_height)
 {
-
-
     texture_scale = 3;
     width = width * texture_scale / 2;
     height = height * texture_scale / 2;
@@ -99,10 +97,8 @@ void Player::attack() const
             if (enemy_bounds.intersects(attack_bounds))
             {
                 (*it) -> take_damage(damage);
-
+                std::cerr << "Attack hit enemy\n";
             }
         }
     }
-
-    // window.draw(attack_hitbox);
 }

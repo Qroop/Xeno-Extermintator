@@ -14,7 +14,7 @@ const size_t window_height = 1024; //1024
 int main()
 {
     sf::RenderWindow window{sf::VideoMode{window_width, window_height}, "Demo"};
-    sf::Color white(255, 255, 255);
+    sf::Color white(150, 150, 150);
     window.clear(white);
 
     window.setKeyRepeatEnabled(true);

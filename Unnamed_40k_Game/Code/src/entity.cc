@@ -1,12 +1,15 @@
 #include "entity.h"
+#include "enemy.h"
 
 #include <iostream>
 #include <SFML/Window/Mouse.hpp>
 #include <SFML/Graphics.hpp>
 #include <cmath>
+#include <string>
+#include <memory>
 
 Entity::Entity(sf::Vector2f coordinates, sf::Texture& texture, int health_points, int damage, int speed, int window_width, int window_height)
-: Game_Object(coordinates, texture), health_points(health_points), damage(damage), speed(speed) 
+: Game_Object(coordinates, texture), health_points(health_points), damage(damage), speed(speed), loaded_enemies(nullptr)
 {
     int int_window_width = static_cast<int>(window_width);
     int int_window_height = static_cast<int>(window_height);
@@ -19,7 +22,10 @@ Entity::Entity(sf::Vector2f coordinates, sf::Texture& texture, int health_points
 }
 
 
-Entity::~Entity() {}
+Entity::~Entity() 
+{
+
+}
 
 
 void Entity::rotate(sf::Vector2f& direction)
@@ -104,7 +110,26 @@ void Entity::take_damage(int damage_to_take)
     }
 }
 
-void Entity::set_enemies(std::vector<std::unique_ptr<Enemy>>& enemies)
+void Entity::set_enemies(std::vector<std::shared_ptr<Enemy>> enemies)
 {
-    loaded_enemies = &enemies;
+    loaded_enemies = <std::vector<std::shared_ptr<Enemy>>>(std::move(enemies));
+    std::cout << "Set enemies for Entity: " << this << "\n";
+}
+
+std::string Entity::check_set_enemies() const
+{
+    std::string error_message{};
+    if(loaded_enemies -> empty())
+    {
+        error_message += "loaded_enemies is empty\n";
+    }
+    if(!loaded_enemies)
+    {
+        error_message += "loaded_enemies pointer is nullptr\n";
+    }
+    else
+    {
+        return "No errors\n";
+    }
+    return error_message;
 }

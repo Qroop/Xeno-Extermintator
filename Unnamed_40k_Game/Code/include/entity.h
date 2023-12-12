@@ -2,6 +2,8 @@
 #include "game_object.h"
 
 #include <SFML/Graphics.hpp>
+#include <string>
+#include <memory>
 
 
 class Enemy;
@@ -31,7 +33,8 @@ class Entity : public Game_Object
     void set_attack_speed(double new_speed);
     bool can_attack() const;
     void take_damage(int damage_to_take);
-    void set_enemies(std::vector<std::unique_ptr<Enemy>>& enemies);
+    void set_enemies(std::vector<std::shared_ptr<Enemy>> enemies);
+    std::string check_set_enemies() const;
 
 
     protected:
@@ -44,7 +47,7 @@ class Entity : public Game_Object
     float attack_distance;
     double attack_cooldown;
     double time_since_last_attack;
-    std::vector<std::unique_ptr<Enemy>>* loaded_enemies;
+    std::vector<std::shared_ptr<Enemy>>* loaded_enemies;
     sf::Vector2i window_size;
 
     sf::Clock damage_effect_timer;

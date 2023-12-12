@@ -23,7 +23,7 @@ Grunt::Grunt(sf::Vector2f coordinates, sf::Texture& texture, sf::Texture& projec
     // double max_time_since_attack{1.0};
     // double min_time_since_attack{0.0};
     // time_since_last_attack = (std::rand() % (max_time_since_attack - min_time_since_attack + 1) + min_time_since_attack);
-    attack_cooldown = 10;
+    attack_cooldown = 3;
     walk_left = rand() % 2 == 0;
     rotation_speed = 50;
 }
@@ -108,16 +108,24 @@ void Grunt::move(double delta_time)
 void Grunt::attack() const
 {
     /*Spawn a projectile object in the enemies vector*/
-    std::cerr << "Attack!";
+    if(!loaded_enemies)
+    {
+        std::cerr << "Error: Loaded enemies is nullptr\n";
+        return;
+    }
 
-    sf::Vector2f projectile_position{coordinates};
+    std::cerr << "Grunt attacks!\n";
 
-    std::unique_ptr<Enemy> new_projectile = std::make_unique<Projectile>(
-        projectile_position, projectile_texture, 1, 1, 400, window_size.x, window_size.y, player);
+    auto new_projectile = std::make_shared<Projectile>(coordinates, projectile_texture, 1, 1, 400, window_size.x, window_size.y, player);
 
-    // Projectile new_projectile(projectile_position, projectile_texture, 1, 1, 400, window_size.x, window_size.y, player);
     new_projectile -> set_enemies(*loaded_enemies);
+    std::cerr << "New Projectile: " << new_projectile -> check_set_enemies();
 
-    loaded_enemies->emplace_back(std::move(new_projectile));
-    //loaded_enemies->emplace_back(new Projectile(projectile_position, projectile_texture, 1, 1, 400, window_size.x, window_size.y, player, loaded_enemies));
+    if(!loaded_enemies)
+    {
+        std::cerr << "Error: Loaded enemies pointer is nullptr";
+    }
+    loaded_enemies->emplace_back(new_projectile);
+
+    std::cout << "Amount of enemies in the vector: " << loaded_enemies->size() << std::endl;
 }
