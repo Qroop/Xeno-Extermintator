@@ -17,6 +17,7 @@ class Enemy : public Entity
     virtual void update(double delta_time) = 0;
     virtual void death() = 0;
     virtual bool is_dead() = 0;
+    virtual void attack() const = 0;
     void rotate(sf::Vector2f& direction, double delta_time);
     double shortest_angular_distance(double from, double to) const;
     void set_rotation_speed(double new_rotation_speed);

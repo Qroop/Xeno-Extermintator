@@ -3,6 +3,7 @@
 #include "abstract_game_state.h"
 #include "grunt.h"
 #include "enemy.h"
+#include "player.h"
 
 #include <vector>
 #include <memory>
@@ -20,12 +21,14 @@ class Play_State : public Abstract_Game_State
 
     void load(std::string const& file_name, sf::RenderWindow& window);
     void render(sf::RenderWindow & window) override;
-    void update(double delta_time, sf::RenderWindow& window, size_t window_width, size_t window_height) override;
+    void update(double delta_time, sf::RenderWindow& window) override;
     int get_enemy_count();
     bool get_player_dead();
     int get_change() override;
 
     private:
+    // int enemy_count;
+
     sf::Texture grunt_texture;
     sf::Texture player_texture;
     sf::Texture wall_texture;

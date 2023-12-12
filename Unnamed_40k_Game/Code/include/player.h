@@ -1,6 +1,7 @@
 #pragma once
 #include "entity.h"
 #include "enemy.h"
+#include "grunt.h"
 
 #include <vector>
 #include <SFML/Graphics.hpp>
@@ -23,4 +24,8 @@ class Player : public Entity
     void move(double delta_time, size_t window_width, size_t window_height) override;
     bool is_dead() override;
     void death() override;
+    void set_enemies(std::vector<std::shared_ptr<Grunt>>& enemies);
+
+    private:
+    std::vector<std::shared_ptr<Grunt>>* loaded_enemies;
 };

@@ -1,7 +1,7 @@
 #include "game_engine.h"
 #include "abstract_game_state.h"
 #include "play_state.h"
-#include "menu_state.h"
+// #include "menu_state.h"
 #include "game_over_state.h"
 
 #include <string>
@@ -30,10 +30,9 @@ void Game_Engine::run()
     window.setVerticalSyncEnabled(true);
 
     std::array<std::string, 3> levels = {"level_1.txt", "level_2.txt", "level_3.txt"};
-    // states[0] = new Menu_State;
-    states[0] = std::make_shared<Abstract_Game_State> (Play_State());
-    states[1] = std::make_shared<Abstract_Game_State> (Game_Over_State( levels.size() ));
-    std::shared_ptr<Play_State> current_level = std::make_shared<Play_State> (states[0]);
+    states[0] = std::make_shared<Play_State> ();
+    states[1] = std::make_shared<Game_Over_State> ( levels.size() );
+    std::shared_ptr<Play_State> current_level = std::static_pointer_cast<Play_State>( states[0] );
     sf::Clock clock;
 
     for (std::string & i : levels)
@@ -42,7 +41,7 @@ void Game_Engine::run()
         sf::Event event;
         if ( running )
         {
-            while_running(event, window, clock, states, current_level);
+            while_running(event, window, clock, states);
         }
         else{ break; }
     }
@@ -52,8 +51,7 @@ void Game_Engine::run()
 void Game_Engine::while_running(sf::Event & event, 
                                 sf::RenderWindow & window, 
                                 sf::Clock & clock, 
-                                std::array<std::shared_ptr<Abstract_Game_State>, 2>& states, 
-                                std::shared_ptr<Play_State> play_state)
+                                std::array<std::shared_ptr<Abstract_Game_State>, 2>& states)
 {
     while ( running )
     {
@@ -78,7 +76,7 @@ void Game_Engine::while_running(sf::Event & event,
         double delta_time{clock.restart().asSeconds()};
 
         //updates the window
-        states[active_state] -> update(delta_time, window, window.getSize().x, window.getSize().y);
+        states[active_state] -> update(delta_time, window);
         window.clear();
         states[active_state] -> render(window);
         window.display();
@@ -100,7 +98,7 @@ void Game_Engine::change_state(int index, bool win)
     active_state = index;
     if ( index == 1 )
     {
-        auto game_over = std::make_shared<Game_Over_State>(states[1]);
+        auto game_over = std::static_pointer_cast<Game_Over_State>(states[1]);
         game_over -> set_win( win );
     }
 }

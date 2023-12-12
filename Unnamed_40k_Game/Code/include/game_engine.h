@@ -12,7 +12,7 @@ public:
     ~Game_Engine();
 
     void run();
-    void while_running(sf::Event & event, sf::RenderWindow & window, sf::Clock & clock, std::array<std::shared_ptr<Abstract_Game_State>, 2>& states, std::shared_ptr<Play_State> play_state);
+    void while_running(sf::Event & event, sf::RenderWindow & window, sf::Clock & clock, std::array<std::shared_ptr<Abstract_Game_State>, 2>& states);
     void quit();
     void change_state(int index, bool win_or_lose);
     int get_state();

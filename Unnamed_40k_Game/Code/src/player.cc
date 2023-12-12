@@ -30,7 +30,10 @@ Player::Player(sf::Vector2f coordinates, sf::Texture& texture, sf::RenderWindow&
 }
 
 
-Player::~Player() {}
+Player::~Player() 
+{
+    loaded_enemies = nullptr;
+}
 
 
 sf::Vector2f Player::find_direction() const
@@ -115,4 +118,9 @@ bool Player::is_dead()
 void Player::death()
 {
     dead = true;
+}
+
+void Player::set_enemies(std::vector<std::shared_ptr<Grunt>>& enemies)
+{
+    loaded_enemies = &enemies;
 }

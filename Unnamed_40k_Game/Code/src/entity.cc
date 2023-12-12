@@ -1,8 +1,10 @@
 #include "entity.h"
+#include "grunt.h"
 
 #include <iostream>
 #include <SFML/Window/Mouse.hpp>
 #include <cmath>
+#include <memory>
 
 Entity::Entity(sf::Vector2f coordinates, sf::Texture& texture, sf::RenderWindow& window, int health_points, int damage, int speed)
 : Game_Object(coordinates, texture, window), health_points(health_points), damage(damage), speed(speed) 
@@ -11,7 +13,10 @@ Entity::Entity(sf::Vector2f coordinates, sf::Texture& texture, sf::RenderWindow&
 }
 
 
-Entity::~Entity() {}
+Entity::~Entity() 
+{
+    // loaded_enemies = nullptr;
+}
 
 
 void Entity::rotate(sf::Vector2f& direction)
@@ -91,7 +96,7 @@ void Entity::take_damage(int damage_to_take)
     }
 }
 
-void Entity::set_enemies(std::vector<std::unique_ptr<Enemy>>& enemies)
-{
-    loaded_enemies = &enemies;
-}
+// void Entity::set_enemies(std::vector<std::shared_ptr<Grunt>>& enemies)
+// {
+//     loaded_enemies = &enemies;
+// }

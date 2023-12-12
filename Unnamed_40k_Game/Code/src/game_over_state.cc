@@ -3,7 +3,7 @@
 Game_Over_State::Game_Over_State(int level_count)
 : level_count{level_count}
 {
-    font.loadFromFile("../Textures/font.ttf");
+    font.loadFromFile("../Static/Textures/font.ttf");
 
     text[0] = sf::Text{"You Win!", font, 60 };
     text[1] = sf::Text{"You've Cleared Level " + (current_level_index+1), font, 60};
@@ -19,12 +19,18 @@ Game_Over_State::Game_Over_State(int level_count)
 Game_Over_State::~Game_Over_State()
 {}
 
-void Game_Over_State::update(double delta_time, sf::RenderWindow& window, size_t window_width, size_t window_height)
+void Game_Over_State::update(double delta_time, sf::RenderWindow& window)
 {
     window.clear();
 
     decision_handling(window);
 }
+
+void Game_Over_State::render(sf::RenderWindow& window)
+{
+    decision_handling(window);
+}
+
 
 
 void Game_Over_State::set_win( bool win )
@@ -56,5 +62,5 @@ void Game_Over_State::decision_handling(sf::RenderWindow& window)
 
 int Game_Over_State::get_change()
 {
-
+    return 1;
 }

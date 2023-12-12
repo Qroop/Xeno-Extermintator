@@ -7,7 +7,7 @@ class Game_Over_State : public Abstract_Game_State
     Game_Over_State(int level_count);
     ~Game_Over_State();
     
-    void update(double delta_time, sf::RenderWindow& window, size_t window_width, size_t window_height) override;
+    void update(double delta_time, sf::RenderWindow& window) override;
     void render(sf::RenderWindow& window) override;
     void set_win( bool win );
     int get_change() override;

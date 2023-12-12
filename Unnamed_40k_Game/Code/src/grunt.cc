@@ -38,15 +38,6 @@ double Grunt::get_distance_to_player()
 }
 
 
-double Grunt::get_distance_to_player()
-{
-    sf::Vector2f offset_from_player{coordinates.x - player.get_coordinates().x, coordinates.y - player.get_coordinates().y};
-    double distance_to_player{length(offset_from_player)};
-
-    return distance_to_player;
-}
-
-
 void Grunt::update(double delta_time)
 {
     
@@ -111,11 +102,6 @@ int Grunt::get_health()
     return health_points;
 }
 
-int Grunt::get_health()
-{
-    return health_points;
-}
-
 void Grunt::attack() const
 {
 
@@ -130,11 +116,7 @@ void Grunt::death()
     set_attack_speed(0);
 }
 
-void Grunt::death()
+bool Grunt::is_dead()
 {
-    dead = true;
-    set_texture(dead_texture);
-    set_speed(0);
-    set_rotation_speed(0);
-    set_attack_speed(0);
+    return dead;
 }
