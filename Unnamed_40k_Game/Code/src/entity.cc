@@ -109,7 +109,7 @@ void Entity::take_damage(int damage_to_take)
     }
 }
 
-// void Entity::set_enemies(std::vector<std::shared_ptr<Grunt>>& enemies)
-// {
-//     loaded_enemies = &enemies;
-// }
+void Entity::set_enemies(std::vector<std::shared_ptr<Enemy>>& enemies)
+{
+    loaded_enemies = &enemies;
+}

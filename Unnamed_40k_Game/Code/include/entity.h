@@ -13,7 +13,6 @@ class Entity : public Game_Object
     public:
     Entity(sf::Vector2f coordinates,
             sf::Texture& texture, 
-            sf::RenderWindow& window,
             int health_points = 3,
             int damage = 1,
             int speed = 1,
@@ -25,17 +24,16 @@ class Entity : public Game_Object
     void draw(sf::RenderWindow& window) override;
     virtual void attack() const = 0;
     virtual void move(double delta_time, size_t window_width, size_t window_height) = 0;
-    virtual void update(double delta_time) = 0;
-    virtual void death() = 0;
+    // virtual void death() = 0;
     void rotate(sf::Vector2f& direction);
     sf::Vector2f check_boundury_collision(sf::Vector2f direction, double distance_to_move, size_t window_width, size_t window_height);
-    virtual bool is_dead() = 0;
+    bool is_dead();
     void set_speed(int new_speed);
     void set_texture(sf::Texture& new_texture);
     void set_attack_speed(double new_speed);
     bool can_attack() const;
     void take_damage(int damage_to_take);
-    // void set_enemies(std::vector<std::shared_ptr<Grunt>>& enemies);
+    void set_enemies(std::vector<std::shared_ptr<Enemy>>& enemies);
 
     protected:
     int health_points;
@@ -47,7 +45,7 @@ class Entity : public Game_Object
     float attack_distance;
     double attack_cooldown;
     double time_since_last_attack;
-    std::vector<std::unique_ptr<Enemy>>* loaded_enemies;
+    std::vector<std::shared_ptr<Enemy>>* loaded_enemies;
     sf::Vector2i window_size;
 
     sf::Clock damage_effect_timer;

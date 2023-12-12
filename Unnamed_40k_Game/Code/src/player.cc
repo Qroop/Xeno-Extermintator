@@ -32,7 +32,7 @@ Player::Player(sf::Vector2f coordinates, sf::Texture& texture, int health_points
 
 Player::~Player() 
 {
-    loaded_enemies = nullptr;
+    // loaded_enemies = nullptr;
 }
 
 
@@ -74,6 +74,11 @@ void Player::update(double delta_time, sf::RenderWindow& window)
         attack();
         time_since_last_attack = 0.0;
     }
+
+    if( health_points == 0)
+    {
+        cout << "dead but not in fact dieing" << endl;
+    }
 }
 
 
@@ -110,17 +115,7 @@ void Player::attack() const
     // window.draw(attack_hitbox);
 }
 
-bool Player::is_dead()
-{
-    return dead;
-}
-
-void Player::death()
-{
-    dead = true;
-}
-
-void Player::set_enemies(std::vector<std::shared_ptr<Grunt>>& enemies)
-{
-    loaded_enemies = &enemies;
-}
+// void Player::set_enemies(std::vector<std::shared_ptr<Grunt>>& enemies)
+// {
+//     loaded_enemies = &enemies;
+// }

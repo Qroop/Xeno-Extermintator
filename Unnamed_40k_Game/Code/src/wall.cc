@@ -2,8 +2,8 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
-Wall::Wall(sf::Vector2f coordinates, sf::Texture& texture, sf::RenderWindow& window)
-: Game_Object(coordinates, texture, window)
+Wall::Wall(sf::Vector2f coordinates, sf::Texture& texture)
+: Game_Object(coordinates, texture)
 {
     hitbox.setSize(sf::Vector2f(width, height));
     hitbox.setPosition(coordinates);
@@ -13,12 +13,12 @@ Wall::Wall(sf::Vector2f coordinates, sf::Texture& texture, sf::RenderWindow& win
 Wall::~Wall()
 {}
 
-void Wall::update(double delta_time)
-{
+// void Wall::update(double delta_time)
+// {
 
-}
+// }
 
-bool Wall::is_dead()
-{
-    return false;
-}
+// bool Wall::is_dead()
+// {
+//     return false;
+// }

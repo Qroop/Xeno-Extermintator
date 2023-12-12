@@ -12,13 +12,15 @@ public:
     ~Game_Engine();
 
     void run();
-    void while_running(sf::Event & event, sf::RenderWindow & window, sf::Clock & clock, std::array<std::shared_ptr<Abstract_Game_State>, 2>& states);
+    int while_running(sf::Event & event, sf::RenderWindow & window, sf::Clock & clock, std::array<std::shared_ptr<Abstract_Game_State>, 2>& states);
     void quit();
     void change_state(int index, bool win_or_lose);
     int get_state();
 
 private:
+
     std::array<std::shared_ptr<Abstract_Game_State>, 2> states;
     bool running;
+    bool stop;
     int active_state;
 };

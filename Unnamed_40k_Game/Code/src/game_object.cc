@@ -1,8 +1,8 @@
 #include "game_object.h"
 #include <SFML/Graphics.hpp>
 
-Game_Object::Game_Object(sf::Vector2f coordinates, sf::Texture& texture, sf::RenderWindow& window)
-: coordinates{coordinates}, texture{&texture}, window{window}
+Game_Object::Game_Object(sf::Vector2f coordinates, sf::Texture& texture)
+: coordinates{coordinates}, texture{&texture}
 {
     width = 32;
     height = 32;
@@ -19,8 +19,8 @@ Game_Object::Game_Object(sf::Vector2f coordinates, sf::Texture& texture, sf::Ren
     sprite.setScale(2.0f, 2.0f);
     sprite.setPosition(coordinates);
     sprite.setOrigin(texture.getSize().x / 2.0f, texture.getSize().y / 2.0f);
-    window_width = window.getSize().x;
-    window_height = window.getSize().y;
+    // window_width = window.getSize().x;
+    // window_height = window.getSize().y;
 }
 
 

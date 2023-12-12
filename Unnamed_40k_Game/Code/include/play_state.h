@@ -22,6 +22,11 @@ class Play_State : public Abstract_Game_State
     void load(std::string file_name, int window_width, int window_height);
     void render(sf::RenderWindow & window);
     void update(double delta_time, sf::RenderWindow& window);
+    int get_enemy_count();
+    bool get_player_dead();
+    void set_player_dead();
+    int get_change() override;
+
 
     private:
     // int enemy_count;
@@ -33,7 +38,7 @@ class Play_State : public Abstract_Game_State
 
     std::vector<std::shared_ptr<Game_Object>> level;
     std::vector<std::shared_ptr<Game_Object>> dead_entities;
-    std::vector<std::shared_ptr<Grunt>> enemies;
+    std::vector<std::shared_ptr<Enemy>> enemies;
 
     std::shared_ptr<Player> player_object;
 };

@@ -7,6 +7,7 @@
 #include <string>
 #include <array>
 #include <memory>
+#include <iostream>
 
 Game_Engine::Game_Engine()
 : states{}, running{true}, active_state{0} {}
@@ -24,31 +25,40 @@ Game_Engine::~Game_Engine()
 
 void Game_Engine::run()
 {
-
-    sf::RenderWindow window{sf::VideoMode{1024, 1024}, "W40k Game"};
-    window.setKeyRepeatEnabled(true);
-    window.setVerticalSyncEnabled(true);
-
-    std::array<std::string, 3> levels = {"level_1.txt", "level_2.txt", "level_3.txt"};
-    states[0] = std::make_shared<Play_State> ();
-    states[1] = std::make_shared<Game_Over_State> ( levels.size() );
-    std::shared_ptr<Play_State> current_level = std::static_pointer_cast<Play_State>( states[0] );
-    sf::Clock clock;
-
-    for (std::string & i : levels)
+    while (!stop)
     {
-        current_level -> load(i, window);
-        sf::Event event;
-        if ( running )
+        stop = true;
+        sf::RenderWindow window{sf::VideoMode{1024, 1024}, "W40k Game"};
+        window.setKeyRepeatEnabled(true);
+        window.setVerticalSyncEnabled(true);
+
+        std::array<std::string, 3> levels = {"level_1.txt", "level_2.txt", "level_3.txt"};
+        states[0] = std::make_shared<Play_State> ();
+        // std::cerr << "we trynna get in bby";
+        states[1] = std::make_shared<Game_Over_State> ( levels.size() );
+        std::shared_ptr<Play_State> current_level = std::static_pointer_cast<Play_State>( states[0] );
+        sf::Clock clock;
+
+        for (std::string & current_map : levels)
         {
-            while_running(event, window, clock, states);
+            current_level -> load(current_map, window.getSize().x, window.getSize().y);
+            sf::Event event;
+            if ( running )
+            {
+                std::cout << current_map << std::endl;
+                int to_stop{while_running(event, window, clock, states)};
+                if (to_stop == 2)
+                {
+                    break;
+                }
+            }
+            else{ break; }
         }
-        else{ break; }
     }
 }
 
 
-void Game_Engine::while_running(sf::Event & event, 
+int Game_Engine::while_running(sf::Event & event, 
                                 sf::RenderWindow & window, 
                                 sf::Clock & clock, 
                                 std::array<std::shared_ptr<Abstract_Game_State>, 2>& states)
@@ -68,9 +78,30 @@ void Game_Engine::while_running(sf::Event & event,
             }
         }
         
+        int the_change = states[active_state]->get_change();
         if( !running || sf::Keyboard::isKeyPressed(sf::Keyboard::Q) )
         {
-            break;
+            return 0;
+        }
+        //next level
+        else if( active_state == 1 && the_change == 2 && sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+        {
+            change_state(0, true);
+            return 1;
+        }
+        //restart
+        else if( active_state == 1 && the_change == 3 && sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+        {
+            change_state(0, true);
+            stop = false;
+            return 2;
+        }
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad5))
+        {
+            std::cout << "numpad 5 pressed" << std::endl;
+            std::shared_ptr<Play_State> play_state = std::static_pointer_cast<Play_State> (states[0]);
+            play_state -> set_player_dead();
         }
 
         double delta_time{clock.restart().asSeconds()};
@@ -89,6 +120,7 @@ void Game_Engine::while_running(sf::Event & event,
             change_state(1, false);
         }
     }
+    return 0;
 }
 
 
@@ -98,7 +130,7 @@ void Game_Engine::change_state(int index, bool win)
     active_state = index;
     if ( index == 1 )
     {
-        auto game_over = std::static_pointer_cast<Game_Over_State>(states[1]);
-        game_over -> set_win( win );
+        std::shared_ptr<Game_Over_State> game_over = std::static_pointer_cast<Game_Over_State>(states[1]);
+        game_over -> set_status( win );
     }
-}
+} 

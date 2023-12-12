@@ -1,3 +1,5 @@
+#pragma once
+
 #include "abstract_game_state.h"
 #include <SFML/Graphics.hpp>
 
@@ -9,9 +11,9 @@ class Game_Over_State : public Abstract_Game_State
     
     void update(double delta_time, sf::RenderWindow& window) override;
     void render(sf::RenderWindow& window) override;
-    void set_win( bool win );
+    void set_status( bool win );
     int get_change() override;
-    void decision_handling(sf::RenderWindow& window);
+    void decision_handling();
 
     private:
     int level_count;
@@ -20,5 +22,8 @@ class Game_Over_State : public Abstract_Game_State
     sf::Font font;
     std::string instructions;
     std::array<sf::Text, 4> text;
+    sf::Vector2f upper_text_size;
+    sf::Vector2f lower_text_size;
+    // sf::RectangleShape test;
     // bool win_or_lose;
 };

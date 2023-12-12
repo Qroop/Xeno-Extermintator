@@ -110,5 +110,5 @@ int Grunt::get_health()
 void Grunt::attack() const
 {
 
-    loaded_enemies->push_back(new Projectile(coordinates, ))
+    // loaded_enemies->push_back(new Projectile(coordinates, ))
 }

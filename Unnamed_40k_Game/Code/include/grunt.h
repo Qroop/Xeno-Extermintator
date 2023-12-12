@@ -11,8 +11,8 @@ class Grunt : public Enemy
     void update(double delta_time) override;
     void move(double delta_time, size_t window_width, size_t window_height) override;
     void attack() const override;
-    bool is_dead() override;
-    void death() override;
+    // bool is_dead() override;
+    // void death() override;
     sf::Vector2f get_lateral_direction() const;
     double get_distance_to_player();
     int get_health();

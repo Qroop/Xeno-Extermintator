@@ -12,7 +12,6 @@ class Player : public Entity
     public:
     Player(sf::Vector2f coordinates,
             sf::Texture& texture,
-            sf::RenderWindow& window,
             int health_points,
             int damage,
             int speed,
@@ -24,10 +23,9 @@ class Player : public Entity
     void update(double delta_time, sf::RenderWindow& window);
     void attack() const override;
     void move(double delta_time, size_t window_width, size_t window_height) override;
-    bool is_dead() override;
-    void death() override;
-    void set_enemies(std::vector<std::shared_ptr<Grunt>>& enemies);
+    void set_health(int hp);
+    // void set_enemies(std::vector<std::shared_ptr<Grunt>>& enemies);
 
     private:
-    std::vector<std::shared_ptr<Grunt>>* loaded_enemies;
+    // std::vector<std::unique_ptr<Enemy>>* loaded_enemies;
 };
