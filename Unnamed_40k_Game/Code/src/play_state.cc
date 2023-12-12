@@ -23,7 +23,7 @@ Play_State::~Play_State()
 {}
 
 // Creates a vector containing all game objects
-void Play_State::load(std::string file_name)
+void Play_State::load(std::string file_name, int window_width, int window_height)
 {
     std::ifstream fs;
     fs.open("../Static/Levels/" + file_name);
@@ -37,7 +37,7 @@ void Play_State::load(std::string file_name)
     std::vector<std::unique_ptr<Enemy>> loaded_enemies;
 
     sf::Vector2f coords{16, 16};
-    loaded.push_back(std::make_unique<Player>(coords, player_texture, 3, 1, 200));
+    loaded.push_back(std::make_unique<Player>(coords, player_texture, 3, 1, 200, window_width, window_height));
     while ( !fs.eof() )
     {
         char character = fs.get();
@@ -52,7 +52,7 @@ void Play_State::load(std::string file_name)
                 coords.x += 32;
                 break;
             case 'X':   // Grunt
-                loaded_enemies.push_back(std::make_unique<Grunt>(coords, grunt_texture, 3, 1, 50, *loaded[0]));
+                loaded_enemies.push_back(std::make_unique<Grunt>(coords, grunt_texture, 3, 1, 50, window_width, window_height,*loaded[0]));
                 coords.x += 32;
                 break;
             case '\n':
@@ -101,14 +101,14 @@ void Play_State::render(sf::RenderWindow& window)
 }
 
 
-void Play_State::update(double delta_time, sf::RenderWindow& window, size_t window_width, size_t window_height)
+void Play_State::update(double delta_time, sf::RenderWindow& window)
 {
     for (auto it = level.begin(); it != level.end(); )
     {
         Player* player = dynamic_cast<Player*>(it->get());
         if (player)
         {
-            player->update(delta_time, window, window_width, window_height);
+            player->update(delta_time, window);
         }
         ++it;
     }
@@ -126,7 +126,7 @@ void Play_State::update(double delta_time, sf::RenderWindow& window, size_t wind
         }
         else
         {
-            (*it)->update(delta_time, window_width, window_height);
+            (*it)->update(delta_time);
             ++it;
         }
     }

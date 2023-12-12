@@ -8,8 +8,8 @@
 #include <iostream>
 
 
-Player::Player(sf::Vector2f coordinates, sf::Texture& texture, int health_points, int damage, int speed)
-    : Entity(coordinates, texture, health_points, damage, speed)
+Player::Player(sf::Vector2f coordinates, sf::Texture& texture, int health_points, int damage, int speed, int window_width, int window_height)
+    : Entity(coordinates, texture, health_points, damage, speed, window_width, window_height)
 {
 
 
@@ -58,11 +58,11 @@ void Player::move(double delta_time, size_t window_width, size_t window_height)
 }
 
 
-void Player::update(double delta_time, sf::RenderWindow& window, size_t window_width, size_t window_height)
+void Player::update(double delta_time, sf::RenderWindow& window)
 {
     sf::Vector2f mouse_position{sf::Mouse::getPosition(window)};
     rotate(mouse_position);
-    move(delta_time, window_width, window_height);
+    move(delta_time, window_size.x, window_size.y);
     hitbox.setPosition(coordinates);
 
     time_since_last_attack += delta_time;

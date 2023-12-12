@@ -16,9 +16,9 @@ class Play_State
     Play_State(Play_State && other) = delete;
     Play_State& operator=(Play_State && other) = delete;
 
-    void load(std::string file_name);
+    void load(std::string file_name, int window_width, int window_height);
     void render(sf::RenderWindow & window);
-    void update(double delta_time, sf::RenderWindow& window, size_t window_width, size_t window_height);
+    void update(double delta_time, sf::RenderWindow& window);
 
     private:
     sf::Texture grunt_texture;

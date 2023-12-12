@@ -1,15 +1,16 @@
+#include "grunt.h"
 #include "standard.h"
 #include "point.h"
 #include "player.h"
-#include "grunt.h"
+#include "projectile.h"
 
 #include <cmath>
 #include <ctime>
 #include <cstdlib>
 #include <random>
 
-Grunt::Grunt(sf::Vector2f coordinates, sf::Texture& texture, int health_points, int damage, int speed, Game_Object& player)
-    : Enemy(coordinates, texture, health_points, damage, speed, player)
+Grunt::Grunt(sf::Vector2f coordinates, sf::Texture& texture, int health_points, int damage, int speed, int window_width, int window_height, Game_Object& player)
+    : Enemy(coordinates, texture, health_points, damage, speed, window_width, window_height, player)
 {
     rotation = 0;
     // Initialize the random number generator seed
@@ -23,7 +24,7 @@ Grunt::Grunt(sf::Vector2f coordinates, sf::Texture& texture, int health_points, 
     // time_since_last_attack = (std::rand() % (max_time_since_attack - min_time_since_attack + 1) + min_time_since_attack);
 
     walk_left = rand() % 2 == 0;
-    rotation_speed = 65;
+    rotation_speed = 50;
 }
 
 Grunt::~Grunt() {}
@@ -38,12 +39,12 @@ double Grunt::get_distance_to_player()
 }
 
 
-void Grunt::update(double delta_time, size_t window_width, size_t window_height)
+void Grunt::update(double delta_time)
 {
     
     sf::Vector2f player_coordinates{player.get_coordinates()};
     rotate(player_coordinates, delta_time);
-    move(delta_time, window_width, window_height);
+    move(delta_time, window_size.x, window_size.y);
     hitbox.setPosition(coordinates);
 
     time_since_last_attack += delta_time;
@@ -54,12 +55,20 @@ void Grunt::update(double delta_time, size_t window_width, size_t window_height)
     {
         attack();
     }
+
+    if(damage_effect_timer.getElapsedTime() < damage_effect_duration)
+    {
+        sprite.setColor(sf::Color(255, 0, 0));
+    }
+    else
+    {
+        sprite.setColor(sf::Color::White);
+    }
 }
 
 
 sf::Vector2f Grunt::get_lateral_direction() const
 {
-    // Get the current lateral direction based on the rotation angle
     double radians = rotation * (M_PI / 180.0);
     return sf::Vector2f(-std::sin(radians), std::cos(radians));
 }
@@ -95,5 +104,8 @@ void Grunt::move(double delta_time, size_t window_width, size_t window_height)
 
 void Grunt::attack() const
 {
+    /*Spawn a projectile object in the enemies vector*/
+    sf::Vector2f projectile_position{coordinates + (sf::Vector2f(attack_distance, 0).rotate(rotation))};
 
+    loaded_enemies->push_back(new Projectile(coordinates, ))
 }

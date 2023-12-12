@@ -6,8 +6,8 @@
 #include <cmath>
 
 
-Enemy::Enemy(sf::Vector2f coordinates, sf::Texture& texture, int health_points, int damage, int speed, Game_Object& player)
-: Entity(coordinates, texture, health_points, damage, speed), player{player}
+Enemy::Enemy(sf::Vector2f coordinates, sf::Texture& texture, int health_points, int damage, int speed, int window_width, int window_height, Game_Object& player)
+: Entity(coordinates, texture, health_points, damage, speed, window_width, window_height), player{dynamic_cast<Entity&> (player)}
 {
     hitbox.setFillColor(sf::Color(100, 250, 50));
 }
