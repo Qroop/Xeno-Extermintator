@@ -49,12 +49,12 @@ sf::Vector2f Player::find_direction() const
 }
 
 
-void Player::move(double delta_time, size_t window_width, size_t window_height)
+void Player::move(double delta_time)
 {
     sf::Vector2f direction = find_direction();
     double distance_to_move{speed * delta_time};
 
-    coordinates = check_boundury_collision(direction, distance_to_move, window_width, window_height);
+    coordinates = check_boundury_collision(direction, distance_to_move, window_size.x, window_size.y);
 }
 
 
@@ -62,7 +62,7 @@ void Player::update(double delta_time, sf::RenderWindow& window)
 {
     sf::Vector2f mouse_position{sf::Mouse::getPosition(window)};
     rotate(mouse_position);
-    move(delta_time, window_size.x, window_size.y);
+    move(delta_time);
     hitbox.setPosition(coordinates);
 
     time_since_last_attack += delta_time;

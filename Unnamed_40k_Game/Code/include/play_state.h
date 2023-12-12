@@ -25,6 +25,7 @@ class Play_State
     sf::Texture player_texture;
     sf::Texture wall_texture;
     sf::Texture dead_grunt_texture;
+    sf::Texture projectile_texture;
 
     std::vector<std::unique_ptr<Game_Object>> level;
     std::vector<std::unique_ptr<Game_Object>> dead_entities;

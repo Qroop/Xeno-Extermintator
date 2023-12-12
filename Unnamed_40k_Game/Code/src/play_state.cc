@@ -17,6 +17,7 @@ Play_State::Play_State()
     player_texture.loadFromFile("../Static/Textures/player_texture.png");
     wall_texture.loadFromFile("../Static/Textures/wall_texture.png");
     dead_grunt_texture.loadFromFile("../Static/Textures/dead_grunt_texture.png");
+    projectile_texture.loadFromFile("../Static/Textures/projectile_texture.png");
 }
 
 Play_State::~Play_State()
@@ -52,7 +53,7 @@ void Play_State::load(std::string file_name, int window_width, int window_height
                 coords.x += 32;
                 break;
             case 'X':   // Grunt
-                loaded_enemies.push_back(std::make_unique<Grunt>(coords, grunt_texture, 3, 1, 50, window_width, window_height,*loaded[0]));
+                loaded_enemies.push_back(std::make_unique<Grunt>(coords, grunt_texture, projectile_texture, 3, 1, 50, window_width, window_height,*loaded[0]));
                 coords.x += 32;
                 break;
             case '\n':

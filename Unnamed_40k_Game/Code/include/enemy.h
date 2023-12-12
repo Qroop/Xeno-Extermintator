@@ -14,6 +14,6 @@ class Enemy : public Entity
     void set_rotation_speed(double new_rotation_speed);
 
     protected:
-    Entity& player;
+    Game_Object& player;
     double rotation_speed;
 };

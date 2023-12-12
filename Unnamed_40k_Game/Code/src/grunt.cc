@@ -8,9 +8,10 @@
 #include <ctime>
 #include <cstdlib>
 #include <random>
+#include <SFML/Graphics.hpp>
 
-Grunt::Grunt(sf::Vector2f coordinates, sf::Texture& texture, int health_points, int damage, int speed, int window_width, int window_height, Game_Object& player)
-    : Enemy(coordinates, texture, health_points, damage, speed, window_width, window_height, player)
+Grunt::Grunt(sf::Vector2f coordinates, sf::Texture& texture, sf::Texture& projectile_texture, int health_points, int damage, int speed, int window_width, int window_height, Game_Object& player)
+    : Enemy(coordinates, texture, health_points, damage, speed, window_width, window_height, player), projectile_texture{projectile_texture}
 {
     rotation = 0;
     // Initialize the random number generator seed
@@ -22,7 +23,7 @@ Grunt::Grunt(sf::Vector2f coordinates, sf::Texture& texture, int health_points, 
     // double max_time_since_attack{1.0};
     // double min_time_since_attack{0.0};
     // time_since_last_attack = (std::rand() % (max_time_since_attack - min_time_since_attack + 1) + min_time_since_attack);
-
+    attack_cooldown = 10;
     walk_left = rand() % 2 == 0;
     rotation_speed = 50;
 }
@@ -44,16 +45,17 @@ void Grunt::update(double delta_time)
     
     sf::Vector2f player_coordinates{player.get_coordinates()};
     rotate(player_coordinates, delta_time);
-    move(delta_time, window_size.x, window_size.y);
+    move(delta_time);
     hitbox.setPosition(coordinates);
 
-    time_since_last_attack += delta_time;
     double desired_rotation = std::atan2(player_coordinates.y - coordinates.y, player_coordinates.x - coordinates.x) * (180.0 / M_PI);
     // std::cerr << "Rotation : " << rotation << " Desired rotation : " << desired_rotation << "\n";
 
+    time_since_last_attack += delta_time;
     if(std::abs(shortest_angular_distance(rotation, desired_rotation)) < 20 && get_distance_to_player() > 80 && can_attack())
     {
         attack();
+        time_since_last_attack = 0;
     }
 
     if(damage_effect_timer.getElapsedTime() < damage_effect_duration)
@@ -74,7 +76,7 @@ sf::Vector2f Grunt::get_lateral_direction() const
 }
 
 
-void Grunt::move(double delta_time, size_t window_width, size_t window_height)
+void Grunt::move(double delta_time)
 {
     double distance_to_move{delta_time * speed};
     double distance_to_player{get_distance_to_player()};
@@ -99,13 +101,23 @@ void Grunt::move(double delta_time, size_t window_width, size_t window_height)
 
         direction = forward_direction + lateral_direction;
     }
-    coordinates = check_boundury_collision(direction, distance_to_move, window_width, window_height);
+    coordinates = check_boundury_collision(direction, distance_to_move, window_size.x, window_size.y);
 }
+
 
 void Grunt::attack() const
 {
     /*Spawn a projectile object in the enemies vector*/
-    sf::Vector2f projectile_position{coordinates + (sf::Vector2f(attack_distance, 0).rotate(rotation))};
+    std::cerr << "Attack!";
 
-    loaded_enemies->push_back(new Projectile(coordinates, ))
+    sf::Vector2f projectile_position{coordinates};
+
+    std::unique_ptr<Enemy> new_projectile = std::make_unique<Projectile>(
+        projectile_position, projectile_texture, 1, 1, 400, window_size.x, window_size.y, player);
+
+    // Projectile new_projectile(projectile_position, projectile_texture, 1, 1, 400, window_size.x, window_size.y, player);
+    new_projectile -> set_enemies(*loaded_enemies);
+
+    loaded_enemies->emplace_back(std::move(new_projectile));
+    //loaded_enemies->emplace_back(new Projectile(projectile_position, projectile_texture, 1, 1, 400, window_size.x, window_size.y, player, loaded_enemies));
 }
