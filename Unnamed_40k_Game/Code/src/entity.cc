@@ -3,12 +3,20 @@
 
 #include <iostream>
 #include <SFML/Window/Mouse.hpp>
+#include <SFML/Graphics.hpp>
 #include <cmath>
 #include <memory>
 
-Entity::Entity(sf::Vector2f coordinates, sf::Texture& texture, sf::RenderWindow& window, int health_points, int damage, int speed)
-: Game_Object(coordinates, texture, window), health_points(health_points), damage(damage), speed(speed) 
+Entity::Entity(sf::Vector2f coordinates, sf::Texture& texture, int health_points, int damage, int speed, int window_width, int window_height)
+: Game_Object(coordinates, texture), health_points(health_points), damage(damage), speed(speed) 
 {
+    int int_window_width = static_cast<int>(window_width);
+    int int_window_height = static_cast<int>(window_height);
+    sf::Vector2i int_window_size(int_window_width, int_window_height);
+    window_size = int_window_size;
+
+    damage_effect_duration = sf::seconds(0.3f);
+
     dead = false;
 }
 
@@ -87,11 +95,16 @@ bool Entity::can_attack() const
 
 void Entity::take_damage(int damage_to_take)
 {
-    std::cerr << "Damage taken: " << damage_to_take << " Health left: " << health_points <<"\n";
+    // std::cerr << "Damage taken: " << damage_to_take << " Health left: " << health_points <<"\n";
     health_points -= damage_to_take;
+
+    sprite.setColor(sf::Color(255, 0, 0));
+
+    damage_effect_timer.restart();
 
     if(health_points <= 0)
     {
+        sprite.setColor(sf::Color::White);
         dead = true;
     }
 }

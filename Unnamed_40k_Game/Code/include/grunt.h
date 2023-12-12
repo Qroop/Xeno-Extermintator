@@ -5,7 +5,7 @@
 class Grunt : public Enemy
 {
     public:
-    Grunt(sf::Vector2f coordinates, sf::Texture& texture, sf::Texture& dead_texture, sf::RenderWindow& window, int health_points, int damage, int speed, Game_Object& player);    
+    Grunt(sf::Vector2f coordinates, sf::Texture& texture, int health_points, int damage, int speed, int window_width, int window_height, Game_Object& player);    
     ~Grunt();
 
     void update(double delta_time) override;

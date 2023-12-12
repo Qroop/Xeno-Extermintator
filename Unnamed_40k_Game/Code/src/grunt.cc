@@ -1,15 +1,16 @@
+#include "grunt.h"
 #include "standard.h"
 #include "point.h"
 #include "player.h"
-#include "grunt.h"
+#include "projectile.h"
 
 #include <cmath>
 #include <ctime>
 #include <cstdlib>
 #include <random>
 
-Grunt::Grunt(sf::Vector2f coordinates, sf::Texture& texture, sf::Texture& dead_texture, sf::RenderWindow& window, int health_points, int damage, int speed, Game_Object& player)
-    : Enemy(coordinates, texture, dead_texture, window, health_points, damage, speed, player)
+Grunt::Grunt(sf::Vector2f coordinates, sf::Texture& texture, int health_points, int damage, int speed, int window_width, int window_height, Game_Object& player)
+    : Enemy(coordinates, texture, health_points, damage, speed, window_width, window_height, player)
 {
     rotation = 0;
     // Initialize the random number generator seed
@@ -23,7 +24,7 @@ Grunt::Grunt(sf::Vector2f coordinates, sf::Texture& texture, sf::Texture& dead_t
     // time_since_last_attack = (std::rand() % (max_time_since_attack - min_time_since_attack + 1) + min_time_since_attack);
 
     walk_left = rand() % 2 == 0;
-    rotation_speed = 65;
+    rotation_speed = 50;
 }
 
 Grunt::~Grunt() {}
@@ -43,7 +44,7 @@ void Grunt::update(double delta_time)
     
     sf::Vector2f player_coordinates{player.get_coordinates()};
     rotate(player_coordinates, delta_time);
-    move(delta_time, window_width, window_height);
+    move(delta_time, window_size.x, window_size.y);
     hitbox.setPosition(coordinates);
 
     time_since_last_attack += delta_time;
@@ -54,16 +55,20 @@ void Grunt::update(double delta_time)
     {
         attack();
     }
-    if ( health_points <= 0 )
+
+    if(damage_effect_timer.getElapsedTime() < damage_effect_duration)
     {
-        death();
+        sprite.setColor(sf::Color(255, 0, 0));
+    }
+    else
+    {
+        sprite.setColor(sf::Color::White);
     }
 }
 
 
 sf::Vector2f Grunt::get_lateral_direction() const
 {
-    // Get the current lateral direction based on the rotation angle
     double radians = rotation * (M_PI / 180.0);
     return sf::Vector2f(-std::sin(radians), std::cos(radians));
 }
@@ -105,18 +110,5 @@ int Grunt::get_health()
 void Grunt::attack() const
 {
 
-}
-
-void Grunt::death()
-{
-    dead = true;
-    set_texture(dead_texture);
-    set_speed(0);
-    set_rotation_speed(0);
-    set_attack_speed(0);
-}
-
-bool Grunt::is_dead()
-{
-    return dead;
+    loaded_enemies->push_back(new Projectile(coordinates, ))
 }

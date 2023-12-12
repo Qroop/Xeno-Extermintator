@@ -21,8 +21,8 @@ int main()
     // window.setKeyRepeatEnabled(true);
     // window.setVerticalSyncEnabled(true);
 
-    // Play_State level{};
-    // level.load("level_1.txt");
+    Play_State level{};
+    level.load("level_1.txt", window_width, window_height);
     
     // sf::Clock clock;
 
@@ -51,20 +51,11 @@ int main()
 
     //     window.clear(white); // Clear the window
 
-    //     level.update(delta_time, window, window_width, window_height);
+        level.update(delta_time, window);
 
     //     level.render(window);
 
-    //     window.display();
-
-    // }
-
-    // Play_State object{};
-    // object.load("level_1.txt");
-    // object.render();
-
-    Game_Engine game;
-    game.run();
-
+        window.display();
+    }
     return 0;
 }

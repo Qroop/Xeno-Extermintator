@@ -5,6 +5,7 @@
 #include <memory>
 
 
+
 class Enemy;
 
 class Entity : public Game_Object
@@ -15,12 +16,13 @@ class Entity : public Game_Object
             sf::RenderWindow& window,
             int health_points = 3,
             int damage = 1,
-            int speed = 1);
+            int speed = 1,
+            int window_width = 1024,
+            int window_height = 1024);
 
     virtual ~Entity() = 0;
 
     void draw(sf::RenderWindow& window) override;
-    // virtual void update(double delta_time, sf::RenderWindow& window, size_t window_width, size_t window_height) = 0;
     virtual void attack() const = 0;
     virtual void move(double delta_time, size_t window_width, size_t window_height) = 0;
     virtual void update(double delta_time) = 0;
@@ -45,5 +47,9 @@ class Entity : public Game_Object
     float attack_distance;
     double attack_cooldown;
     double time_since_last_attack;
-    // std::vector<std::shared_ptr<Grunt>>* loaded_enemies;
+    std::vector<std::unique_ptr<Enemy>>* loaded_enemies;
+    sf::Vector2i window_size;
+
+    sf::Clock damage_effect_timer;
+    sf::Time damage_effect_duration;
 }; 

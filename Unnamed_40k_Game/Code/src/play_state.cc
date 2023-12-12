@@ -24,7 +24,7 @@ Play_State::~Play_State()
 }
 
 // Creates a vector containing all game objects
-void Play_State::load(std::string const& file_name, sf::RenderWindow& window)
+void Play_State::load(std::string file_name, int window_width, int window_height)
 {
     std::ifstream fs;
     fs.open("../Static/Levels/" + file_name);
@@ -38,8 +38,7 @@ void Play_State::load(std::string const& file_name, sf::RenderWindow& window)
     // std::vector<std::shared_ptr<Enemy>> loaded_enemies;
 
     sf::Vector2f coords{16, 16};
-    player_object = std::make_shared<Player>(coords, player_texture, window, 3, 1, 200);
-    loaded.push_back(player_object);
+    loaded.push_back(std::make_unique<Player>(coords, player_texture, 3, 1, 200, window_width, window_height));
     while ( !fs.eof() )
     {
         char character = fs.get();
@@ -54,7 +53,7 @@ void Play_State::load(std::string const& file_name, sf::RenderWindow& window)
                 coords.x += 32;
                 break;
             case 'X':   // Grunt
-                enemies.push_back(std::make_shared<Grunt>(coords, grunt_texture, dead_grunt_texture, window, 3, 1, 50, *loaded[0]));
+                loaded_enemies.push_back(std::make_unique<Grunt>(coords, grunt_texture, 3, 1, 50, window_width, window_height,*loaded[0]));
                 coords.x += 32;
                 break;
             case '\n':
@@ -111,8 +110,7 @@ void Play_State::update(double delta_time, sf::RenderWindow& window)
         i->update(delta_time);
         if ( i -> is_dead() )
         {
-            dead_entities.push_back(i);
-            level.erase(it);
+            player->update(delta_time, window);
         }
         it++;
     }
@@ -122,35 +120,17 @@ void Play_State::update(double delta_time, sf::RenderWindow& window)
         i->update(delta_time);
         if ( i -> is_dead() )
         {
-            dead_entities.push_back(i);
-            enemies.erase(enemy_it);
+            (*it)->set_texture(dead_grunt_texture);
+            (*it)->set_speed(0);
+            (*it)->set_rotation_speed(0);
+            (*it)->set_attack_speed(0);
+            dead_entities.push_back(std::move(*it));
+            it = enemies.erase(it);
         }
-        enemy_it++;
-    }
-}
-
-int Play_State::get_enemy_count()
-{
-    return enemies.size();
-}
-
-bool Play_State::get_player_dead()
-{
-    return player_object -> is_dead();
-}
-
-int Play_State::get_change()
-{
-    if ( get_enemy_count() == 0)
-    {
-        return 1;
-    }
-    else if ( get_player_dead() == true )
-    {
-        return 2;
-    }
-    else
-    {
-        return 0;
+        else
+        {
+            (*it)->update(delta_time);
+            ++it;
+        }
     }
 }

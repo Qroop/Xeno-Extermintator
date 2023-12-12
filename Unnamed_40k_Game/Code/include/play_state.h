@@ -19,12 +19,9 @@ class Play_State : public Abstract_Game_State
     Play_State(Play_State && other) = delete;
     Play_State& operator=(Play_State && other) = delete;
 
-    void load(std::string const& file_name, sf::RenderWindow& window);
-    void render(sf::RenderWindow & window) override;
-    void update(double delta_time, sf::RenderWindow& window) override;
-    int get_enemy_count();
-    bool get_player_dead();
-    int get_change() override;
+    void load(std::string file_name, int window_width, int window_height);
+    void render(sf::RenderWindow & window);
+    void update(double delta_time, sf::RenderWindow& window);
 
     private:
     // int enemy_count;
