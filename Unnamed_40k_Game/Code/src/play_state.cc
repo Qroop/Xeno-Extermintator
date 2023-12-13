@@ -149,6 +149,4 @@ void Play_State::update(double delta_time)
         level.push_back(std::move(*it));
         it = projectiles_to_add.erase(it);
     }
-
-    //std::cerr << "Amount of enemies in the vector: " << enemies.size() << "\n";
 }
