@@ -1,8 +1,10 @@
 #include "game_object.h"
-#include <SFML/Graphics.hpp>
 
-Game_Object::Game_Object(sf::Vector2f coordinates, sf::Texture& texture)
-: coordinates{coordinates}, texture{&texture}
+#include <SFML/Graphics.hpp>
+#include <math.h>
+
+Game_Object::Game_Object(sf::Vector2f coordinates, sf::Texture& texture, sf::RenderWindow& window)
+: coordinates{coordinates}, texture{texture}, window{window}
 {
     width = 32;
     height = 32;
@@ -51,7 +53,7 @@ void Game_Object::set_coordinates(sf::Vector2f set_coordinates)
 }
 
 
-void Game_Object::draw(sf::RenderWindow& window)
+void Game_Object::draw()
 {
     hitbox.setPosition(coordinates);
     window.draw(sprite);
@@ -62,3 +64,13 @@ sf::FloatRect Game_Object::get_global_bounds() const
 {
     return hitbox.getGlobalBounds();
 }
+
+// sf::Vector2f Game_Object::rotate_vector(sf::Vector2f to_rotate, float angle_degrees) const
+// {
+//     float angle_radians = angle_degrees * (M_PI / 180.0f);
+
+//     float new_x = to_rotate.x * cos(angle_radians) - to_rotate.y * sin(angle_radians);
+//     float new_y = to_rotate.x * sin(angle_radians) + to_rotate.y * cos(angle_radians);
+
+//     return sf::Vector2f(new_x, new_y);
+// }

@@ -8,21 +8,26 @@
 #include <ctime>
 #include <cstdlib>
 #include <random>
+#include <SFML/Graphics.hpp>
 
-Grunt::Grunt(sf::Vector2f coordinates, sf::Texture& texture, int health_points, int damage, int speed, int window_width, int window_height, Game_Object& player)
-    : Enemy(coordinates, texture, health_points, damage, speed, window_width, window_height, player)
+Grunt::Grunt(sf::Vector2f coordinates, 
+        sf::Texture& texture,
+        sf::RenderWindow& window, 
+        sf::Texture& projectile_texture,
+        int health_points, int damage, int speed,
+        Game_Object& player,
+        double rotation)
+    : Enemy(coordinates, texture, window, health_points, damage, speed, player, rotation), projectile_texture{projectile_texture}
 {
     rotation = 0;
     // Initialize the random number generator seed
     srand(coordinates.x);
-    int max_distance{350};
-    int min_distance{250};
+    int max_distance{500};
+    int min_distance{350};
     distance_to_keep = (std::rand() % (max_distance - min_distance + 1) + min_distance);
     
-    // double max_time_since_attack{1.0};
-    // double min_time_since_attack{0.0};
-    // time_since_last_attack = (std::rand() % (max_time_since_attack - min_time_since_attack + 1) + min_time_since_attack);
-
+    time_since_last_attack = 0;
+    attack_cooldown = 3;
     walk_left = rand() % 2 == 0;
     rotation_speed = 50;
 }
@@ -44,16 +49,17 @@ void Grunt::update(double delta_time)
     
     sf::Vector2f player_coordinates{player.get_coordinates()};
     rotate(player_coordinates, delta_time);
-    move(delta_time, window_size.x, window_size.y);
+    move(delta_time);
     hitbox.setPosition(coordinates);
 
-    time_since_last_attack += delta_time;
     double desired_rotation = std::atan2(player_coordinates.y - coordinates.y, player_coordinates.x - coordinates.x) * (180.0 / M_PI);
     // std::cerr << "Rotation : " << rotation << " Desired rotation : " << desired_rotation << "\n";
 
+    time_since_last_attack += delta_time;
     if(std::abs(shortest_angular_distance(rotation, desired_rotation)) < 20 && get_distance_to_player() > 80 && can_attack())
     {
         attack();
+        time_since_last_attack = 0;
     }
 
     if(damage_effect_timer.getElapsedTime() < damage_effect_duration)
@@ -74,7 +80,7 @@ sf::Vector2f Grunt::get_lateral_direction() const
 }
 
 
-void Grunt::move(double delta_time, size_t window_width, size_t window_height)
+void Grunt::move(double delta_time)
 {
     double distance_to_move{delta_time * speed};
     double distance_to_player{get_distance_to_player()};
@@ -99,16 +105,37 @@ void Grunt::move(double delta_time, size_t window_width, size_t window_height)
 
         direction = forward_direction + lateral_direction;
     }
-    coordinates = check_boundury_collision(direction, distance_to_move, window_width, window_height);
+    coordinates = check_boundury_collision(direction, distance_to_move, window_size.x, window_size.y);
 }
 
-int Grunt::get_health()
-{
-    return health_points;
-}
 
 void Grunt::attack() const
 {
+    /*Spawn a projectile object in an enemies to add vector*/
+    if(!loaded_enemies)
+    {
+        std::cerr << "Error: Loaded enemies is nullptr\n";
+        return;
+    }
 
-    // loaded_enemies->push_back(new Projectile(coordinates, ))
+    auto new_projectile = std::make_shared<Projectile>(coordinates, projectile_texture, window, 1, 1, 200, player, rotation);
+
+    new_projectile -> set_enemies(*loaded_enemies);
+
+    if(!loaded_enemies)
+    {
+        std::cerr << "Error: Loaded enemies pointer is nullptr";
+    }
+    loaded_enemies->push_back(new_projectile);
+
+    // std::cout << "Amount of enemies in the vector: " << loaded_enemies->size() << std::endl;
+}
+
+
+void Grunt::kill_entity(sf::Texture& dead_texture)
+{
+    set_texture(dead_texture);
+    set_speed(0);
+    set_rotation_speed(0);
+    set_attack_speed(0);
 }

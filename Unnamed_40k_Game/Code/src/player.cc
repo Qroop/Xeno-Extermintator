@@ -8,11 +8,9 @@
 #include <iostream>
 
 
-Player::Player(sf::Vector2f coordinates, sf::Texture& texture, int health_points, int damage, int speed, int window_width, int window_height)
-    : Entity(coordinates, texture, health_points, damage, speed, window_width, window_height)
+Player::Player(sf::Vector2f coordinates, sf::Texture& texture, sf::RenderWindow& window, int health_points, int damage, int speed, double rotation)
+    : Entity(coordinates, texture, window, health_points, damage, speed, rotation)
 {
-
-
     texture_scale = 3;
     width = width * texture_scale / 2;
     height = height * texture_scale / 2;
@@ -30,10 +28,7 @@ Player::Player(sf::Vector2f coordinates, sf::Texture& texture, int health_points
 }
 
 
-Player::~Player() 
-{
-    // loaded_enemies = nullptr;
-}
+Player::~Player() {}
 
 
 sf::Vector2f Player::find_direction() const
@@ -52,20 +47,20 @@ sf::Vector2f Player::find_direction() const
 }
 
 
-void Player::move(double delta_time, size_t window_width, size_t window_height)
+void Player::move(double delta_time)
 {
     sf::Vector2f direction = find_direction();
     double distance_to_move{speed * delta_time};
 
-    coordinates = check_boundury_collision(direction, distance_to_move, window_width, window_height);
+    coordinates = check_boundury_collision(direction, distance_to_move, window_size.x, window_size.y);
 }
 
 
-void Player::update(double delta_time, sf::RenderWindow& window)
+void Player::update(double delta_time)
 {
     sf::Vector2f mouse_position{sf::Mouse::getPosition(window)};
     rotate(mouse_position);
-    move(delta_time, window_size.x, window_size.y);
+    move(delta_time);
     hitbox.setPosition(coordinates);
 
     time_since_last_attack += delta_time;
@@ -87,14 +82,14 @@ void Player::attack() const
     sf::Vector2f hitbox_position = coordinates;
 
     sf::RectangleShape attack_hitbox;
-    float hitbox_width{attack_distance};
-    float hitbox_height{static_cast<float>(width)};
-    sf::Vector2f size{hitbox_width, hitbox_height};
+    float hitbox_height{attack_distance};
+    float hitbox_width{static_cast<float>(width)};
+    sf::Vector2f size{hitbox_height, hitbox_width};
 
     attack_hitbox.setPosition(hitbox_position);
     attack_hitbox.setRotation(rotation);
     attack_hitbox.setFillColor(sf::Color::Black);
-    attack_hitbox.setOrigin(0, hitbox_height / 2);
+    attack_hitbox.setOrigin(-width / 2, hitbox_width / 2);
     attack_hitbox.setSize(size);
 
     if (loaded_enemies)
@@ -107,15 +102,8 @@ void Player::attack() const
             if (enemy_bounds.intersects(attack_bounds))
             {
                 (*it) -> take_damage(damage);
-
             }
         }
     }
-
-    // window.draw(attack_hitbox);
+    window.draw(attack_hitbox);
 }
-
-// void Player::set_enemies(std::vector<std::shared_ptr<Grunt>>& enemies)
-// {
-//     loaded_enemies = &enemies;
-// }

@@ -2,8 +2,8 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
-Wall::Wall(sf::Vector2f coordinates, sf::Texture& texture)
-: Game_Object(coordinates, texture)
+Wall::Wall(sf::Vector2f coordinates, sf::Texture& texture, sf::RenderWindow& window)
+: Game_Object(coordinates, texture, window)
 {
     hitbox.setSize(sf::Vector2f(width, height));
     hitbox.setPosition(coordinates);
