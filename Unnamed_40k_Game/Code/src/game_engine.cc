@@ -33,15 +33,15 @@ void Game_Engine::run()
         window.setVerticalSyncEnabled(true);
 
         std::array<std::string, 3> levels = {"level_1.txt", "level_2.txt", "level_3.txt"};
-        states[0] = std::make_shared<Play_State> ();
+        states[0] = std::make_shared<Play_State> (window);
         // std::cerr << "we trynna get in bby";
-        states[1] = std::make_shared<Game_Over_State> ( levels.size() );
-        std::shared_ptr<Play_State> current_level = std::static_pointer_cast<Play_State>( states[0] );
+        states[1] = std::make_shared<Game_Over_State> (window, levels.size() );
+        std::shared_ptr<Play_State> current_level = std::static_pointer_cast<Play_State>(states[0]);
         sf::Clock clock;
 
         for (std::string & current_map : levels)
         {
-            current_level -> load(current_map, window.getSize().x, window.getSize().y);
+            current_level -> load(current_map);
             sf::Event event;
             if ( running )
             {
@@ -56,7 +56,6 @@ void Game_Engine::run()
         }
     }
 }
-
 
 int Game_Engine::while_running(sf::Event & event, 
                                 sf::RenderWindow & window, 
@@ -107,9 +106,13 @@ int Game_Engine::while_running(sf::Event & event,
         double delta_time{clock.restart().asSeconds()};
 
         //updates the window
-        states[active_state] -> update(delta_time, window);
-        window.clear();
-        states[active_state] -> render(window);
+        states[active_state] -> update(delta_time);
+        
+        sf::Color grey(150, 150, 150);
+        window.clear(grey);
+
+        states[active_state] -> render();
+
         window.display();
         if ( active_state == 0 && states[active_state] -> get_change() == 1)
         {

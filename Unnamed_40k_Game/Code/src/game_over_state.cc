@@ -2,8 +2,8 @@
 #include "standard.h"
 #include <cmath>
 
-Game_Over_State::Game_Over_State(int level_count)
-: level_count{level_count}
+Game_Over_State::Game_Over_State(sf::RenderWindow& window ,int level_count)
+: Abstract_Game_State{window}, level_count{level_count}
 {
     if (!font.loadFromFile("../Static/Textures/arial.ttf") )
     {
@@ -28,14 +28,14 @@ Game_Over_State::Game_Over_State(int level_count)
 Game_Over_State::~Game_Over_State()
 {}
 
-void Game_Over_State::update(double delta_time, sf::RenderWindow& window)
+void Game_Over_State::update(double delta_time)
 {
     window.clear();
 
     decision_handling();
 }
 
-void Game_Over_State::render(sf::RenderWindow& window)
+void Game_Over_State::render()
 {
     window.draw( text[decision-1] );
     // cout << text[decision-1].getPosition().y << text[decision-1].getPosition().x << endl;

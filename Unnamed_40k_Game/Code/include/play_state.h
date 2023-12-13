@@ -12,16 +12,16 @@
 class Play_State : public Abstract_Game_State
 {
     public:
-    Play_State();
+    Play_State(sf::RenderWindow& window);
     ~Play_State();
     Play_State(Play_State & other) = delete;
     Play_State& operator=(Play_State & other) = delete;
     Play_State(Play_State && other) = delete;
     Play_State& operator=(Play_State && other) = delete;
 
-    void load(std::string file_name, int window_width, int window_height);
-    void render(sf::RenderWindow & window);
-    void update(double delta_time, sf::RenderWindow& window);
+    void load(std::string file_name);
+    void render();
+    void update(double delta_time) override;
     int get_enemy_count();
     bool get_player_dead();
     void set_player_dead();
@@ -35,10 +35,14 @@ class Play_State : public Abstract_Game_State
     sf::Texture player_texture;
     sf::Texture wall_texture;
     sf::Texture dead_grunt_texture;
+    sf::Texture projectile_texture;
+    sf::Texture dead_projectile_texture;
+    sf::Texture fire_texture;
 
     std::vector<std::shared_ptr<Game_Object>> level;
     std::vector<std::shared_ptr<Game_Object>> dead_entities;
     std::vector<std::shared_ptr<Enemy>> enemies;
+    std::vector<std::shared_ptr<Enemy>> projectiles_to_add;
 
-    std::shared_ptr<Player> player_object;
+    std::shared_ptr<Player> player_pointer;
 };

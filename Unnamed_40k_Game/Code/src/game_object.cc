@@ -1,12 +1,13 @@
 #include "game_object.h"
-#include <SFML/Graphics.hpp>
 
-Game_Object::Game_Object(sf::Vector2f coordinates, sf::Texture& texture)
-: coordinates{coordinates}, texture{&texture}
+#include <SFML/Graphics.hpp>
+#include <math.h>
+
+Game_Object::Game_Object(sf::Vector2f coordinates, sf::Texture& texture, sf::RenderWindow& window)
+: coordinates{coordinates}, texture{texture}, window{window}
 {
     width = 32;
     height = 32;
-    dead = false;
     
     // Set up the hitbox
     hitbox.setSize(sf::Vector2f(width, height));
@@ -51,7 +52,7 @@ void Game_Object::set_coordinates(sf::Vector2f set_coordinates)
 }
 
 
-void Game_Object::draw(sf::RenderWindow& window)
+void Game_Object::draw()
 {
     hitbox.setPosition(coordinates);
     window.draw(sprite);
@@ -61,4 +62,21 @@ void Game_Object::draw(sf::RenderWindow& window)
 sf::FloatRect Game_Object::get_global_bounds() const
 {
     return hitbox.getGlobalBounds();
+}
+
+
+void Game_Object::set_width(double new_width)
+{
+    width = new_width;
+    hitbox.setSize(sf::Vector2f(width, height));
+    hitbox.setOrigin(sf::Vector2f(width / 2, height / 2));   
+}
+
+
+void Game_Object::set_height(double new_height)
+{
+    height = new_height;
+    hitbox.setSize(sf::Vector2f(width, height));
+    hitbox.setOrigin(sf::Vector2f(width / 2, height / 2));
+    // std::cerr << "Height: " << height << "\n";
 }

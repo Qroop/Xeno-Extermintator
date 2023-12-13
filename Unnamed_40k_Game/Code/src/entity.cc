@@ -1,17 +1,20 @@
 #include "entity.h"
+#include "enemy.h"
 #include "grunt.h"
 
 #include <iostream>
 #include <SFML/Window/Mouse.hpp>
 #include <SFML/Graphics.hpp>
 #include <cmath>
+#include <string>
+#include <memory>
 #include <memory>
 
-Entity::Entity(sf::Vector2f coordinates, sf::Texture& texture, int health_points, int damage, int speed, int window_width, int window_height)
-: Game_Object(coordinates, texture), health_points(health_points), damage(damage), speed(speed) 
+Entity::Entity(sf::Vector2f coordinates, sf::Texture& texture, sf::RenderWindow& window, int health_points, int damage, int speed, double rotation)
+: Game_Object(coordinates, texture, window), health_points(health_points), damage(damage), speed(speed), loaded_enemies(nullptr), rotation(rotation)
 {
-    int int_window_width = static_cast<int>(window_width);
-    int int_window_height = static_cast<int>(window_height);
+    int int_window_width = window.getSize().x;
+    int int_window_height = window.getSize().y;
     sf::Vector2i int_window_size(int_window_width, int_window_height);
     window_size = int_window_size;
 
@@ -30,20 +33,20 @@ Entity::~Entity()
 void Entity::rotate(sf::Vector2f& direction)
 {
     float angle = std::atan2(direction.y - coordinates.y, direction.x - coordinates.x);
-    angle = angle * 180 /  3.14159265;
+    angle = angle * 180 /  M_PI;
 
     rotation = angle;
 }
 
 
-void Entity::draw(sf::RenderWindow& window)
+void Entity::draw()
 {
     // Set the position and rotation when initializing the sprite
     sprite.setPosition(coordinates);
     sprite.setRotation(rotation + 90.0);
 
     // Draw the sprite
-    //window.draw(hitbox);
+    window.draw(hitbox);
     window.draw(sprite);
 }
 
@@ -112,4 +115,23 @@ void Entity::take_damage(int damage_to_take)
 void Entity::set_enemies(std::vector<std::shared_ptr<Enemy>>& enemies)
 {
     loaded_enemies = &enemies;
+    // std::cout << "Set enemies for Entity: " << this << "\n";
+}
+
+std::string Entity::check_set_enemies() const
+{
+    std::string error_message{};
+    if(loaded_enemies -> empty())
+    {
+        error_message += "loaded_enemies is empty\n";
+    }
+    if(!loaded_enemies)
+    {
+        error_message += "loaded_enemies pointer is nullptr\n";
+    }
+    else
+    {
+        return "No errors\n";
+    }
+    return error_message;
 }
