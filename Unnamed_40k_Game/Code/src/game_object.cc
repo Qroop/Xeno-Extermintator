@@ -78,5 +78,4 @@ void Game_Object::set_height(double new_height)
     height = new_height;
     hitbox.setSize(sf::Vector2f(width, height));
     hitbox.setOrigin(sf::Vector2f(width / 2, height / 2));
-    // std::cerr << "Height: " << height << "\n";
 }
