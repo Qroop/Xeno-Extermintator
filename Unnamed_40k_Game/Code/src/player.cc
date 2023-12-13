@@ -102,3 +102,10 @@ void Player::attack() const
         }
     }
 }
+
+
+void Player::kill_entity(sf::Texture& dead_texture)
+{
+    set_texture(dead_texture);
+    std::cout << "Player died" << 
+}

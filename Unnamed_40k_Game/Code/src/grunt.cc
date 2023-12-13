@@ -10,7 +10,12 @@
 #include <random>
 #include <SFML/Graphics.hpp>
 
-Grunt::Grunt(sf::Vector2f coordinates, sf::Texture& texture, sf::Texture& projectile_texture, int health_points, int damage, int speed, int window_width, int window_height, Game_Object& player)
+Grunt::Grunt(sf::Vector2f coordinates, 
+        sf::Texture& texture, 
+        sf::Texture& projectile_texture,
+        int health_points, int damage, int speed, 
+        int window_width, int window_height, 
+        Game_Object& player)
     : Enemy(coordinates, texture, health_points, damage, speed, window_width, window_height, player), projectile_texture{projectile_texture}
 {
     rotation = 0;
@@ -107,7 +112,7 @@ void Grunt::move(double delta_time)
 
 void Grunt::attack() const
 {
-    /*Spawn a projectile object in the enemies vector*/
+    /*Spawn a projectile object in an enemies to add vector*/
     if(!loaded_enemies)
     {
         std::cerr << "Error: Loaded enemies is nullptr\n";
@@ -125,7 +130,16 @@ void Grunt::attack() const
     {
         std::cerr << "Error: Loaded enemies pointer is nullptr";
     }
-    loaded_enemies->emplace_back(new_projectile);
+    loaded_enemies->push_back(new_projectile);
 
-    std::cout << "Amount of enemies in the vector: " << loaded_enemies->size() << std::endl;
+    // std::cout << "Amount of enemies in the vector: " << loaded_enemies->size() << std::endl;
+}
+
+
+void Grunt::kill_entity(sf::Texture& dead_texture)
+{
+    set_texture(dead_texture);
+    set_speed(0);
+    set_rotation_speed(0);
+    set_attack_speed(0);
 }

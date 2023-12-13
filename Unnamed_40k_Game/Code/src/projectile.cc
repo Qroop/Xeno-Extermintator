@@ -33,7 +33,7 @@ void Projectile::move(double delta_time)
     std::cout << delta_time << std::endl;
 }
 
-void Projectile::set_enemies(std::vector<std::shared_ptr<Enemy>>& enemies)
-{
-    loaded_enemies = std::make_shared<std::vector<std::shared_ptr<Enemy>>>(enemies);
-}
+// void Projectile::set_enemies(std::vector<std::shared_ptr<Enemy>>& enemies)
+// {
+//     loaded_enemies = std::make_shared<std::vector<std::shared_ptr<Enemy>>>(enemies);
+// }

@@ -33,8 +33,9 @@ class Entity : public Game_Object
     void set_attack_speed(double new_speed);
     bool can_attack() const;
     void take_damage(int damage_to_take);
-    void set_enemies(std::vector<std::shared_ptr<Enemy>> enemies);
+    void set_enemies(std::vector<std::shared_ptr<Enemy>>& enemies);
     std::string check_set_enemies() const;
+    virtual void kill_entity(sf::Texture& dead_texture) = 0;
 
 
     protected:

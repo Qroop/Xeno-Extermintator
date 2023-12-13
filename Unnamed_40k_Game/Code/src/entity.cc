@@ -110,9 +110,9 @@ void Entity::take_damage(int damage_to_take)
     }
 }
 
-void Entity::set_enemies(std::vector<std::shared_ptr<Enemy>> enemies)
+void Entity::set_enemies(std::vector<std::shared_ptr<Enemy>>& enemies)
 {
-    loaded_enemies = <std::vector<std::shared_ptr<Enemy>>>(std::move(enemies));
+    loaded_enemies = &enemies;
     std::cout << "Set enemies for Entity: " << this << "\n";
 }
 

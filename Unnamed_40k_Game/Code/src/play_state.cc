@@ -18,6 +18,7 @@ Play_State::Play_State()
     wall_texture.loadFromFile("../Static/Textures/wall_texture.png");
     dead_grunt_texture.loadFromFile("../Static/Textures/dead_grunt_texture.png");
     projectile_texture.loadFromFile("../Static/Textures/projectile_texture.png");
+    dead_projectile_texture.loadFromFile("../Static/Textures/dead_projectile_texture.png");
 }
 
 Play_State::~Play_State()
@@ -53,9 +54,13 @@ void Play_State::load(std::string file_name, int window_width, int window_height
                 coords.x += 32;
                 break;
             case 'X':   // Grunt
-                loaded_enemies.push_back(std::make_shared<Grunt>(coords, grunt_texture, projectile_texture, 3, 1, 50, window_width, window_height,*loaded[0]));
+            {
+                auto grunt = std::make_shared<Grunt>(coords, grunt_texture, projectile_texture, 3, 1, 50, window_width, window_height,*loaded[0]);
+                loaded.push_back(grunt);
+                loaded_enemies.push_back(grunt);
                 coords.x += 32;
                 break;
+            }
             case '\n':
                 coords.y += 32;
                 coords.x = 16;
@@ -77,7 +82,7 @@ void Play_State::load(std::string file_name, int window_width, int window_height
 
     for (auto& enemy : loaded_enemies)
     {
-        enemy->set_enemies(loaded_enemies);
+        enemy->set_enemies(projectiles_to_add);
         std::cerr << "Enemy: " << enemy -> check_set_enemies();
     }
 
@@ -96,10 +101,6 @@ void Play_State::render(sf::RenderWindow& window)
     {
         curr_object->draw(window);
     }
-    for (const auto& current_enemy : enemies)
-    {
-        current_enemy -> draw(window);
-    }
 }
 
 
@@ -108,9 +109,23 @@ void Play_State::update(double delta_time, sf::RenderWindow& window)
     for (auto it = level.begin(); it != level.end(); )
     {
         Player* player = dynamic_cast<Player*>(it->get());
+        Grunt* grunt = dynamic_cast<Grunt*>(it->get());
         if (player)
         {
             player->update(delta_time, window);
+        }
+        if(grunt)
+        {
+            if(grunt -> is_dead())
+            {
+                grunt->kill_entity(dead_grunt_texture);
+                dead_entities.push_back(std::move(*it));
+                level.erase(it);
+            }
+            else
+            {
+                grunt->update(delta_time);
+            }
         }
         ++it;
     }
@@ -119,18 +134,19 @@ void Play_State::update(double delta_time, sf::RenderWindow& window)
     {
         if ((*it)->is_dead())
         {
-            (*it)->set_texture(dead_grunt_texture);
-            (*it)->set_speed(0);
-            (*it)->set_rotation_speed(0);
-            (*it)->set_attack_speed(0);
-            dead_entities.push_back(std::move(*it));
             it = enemies.erase(it);
         }
         else
         {
-            (*it)->update(delta_time);
             ++it;
         }
     }
-    //std::cerr << "Amount of enemies in the vector: " << enemies.size() << "\n";
+
+    for (auto it = projectiles_to_add.begin(); it != projectiles_to_add.end(); )
+    {
+        level.push_back(std::move(*it));
+        it = projectiles_to_add.erase(it);
+    }
+
+    std::cerr << "Amount of enemies in the vector: " << enemies.size() << "\n";
 }

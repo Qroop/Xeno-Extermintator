@@ -22,4 +22,5 @@ class Player : public Entity
     void update(double delta_time, sf::RenderWindow& window);
     void attack() const override;
     void move(double delta_time) override;
+    void kill_entity(sf::Texture& dead_texture) override;
 };
