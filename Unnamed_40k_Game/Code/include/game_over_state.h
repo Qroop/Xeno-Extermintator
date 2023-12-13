@@ -6,11 +6,11 @@
 class Game_Over_State : public Abstract_Game_State
 {
     public:
-    Game_Over_State(int level_count);
+    Game_Over_State(sf::RenderWindow& window, int level_count);
     ~Game_Over_State();
     
-    void update(double delta_time, sf::RenderWindow& window) override;
-    void render(sf::RenderWindow& window) override;
+    void update(double delta_time) override;
+    void render() override;
     void set_status( bool win );
     int get_change() override;
     void decision_handling();

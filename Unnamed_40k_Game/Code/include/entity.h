@@ -44,7 +44,7 @@ class Entity : public Game_Object
     int damage;
     int speed;
     float texture_scale;
-    
+    bool dead;
     float attack_distance;
     double attack_cooldown;
     double time_since_last_attack;

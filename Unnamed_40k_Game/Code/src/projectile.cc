@@ -26,6 +26,7 @@ void Projectile::update(double delta_time)
 {
     move(delta_time);
     rotation += rotation_speed;
+    hitbox.setPosition(coordinates);
 }
 
 void Projectile::attack() const

@@ -46,7 +46,7 @@ void Entity::draw()
     sprite.setRotation(rotation + 90.0);
 
     // Draw the sprite
-    //window.draw(hitbox);
+    window.draw(hitbox);
     window.draw(sprite);
 }
 

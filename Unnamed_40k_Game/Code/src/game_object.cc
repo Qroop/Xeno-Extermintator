@@ -8,7 +8,6 @@ Game_Object::Game_Object(sf::Vector2f coordinates, sf::Texture& texture, sf::Ren
 {
     width = 32;
     height = 32;
-    dead = false;
     
     // Set up the hitbox
     hitbox.setSize(sf::Vector2f(width, height));
@@ -65,12 +64,19 @@ sf::FloatRect Game_Object::get_global_bounds() const
     return hitbox.getGlobalBounds();
 }
 
-// sf::Vector2f Game_Object::rotate_vector(sf::Vector2f to_rotate, float angle_degrees) const
-// {
-//     float angle_radians = angle_degrees * (M_PI / 180.0f);
 
-//     float new_x = to_rotate.x * cos(angle_radians) - to_rotate.y * sin(angle_radians);
-//     float new_y = to_rotate.x * sin(angle_radians) + to_rotate.y * cos(angle_radians);
+void Game_Object::set_width(double new_width)
+{
+    width = new_width;
+    hitbox.setSize(sf::Vector2f(width, height));
+    hitbox.setOrigin(sf::Vector2f(width / 2, height / 2));   
+}
 
-//     return sf::Vector2f(new_x, new_y);
-// }
+
+void Game_Object::set_height(double new_height)
+{
+    height = new_height;
+    hitbox.setSize(sf::Vector2f(width, height));
+    hitbox.setOrigin(sf::Vector2f(width / 2, height / 2));
+    // std::cerr << "Height: " << height << "\n";
+}

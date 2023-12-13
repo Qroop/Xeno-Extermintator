@@ -8,8 +8,8 @@
 #include <iostream>
 
 
-Player::Player(sf::Vector2f coordinates, sf::Texture& texture, sf::RenderWindow& window, int health_points, int damage, int speed, double rotation)
-    : Entity(coordinates, texture, window, health_points, damage, speed, rotation)
+Player::Player(sf::Vector2f coordinates, sf::Texture& texture, sf::RenderWindow& window, int health_points, int damage, int speed, sf::Texture& fire_texture, double rotation)
+    : Entity(coordinates, texture, window, health_points, damage, speed, rotation), fire_texture(fire_texture)
 {
     texture_scale = 3;
     width = width * texture_scale / 2;
@@ -91,6 +91,7 @@ void Player::attack() const
     attack_hitbox.setFillColor(sf::Color::Black);
     attack_hitbox.setOrigin(-width / 2, hitbox_width / 2);
     attack_hitbox.setSize(size);
+    attack_hitbox.setTexture(&fire_texture);
 
     if (loaded_enemies)
     {
@@ -106,4 +107,11 @@ void Player::attack() const
         }
     }
     window.draw(attack_hitbox);
+}
+
+
+void Player::kill_entity(sf::Texture& dead_texture)
+{
+    set_texture(dead_texture);
+    dead = true;
 }

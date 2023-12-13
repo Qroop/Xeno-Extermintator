@@ -18,6 +18,8 @@ class Game_Object
     void set_coordinates(sf::Vector2f set_coordinates);
     double get_height() const;
     double get_width() const;
+    void set_width(double new_width);
+    void set_height(double new_height);
     virtual void draw();
     sf::FloatRect get_global_bounds() const;
     sf::Vector2f rotate_vector(sf::Vector2f to_rotate, float angle_degrees) const;

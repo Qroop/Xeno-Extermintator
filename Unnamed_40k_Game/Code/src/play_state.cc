@@ -12,7 +12,7 @@
 
 
 Play_State::Play_State(sf::RenderWindow& window)
-: level{}, window{window}
+: Abstract_Game_State{window}, level{}
 {
     grunt_texture.loadFromFile("../Static/Textures/grunt_texture.png");
     player_texture.loadFromFile("../Static/Textures/player_texture.png");
@@ -20,6 +20,7 @@ Play_State::Play_State(sf::RenderWindow& window)
     dead_grunt_texture.loadFromFile("../Static/Textures/dead_grunt_texture.png");
     projectile_texture.loadFromFile("../Static/Textures/projectile_texture.png");
     dead_projectile_texture.loadFromFile("../Static/Textures/dead_projectile_texture.png");
+    fire_texture.loadFromFile("../Static/Textures/fire.png");
 }
 
 Play_State::~Play_State()
@@ -38,12 +39,17 @@ void Play_State::load(std::string file_name)
         std::cerr << "Error: no file with such name";
     }
     
+    if(!dead_entities.empty())
+    {
+        dead_entities.clear();
+    }
+
     std::vector<std::shared_ptr<Game_Object>> loaded;
     std::vector<std::shared_ptr<Enemy>> loaded_enemies;
 
     sf::Vector2f coords{16, 16};
-    player_object = std::make_unique<Player>(coords, player_texture, 3, 1, 200, window_width, window_height);
-    loaded.push_back(player_object);
+    player_pointer = std::make_unique<Player>(coords, player_texture, window, 3, 1, 200, fire_texture);
+    loaded.push_back(player_pointer);
     while ( !fs.eof() )
     {
         char character = fs.get();
@@ -164,7 +170,7 @@ int Play_State::get_enemy_count()
 
 bool Play_State::get_player_dead()
 {
-    return player_object -> is_dead();
+    return player_pointer -> is_dead();
 }
 
 int Play_State::get_change()
@@ -185,5 +191,5 @@ int Play_State::get_change()
 
 void Play_State::set_player_dead()
 {
-    player_object -> take_damage(100000);
+    player_pointer -> take_damage(100000);
 }

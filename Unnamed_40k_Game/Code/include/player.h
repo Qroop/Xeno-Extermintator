@@ -16,6 +16,7 @@ class Player : public Entity
             int health_points,
             int damage,
             int speed,
+            sf::Texture& fire_texture,
             double rotation = 0);
     ~Player();
     
@@ -25,4 +26,7 @@ class Player : public Entity
     void move(double delta_time) override;
     void kill_entity(sf::Texture& dead_texture) override;
     void set_health(int hp);
+
+    private:
+    sf::Texture& fire_texture;
 };

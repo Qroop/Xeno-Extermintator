@@ -121,6 +121,8 @@ void Grunt::attack() const
     auto new_projectile = std::make_shared<Projectile>(coordinates, projectile_texture, window, 1, 1, 200, player, rotation);
 
     new_projectile -> set_enemies(*loaded_enemies);
+    new_projectile -> set_height(16);
+    new_projectile -> set_width(16);
 
     if(!loaded_enemies)
     {
