@@ -8,8 +8,8 @@
 #include <iostream>
 
 
-Player::Player(sf::Vector2f coordinates, sf::Texture& texture, int health_points, int damage, int speed, int window_width, int window_height)
-    : Entity(coordinates, texture, health_points, damage, speed, window_width, window_height)
+Player::Player(sf::Vector2f coordinates, sf::Texture& texture, sf::RenderWindow& window, int health_points, int damage, int speed, double rotation)
+    : Entity(coordinates, texture, window, health_points, damage, speed, rotation)
 {
     texture_scale = 3;
     width = width * texture_scale / 2;
@@ -56,7 +56,7 @@ void Player::move(double delta_time)
 }
 
 
-void Player::update(double delta_time, sf::RenderWindow& window)
+void Player::update(double delta_time)
 {
     sf::Vector2f mouse_position{sf::Mouse::getPosition(window)};
     rotate(mouse_position);
@@ -77,14 +77,14 @@ void Player::attack() const
     sf::Vector2f hitbox_position = coordinates;
 
     sf::RectangleShape attack_hitbox;
-    float hitbox_width{attack_distance};
-    float hitbox_height{static_cast<float>(width)};
-    sf::Vector2f size{hitbox_width, hitbox_height};
+    float hitbox_height{attack_distance};
+    float hitbox_width{static_cast<float>(width)};
+    sf::Vector2f size{hitbox_height, hitbox_width};
 
     attack_hitbox.setPosition(hitbox_position);
     attack_hitbox.setRotation(rotation);
     attack_hitbox.setFillColor(sf::Color::Black);
-    attack_hitbox.setOrigin(0, hitbox_height / 2);
+    attack_hitbox.setOrigin(-width / 2, hitbox_width / 2);
     attack_hitbox.setSize(size);
 
     if (loaded_enemies)
@@ -97,15 +97,15 @@ void Player::attack() const
             if (enemy_bounds.intersects(attack_bounds))
             {
                 (*it) -> take_damage(damage);
-                std::cerr << "Attack hit enemy\n";
             }
         }
     }
+    window.draw(attack_hitbox);
 }
 
 
 void Player::kill_entity(sf::Texture& dead_texture)
 {
     set_texture(dead_texture);
-    std::cout << "Player died" << 
+    std::cout << "Player died\n" << std::endl;
 }

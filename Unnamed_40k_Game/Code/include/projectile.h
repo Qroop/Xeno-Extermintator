@@ -8,16 +8,20 @@ class Projectile : public Enemy
 {
     public:
     Projectile(sf::Vector2f coordinates, 
-                sf::Texture& texture, 
+                sf::Texture& texture,
+                sf::RenderWindow& window,
                 int health_points, 
                 int damage, 
-                int speed, 
-                int window_width, 
-                int window_height, 
-                Game_Object& player);
+                int speed,
+                Game_Object& player,
+                double rotation);
     ~Projectile();
 
     void update(double delta_time) override;
     void attack() const override;
     void move(double delta_time) override;
+    void kill_entity(sf::Texture& dead_texture) override;
+
+    private:
+    sf::Vector2f direction_to_move;
 };

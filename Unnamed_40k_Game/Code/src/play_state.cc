@@ -3,6 +3,7 @@
 #include "player.h"
 #include "grunt.h"
 #include "enemy.h"
+#include "projectile.h"
 
 #include <fstream>
 #include <iostream>
@@ -10,8 +11,8 @@
 #include <memory>
 
 
-Play_State::Play_State()
-: level{}
+Play_State::Play_State(sf::RenderWindow& window)
+: level{}, window{window}
 {
     grunt_texture.loadFromFile("../Static/Textures/grunt_texture.png");
     player_texture.loadFromFile("../Static/Textures/player_texture.png");
@@ -25,7 +26,7 @@ Play_State::~Play_State()
 {}
 
 // Creates a vector containing all game objects
-void Play_State::load(std::string file_name, int window_width, int window_height)
+void Play_State::load(std::string file_name)
 {
     std::ifstream fs;
     fs.open("../Static/Levels/" + file_name);
@@ -39,14 +40,14 @@ void Play_State::load(std::string file_name, int window_width, int window_height
     std::vector<std::shared_ptr<Enemy>> loaded_enemies;
 
     sf::Vector2f coords{16, 16};
-    loaded.push_back(std::make_shared<Player>(coords, player_texture, 3, 1, 200, window_width, window_height));
+    loaded.push_back(std::make_shared<Player>(coords, player_texture, window, 3, 1, 200));
     while ( !fs.eof() )
     {
         char character = fs.get();
         switch(character)
         {
             case '#':   // Wall
-                loaded.push_back(std::make_shared<Wall>(coords, wall_texture));
+                loaded.push_back(std::make_shared<Wall>(coords, wall_texture, window));
                 coords.x += 32;
                 break;
             case '@':   // Player
@@ -55,7 +56,7 @@ void Play_State::load(std::string file_name, int window_width, int window_height
                 break;
             case 'X':   // Grunt
             {
-                auto grunt = std::make_shared<Grunt>(coords, grunt_texture, projectile_texture, 3, 1, 50, window_width, window_height,*loaded[0]);
+                auto grunt = std::make_shared<Grunt>(coords, grunt_texture, window, projectile_texture, 3, 1, 50, *loaded[0]);
                 loaded.push_back(grunt);
                 loaded_enemies.push_back(grunt);
                 coords.x += 32;
@@ -71,19 +72,15 @@ void Play_State::load(std::string file_name, int window_width, int window_height
         }
     }
     fs.close();
-    
-    std::cerr << loaded_enemies.size() << "\n";
 
     Player* player = dynamic_cast<Player*>(loaded[0].get());
     if (player) {
         player->set_enemies(enemies);
-        std::cerr << "Player: "<< player->check_set_enemies();
     }
 
     for (auto& enemy : loaded_enemies)
     {
         enemy->set_enemies(projectiles_to_add);
-        std::cerr << "Enemy: " << enemy -> check_set_enemies();
     }
 
     enemies = std::move(loaded_enemies);
@@ -91,28 +88,29 @@ void Play_State::load(std::string file_name, int window_width, int window_height
 }
 
 
-void Play_State::render(sf::RenderWindow& window)
+void Play_State::render()
 {
     for (const auto& current_object : dead_entities)
     {
-        current_object->draw(window);
+        current_object->draw();
     }
     for (const auto& curr_object : level)
     {
-        curr_object->draw(window);
+        curr_object->draw();
     }
 }
 
 
-void Play_State::update(double delta_time, sf::RenderWindow& window)
+void Play_State::update(double delta_time)
 {
     for (auto it = level.begin(); it != level.end(); )
     {
         Player* player = dynamic_cast<Player*>(it->get());
         Grunt* grunt = dynamic_cast<Grunt*>(it->get());
+        Projectile* projectile = dynamic_cast<Projectile*>(it->get());
         if (player)
         {
-            player->update(delta_time, window);
+            player->update(delta_time);
         }
         if(grunt)
         {
@@ -126,6 +124,10 @@ void Play_State::update(double delta_time, sf::RenderWindow& window)
             {
                 grunt->update(delta_time);
             }
+        }
+        if(projectile)
+        {
+            projectile -> update(delta_time);
         }
         ++it;
     }
@@ -148,5 +150,5 @@ void Play_State::update(double delta_time, sf::RenderWindow& window)
         it = projectiles_to_add.erase(it);
     }
 
-    std::cerr << "Amount of enemies in the vector: " << enemies.size() << "\n";
+    //std::cerr << "Amount of enemies in the vector: " << enemies.size() << "\n";
 }

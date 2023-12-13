@@ -11,15 +11,15 @@ class Player : public Entity
     public:
     Player(sf::Vector2f coordinates,
             sf::Texture& texture,
+            sf::RenderWindow& window,
             int health_points,
             int damage,
             int speed,
-            int window_width,
-            int window_height);
+            double rotation = 0);
     ~Player();
     
     sf::Vector2f find_direction() const;
-    void update(double delta_time, sf::RenderWindow& window);
+    void update(double delta_time);
     void attack() const override;
     void move(double delta_time) override;
     void kill_entity(sf::Texture& dead_texture) override;

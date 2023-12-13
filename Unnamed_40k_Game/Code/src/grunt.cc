@@ -11,23 +11,22 @@
 #include <SFML/Graphics.hpp>
 
 Grunt::Grunt(sf::Vector2f coordinates, 
-        sf::Texture& texture, 
+        sf::Texture& texture,
+        sf::RenderWindow& window, 
         sf::Texture& projectile_texture,
-        int health_points, int damage, int speed, 
-        int window_width, int window_height, 
-        Game_Object& player)
-    : Enemy(coordinates, texture, health_points, damage, speed, window_width, window_height, player), projectile_texture{projectile_texture}
+        int health_points, int damage, int speed,
+        Game_Object& player,
+        double rotation)
+    : Enemy(coordinates, texture, window, health_points, damage, speed, player, rotation), projectile_texture{projectile_texture}
 {
     rotation = 0;
     // Initialize the random number generator seed
     srand(coordinates.x);
-    int max_distance{350};
-    int min_distance{250};
+    int max_distance{500};
+    int min_distance{350};
     distance_to_keep = (std::rand() % (max_distance - min_distance + 1) + min_distance);
     
-    // double max_time_since_attack{1.0};
-    // double min_time_since_attack{0.0};
-    // time_since_last_attack = (std::rand() % (max_time_since_attack - min_time_since_attack + 1) + min_time_since_attack);
+    time_since_last_attack = 0;
     attack_cooldown = 3;
     walk_left = rand() % 2 == 0;
     rotation_speed = 50;
@@ -119,12 +118,9 @@ void Grunt::attack() const
         return;
     }
 
-    std::cerr << "Grunt attacks!\n";
-
-    auto new_projectile = std::make_shared<Projectile>(coordinates, projectile_texture, 1, 1, 400, window_size.x, window_size.y, player);
+    auto new_projectile = std::make_shared<Projectile>(coordinates, projectile_texture, window, 1, 1, 200, player, rotation);
 
     new_projectile -> set_enemies(*loaded_enemies);
-    std::cerr << "New Projectile: " << new_projectile -> check_set_enemies();
 
     if(!loaded_enemies)
     {

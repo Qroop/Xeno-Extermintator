@@ -12,17 +12,17 @@ class Entity : public Game_Object
 {
     public:
     Entity(sf::Vector2f coordinates,
-            sf::Texture& texture, 
+            sf::Texture& texture,
+            sf::RenderWindow& window, 
             int health_points = 3,
             int damage = 1,
             int speed = 1,
-            int window_width = 1024,
-            int window_height = 1024);
+            double rotation = 0);
 
-    virtual ~Entity() = 0;
+    virtual ~Entity();
 
 
-    void draw(sf::RenderWindow& window) override;
+    void draw() override;
     virtual void attack() const = 0;
     virtual void move(double delta_time) = 0;
     void rotate(sf::Vector2f& direction);
@@ -42,7 +42,6 @@ class Entity : public Game_Object
     int health_points;
     int damage;
     int speed;
-    double rotation;
     float texture_scale;
     bool dead;
     float attack_distance;
@@ -50,6 +49,7 @@ class Entity : public Game_Object
     double time_since_last_attack;
     std::vector<std::shared_ptr<Enemy>>* loaded_enemies;
     sf::Vector2i window_size;
+    double rotation;
 
     sf::Clock damage_effect_timer;
     sf::Time damage_effect_duration;

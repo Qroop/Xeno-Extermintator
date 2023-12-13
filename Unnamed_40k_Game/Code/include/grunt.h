@@ -6,11 +6,12 @@ class Grunt : public Enemy
 {
     public:
     Grunt(sf::Vector2f coordinates, 
-            sf::Texture& texture, 
+            sf::Texture& texture,
+            sf::RenderWindow& window, 
             sf::Texture& projectile_texture,  
-            int health_points, int damage, int speed, 
-            int window_width, int window_height, 
-            Game_Object& player);    
+            int health_points, int damage, int speed,
+            Game_Object& player,
+            double rotation = 0);    
     ~Grunt();
 
     void update(double delta_time) override;

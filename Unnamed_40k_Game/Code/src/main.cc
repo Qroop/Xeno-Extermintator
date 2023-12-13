@@ -8,8 +8,8 @@
 #include <cmath>
 #include <iostream>
 
-const size_t window_width = 1024;
-const size_t window_height = 1024; //1024
+const size_t window_width = 1536;
+const size_t window_height = 1014; //1024
 
 int main()
 {
@@ -20,8 +20,8 @@ int main()
     window.setKeyRepeatEnabled(true);
     window.setVerticalSyncEnabled(true);
 
-    Play_State level{};
-    level.load("level_1.txt", window_width, window_height);
+    Play_State level{window};
+    level.load("level_1.txt");
     
     sf::Clock clock;
 
@@ -50,9 +50,9 @@ int main()
 
         window.clear(white); // Clear the window
 
-        level.update(delta_time, window);
+        level.update(delta_time);
 
-        level.render(window);
+        level.render();
 
         window.display();
     }

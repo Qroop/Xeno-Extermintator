@@ -5,7 +5,12 @@
 class Enemy : public Entity
 {
     public:
-    Enemy(sf::Vector2f coordinates, sf::Texture& texture, int health_points, int damage, int speed, int window_width, int window_height, Game_Object& player);
+    Enemy(sf::Vector2f coordinates, 
+        sf::Texture& texture,
+        sf::RenderWindow& window, 
+        int health_points, int damage, int speed, 
+        Game_Object& player,
+        double rotation = 0);
     virtual ~Enemy() = 0;
 
     virtual void update(double delta_time) = 0;
