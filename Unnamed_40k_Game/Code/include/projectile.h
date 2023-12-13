@@ -20,6 +20,7 @@ class Projectile : public Enemy
     void update(double delta_time) override;
     void attack() const override;
     void move(double delta_time) override;
+    void handle_collision(std::shared_ptr<Game_Object> collided) override;
     void kill_entity(sf::Texture& dead_texture) override;
 
     private:

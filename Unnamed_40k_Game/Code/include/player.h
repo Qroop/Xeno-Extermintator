@@ -22,6 +22,7 @@ class Player : public Entity
     
     sf::Vector2f find_direction() const;
     void update(double delta_time);
+    void handle_collision(std::shared_ptr<Game_Object> collided) override;
     void attack() const override;
     void move(double delta_time) override;
     void kill_entity(sf::Texture& dead_texture) override;

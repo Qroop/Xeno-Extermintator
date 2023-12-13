@@ -26,6 +26,7 @@ class Entity : public Game_Object
     void draw() override;
     virtual void attack() const = 0;
     virtual void move(double delta_time) = 0;
+    virtual void handle_collision(std::shared_ptr<Game_Object> collided) = 0;
     void rotate(sf::Vector2f& direction);
     sf::Vector2f check_boundury_collision(sf::Vector2f direction, double distance_to_move, size_t window_width, size_t window_height);
     bool is_dead();
@@ -50,6 +51,7 @@ class Entity : public Game_Object
     double time_since_last_attack;
     std::vector<std::shared_ptr<Enemy>>* loaded_enemies;
     sf::Vector2i window_size;
+    sf::Vector2f last_pos;
     double rotation;
 
     sf::Clock damage_effect_timer;

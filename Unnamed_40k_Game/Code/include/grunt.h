@@ -17,6 +17,7 @@ class Grunt : public Enemy
     void update(double delta_time) override;
     void move(double delta_time) override;
     void attack() const override;
+    void handle_collision(std::shared_ptr<Game_Object> collided) override;
     // bool is_dead() override;
     // void death() override;
     sf::Vector2f get_lateral_direction() const;

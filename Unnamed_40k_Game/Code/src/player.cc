@@ -1,6 +1,7 @@
 #include "player.h"
 #include "point.h"
 #include "standard.h"
+#include "wall.h"
 
 #include <SFML/Window/Keyboard.hpp>
 #include <SFML/Window/Mouse.hpp>
@@ -54,6 +55,7 @@ void Player::move(double delta_time)
     sf::Vector2f direction = find_direction();
     double distance_to_move{speed * delta_time};
 
+    last_pos = direction;
     coordinates = check_boundury_collision(direction, distance_to_move, window_size.x, window_size.y);
 }
 
@@ -78,6 +80,46 @@ void Player::update(double delta_time)
     }
 }
 
+void Player::handle_collision(std::shared_ptr<Game_Object> collided)
+{
+    int x = last_pos.x;
+    int y = last_pos.y;
+    std::shared_ptr<Wall> wall = std::dynamic_pointer_cast<Wall> (collided);
+    if (wall)
+    {
+        sf::FloatRect wall_bounds = wall->get_global_bounds();
+        sf::FloatRect player_bounds = this->get_global_bounds();
+        // switch(x)
+        // {
+        //     case 1:
+        //     coordinates.x = (wall->get_coordinates().x - ((wall->get_width() / 2) + (width / 2)));
+        //     // case -1:
+        //     // coordinates.x = (wall->get_coordinates().x + ((wall->get_width() / 2) + (width / 2)));
+        //     default:
+        //     break;
+        // }
+        // switch (y)
+        // {
+        //     case 1:
+        //     coordinates.y = (wall->get_coordinates().y - ((wall->get_width() / 2) + (height / 2)));
+        //     // case -1:
+        //     // coordinates.y = (wall->get_coordinates().y + ((wall->get_width() / 2) + (height / 2)));
+        //     default:
+        //     break;
+        // }
+        if (wall_bounds.contains(coordinates.x - (width / 2), coordinates.y ) || wall_bounds.contains(coordinates.x + (width / 2), coordinates.y ))
+        {
+            if (x > 0) coordinates.x = (wall->get_coordinates().x - ((wall->get_width() / 2) + (width / 2)));
+            else if (x < 0) coordinates.x = (wall->get_coordinates().x + ((wall->get_width() / 2) + (width / 2)));
+        }
+        else if (wall_bounds.contains(coordinates.x, coordinates.y  - (height / 2) ) || wall_bounds.contains(coordinates.x, coordinates.y + (height / 2) ))
+        {
+            if (y > 0) coordinates.y = (wall->get_coordinates().y - ((wall->get_width() / 2) + (height / 2)));
+            else if (y < 0) coordinates.y = (wall->get_coordinates().y + ((wall->get_width() / 2) + (height / 2)));
+        }
+        // cout << 
+    }
+}
 
 void Player::attack() const 
 {

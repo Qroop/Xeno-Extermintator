@@ -11,7 +11,7 @@
 #include <memory>
 
 Entity::Entity(sf::Vector2f coordinates, sf::Texture& texture, sf::RenderWindow& window, int health_points, int damage, int speed, double rotation)
-: Game_Object(coordinates, texture, window), health_points(health_points), damage(damage), speed(speed), loaded_enemies(nullptr), rotation(rotation)
+: Game_Object(coordinates, texture, window), health_points(health_points), damage(damage), speed(speed), loaded_enemies(nullptr), rotation(rotation), last_pos()
 {
     int int_window_width = window.getSize().x;
     int int_window_height = window.getSize().y;

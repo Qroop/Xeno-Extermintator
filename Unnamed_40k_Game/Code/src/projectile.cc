@@ -45,3 +45,8 @@ void Projectile::kill_entity(sf::Texture& dead_texture)
 {
     set_texture(dead_texture);
 }
+
+void Projectile::handle_collision(std::shared_ptr<Game_Object> collided)
+{
+    std::cerr << "projectile collided";
+}

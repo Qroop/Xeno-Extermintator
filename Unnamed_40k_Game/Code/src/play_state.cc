@@ -124,6 +124,14 @@ void Play_State::update(double delta_time)
         if (player)
         {
             player->update(delta_time);
+            auto player_bounds = player->get_global_bounds();
+            for (auto it_temp = level.begin() ; it_temp != level.end() ; it_temp++)
+            {
+                if ( player_bounds.intersects((*it_temp)->get_global_bounds()) )
+                {
+                    player->handle_collision(*it_temp);
+                }
+            }
         }
         if(grunt)
         {

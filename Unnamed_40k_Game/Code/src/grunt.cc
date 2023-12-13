@@ -133,6 +133,10 @@ void Grunt::attack() const
     // std::cout << "Amount of enemies in the vector: " << loaded_enemies->size() << std::endl;
 }
 
+void Grunt::handle_collision(std::shared_ptr<Game_Object> collided)
+{
+    cout << "grunt collision" << endl;
+}
 
 void Grunt::kill_entity(sf::Texture& dead_texture)
 {
