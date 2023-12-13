@@ -37,6 +37,8 @@ void Play_State::load(std::string file_name, int window_width, int window_height
     std::vector<std::shared_ptr<Game_Object>> loaded;
     std::vector<std::shared_ptr<Enemy>> loaded_enemies;
 
+    if (!dead_entities.empty()) dead_entities.clear();
+
     sf::Vector2f coords{16, 16};
     player_object = std::make_unique<Player>(coords, player_texture, 3, 1, 200, window_width, window_height);
     loaded.push_back(player_object);

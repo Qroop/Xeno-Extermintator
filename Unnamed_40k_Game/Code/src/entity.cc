@@ -23,7 +23,7 @@ Entity::Entity(sf::Vector2f coordinates, sf::Texture& texture, int health_points
 
 Entity::~Entity() 
 {
-    // loaded_enemies = nullptr;
+    loaded_enemies = nullptr;
 }
 
 
