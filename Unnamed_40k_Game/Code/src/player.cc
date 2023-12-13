@@ -13,7 +13,7 @@ Player::Player(sf::Vector2f coordinates, sf::Texture& texture, int health_points
 {
 
 
-    texture_scale = 3;
+    texture_scale = 2;
     width = width * texture_scale / 2;
     height = height * texture_scale / 2;
     attack_distance = 80;
