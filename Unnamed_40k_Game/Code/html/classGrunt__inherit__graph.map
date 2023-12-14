@@ -1,0 +1,6 @@
+<map id="Grunt" name="Grunt">
+<area shape="rect" id="node1" title="Represents a grunt enemy in the game, derived from the Enemy class." alt="" coords="31,229,90,256"/>
+<area shape="rect" id="node2" href="$classEnemy.html" title="Base class for enemy entities." alt="" coords="27,155,94,181"/>
+<area shape="rect" id="node3" href="$classEntity.html" title="Represents a generic entity in the game, derived from Game_Object." alt="" coords="31,80,91,107"/>
+<area shape="rect" id="node4" href="$classGame__Object.html" title="Represents a generic game object." alt="" coords="5,5,116,32"/>
+</map>

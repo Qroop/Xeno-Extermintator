@@ -1,0 +1,4 @@
+<map id="Entity" name="Entity">
+<area shape="rect" id="node1" title="Represents a generic entity in the game, derived from Game_Object." alt="" coords="31,80,91,107"/>
+<area shape="rect" id="node2" href="$classGame__Object.html" title="Represents a generic game object." alt="" coords="5,5,116,32"/>
+</map>

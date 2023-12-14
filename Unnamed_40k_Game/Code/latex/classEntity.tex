@@ -1,0 +1,366 @@
+\hypertarget{classEntity}{}\doxysection{Entity Class Reference}
+\label{classEntity}\index{Entity@{Entity}}
+
+
+Represents a generic entity in the game, derived from \mbox{\hyperlink{classGame__Object}{Game\+\_\+\+Object}}.  
+
+
+
+
+{\ttfamily \#include $<$entity.\+h$>$}
+
+
+
+Inheritance diagram for Entity\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=228pt]{classEntity__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Entity\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=163pt]{classEntity__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classEntity_ac3ac0d84f2cea52f038c79e5eeb90e01}{Entity}} (sf\+::\+Vector2f \mbox{\hyperlink{classGame__Object_aa990e12aa5e8809f9979dcf16c125ef3}{coordinates}}, sf\+::\+Texture \&\mbox{\hyperlink{classGame__Object_a13560c137a872f261b3cd2a200e865c3}{texture}}, sf\+::\+Render\+Window \&\mbox{\hyperlink{classGame__Object_a4276a95c4ba382362ebf7ab5ac8797c3}{window}}, int \mbox{\hyperlink{classEntity_aca9a1387fe0401f966b228d13e99a9cb}{health\+\_\+points}}=3, int \mbox{\hyperlink{classEntity_aff1cfa72efeb33827b90f4006eca01fe}{damage}}=1, int \mbox{\hyperlink{classEntity_a12ea871d945d59cbf57b8f8f7d2179ed}{speed}}=1, double \mbox{\hyperlink{classEntity_a4211aecde17ec207f14a260fc5440f1f}{rotation}}=0)
+\begin{DoxyCompactList}\small\item\em Constructor for the \mbox{\hyperlink{classEntity}{Entity}} class. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classEntity_a588098978eea6a3486b7361605ff3f0f}\label{classEntity_a588098978eea6a3486b7361605ff3f0f}} 
+virtual \mbox{\hyperlink{classEntity_a588098978eea6a3486b7361605ff3f0f}{$\sim$\+Entity}} ()
+\begin{DoxyCompactList}\small\item\em Virtual destructor for the \mbox{\hyperlink{classEntity}{Entity}} class. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classEntity_a67c79ec6a94004364790c2b4c20920cb}\label{classEntity_a67c79ec6a94004364790c2b4c20920cb}} 
+void \mbox{\hyperlink{classEntity_a67c79ec6a94004364790c2b4c20920cb}{draw}} () override
+\begin{DoxyCompactList}\small\item\em Draws the entity on the render window. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classEntity_a2ead850c656e9c5a8b26d33924ab973a}\label{classEntity_a2ead850c656e9c5a8b26d33924ab973a}} 
+virtual void \mbox{\hyperlink{classEntity_a2ead850c656e9c5a8b26d33924ab973a}{attack}} () const =0
+\begin{DoxyCompactList}\small\item\em Performs the attack behavior of the entity (pure virtual). \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classEntity_a16a26d1a12da02e4922262da6125de3e}{move}} (double const delta\+\_\+time)=0
+\begin{DoxyCompactList}\small\item\em Moves the entity based on its speed and direction (pure virtual). \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classEntity_a0638e0545bdcbea100d278eb8a5e54b9}{handle\+\_\+collision}} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classGame__Object}{Game\+\_\+\+Object}} $>$ collided)=0
+\begin{DoxyCompactList}\small\item\em Handles collision with other game objects (pure virtual). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classEntity_a2f7e2a5fdc904c884d94d791a0e1ea9b}{handle\+\_\+wall\+\_\+collision}} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classWall}{Wall}} $>$ wall)
+\begin{DoxyCompactList}\small\item\em Handles collision with a wall. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classEntity_aad775212cbf354ea0cd820580512d959}{rotate}} (sf\+::\+Vector2f \&direction)
+\begin{DoxyCompactList}\small\item\em Rotates the entity based on the given direction. \end{DoxyCompactList}\item 
+sf\+::\+Vector2f \mbox{\hyperlink{classEntity_a7d1d68cd2783b8836fb2d28cb6e919d9}{check\+\_\+boundury\+\_\+collision}} (sf\+::\+Vector2f \&direction, double const distance\+\_\+to\+\_\+move)
+\begin{DoxyCompactList}\small\item\em Checks and handles collision with the game boundaries. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classEntity_a04f014e50cc12b91aa4e846ab08c3d40}{is\+\_\+dead}} ()
+\begin{DoxyCompactList}\small\item\em Checks if the entity is dead. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classEntity_ab43378178011f61d55bfc599bd5a90a3}{set\+\_\+speed}} (int const new\+\_\+speed)
+\begin{DoxyCompactList}\small\item\em Sets the speed of the entity. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classEntity_a575514ac4a4a9a6695527a9c02472692}{set\+\_\+texture}} (sf\+::\+Texture const \&new\+\_\+texture)
+\begin{DoxyCompactList}\small\item\em Sets the texture of the entity. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classEntity_a0e55bd56f6444abbb874db6e7228a3dd}{set\+\_\+attack\+\_\+speed}} (double const new\+\_\+speed)
+\begin{DoxyCompactList}\small\item\em Sets the attack speed of the entity. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classEntity_abdbd64d97d9b4197c3d8a0413c13ebc0}{can\+\_\+attack}} () const
+\begin{DoxyCompactList}\small\item\em Checks if the entity can attack based on the attack cooldown. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classEntity_a3b4e9f8ae5a90f74cdc02bc0ae58a7ba}{set\+\_\+enemies}} (std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classEnemy}{Enemy}} $>$$>$ \&enemies)
+\begin{DoxyCompactList}\small\item\em Sets the vector of enemies for the entity to interact with. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classEntity_a1c49ff2650d69083536127dd05c255e5}{kill\+\_\+entity}} (sf\+::\+Texture const \&dead\+\_\+texture)=0
+\begin{DoxyCompactList}\small\item\em Performs the death sequence of the entity (pure virtual). \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classEntity_a957b1ea95e508662a5740dcf7add57ef}{take\+\_\+damage}} (int damage\+\_\+to\+\_\+take)
+\begin{DoxyCompactList}\small\item\em Reduces the health points of the entity based on the given damage. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classEntity_aca9a1387fe0401f966b228d13e99a9cb}\label{classEntity_aca9a1387fe0401f966b228d13e99a9cb}} 
+int \mbox{\hyperlink{classEntity_aca9a1387fe0401f966b228d13e99a9cb}{health\+\_\+points}}
+\begin{DoxyCompactList}\small\item\em The health points of the entity. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classEntity_aff1cfa72efeb33827b90f4006eca01fe}\label{classEntity_aff1cfa72efeb33827b90f4006eca01fe}} 
+int \mbox{\hyperlink{classEntity_aff1cfa72efeb33827b90f4006eca01fe}{damage}}
+\begin{DoxyCompactList}\small\item\em The damage inflicted by the entity. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classEntity_a12ea871d945d59cbf57b8f8f7d2179ed}\label{classEntity_a12ea871d945d59cbf57b8f8f7d2179ed}} 
+int \mbox{\hyperlink{classEntity_a12ea871d945d59cbf57b8f8f7d2179ed}{speed}}
+\begin{DoxyCompactList}\small\item\em The speed at which the entity moves. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classEntity_a8e2fa192870acb4a6ee5f0c570741ff7}\label{classEntity_a8e2fa192870acb4a6ee5f0c570741ff7}} 
+float \mbox{\hyperlink{classEntity_a8e2fa192870acb4a6ee5f0c570741ff7}{texture\+\_\+scale}}
+\begin{DoxyCompactList}\small\item\em The scale factor for the entity\textquotesingle{}s texture. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classEntity_a799462330dd8c754cdada5dab432b4dc}\label{classEntity_a799462330dd8c754cdada5dab432b4dc}} 
+bool \mbox{\hyperlink{classEntity_a799462330dd8c754cdada5dab432b4dc}{dead}}
+\begin{DoxyCompactList}\small\item\em Flag indicating whether the entity is dead. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classEntity_af23dacf091e0a5cf1c32718676eca59b}\label{classEntity_af23dacf091e0a5cf1c32718676eca59b}} 
+float \mbox{\hyperlink{classEntity_af23dacf091e0a5cf1c32718676eca59b}{attack\+\_\+distance}}
+\begin{DoxyCompactList}\small\item\em The distance within which the entity can attack. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classEntity_ab478d700dbb56afb969a9ece15f32db6}\label{classEntity_ab478d700dbb56afb969a9ece15f32db6}} 
+double \mbox{\hyperlink{classEntity_ab478d700dbb56afb969a9ece15f32db6}{attack\+\_\+cooldown}}
+\begin{DoxyCompactList}\small\item\em The cooldown time between consecutive attacks. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classEntity_ad5f1a4aa8836cfa0acba081514720fc7}\label{classEntity_ad5f1a4aa8836cfa0acba081514720fc7}} 
+double \mbox{\hyperlink{classEntity_ad5f1a4aa8836cfa0acba081514720fc7}{time\+\_\+since\+\_\+last\+\_\+attack}}
+\begin{DoxyCompactList}\small\item\em Time elapsed since the last attack. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classEntity_ac847f27d4fe267f23b7cd7d6074b3e9b}\label{classEntity_ac847f27d4fe267f23b7cd7d6074b3e9b}} 
+std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classEnemy}{Enemy}} $>$ $>$ $\ast$ \mbox{\hyperlink{classEntity_ac847f27d4fe267f23b7cd7d6074b3e9b}{loaded\+\_\+enemies}}
+\begin{DoxyCompactList}\small\item\em Pointer to the vector of enemies. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classEntity_ae68cccf0a15735fff856d27c70988acf}\label{classEntity_ae68cccf0a15735fff856d27c70988acf}} 
+sf\+::\+Vector2i \mbox{\hyperlink{classEntity_ae68cccf0a15735fff856d27c70988acf}{window\+\_\+size}}
+\begin{DoxyCompactList}\small\item\em The size of the render window. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classEntity_a4211aecde17ec207f14a260fc5440f1f}\label{classEntity_a4211aecde17ec207f14a260fc5440f1f}} 
+double \mbox{\hyperlink{classEntity_a4211aecde17ec207f14a260fc5440f1f}{rotation}}
+\begin{DoxyCompactList}\small\item\em The rotation angle of the entity. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classEntity_ab12111859d1d46c726b42f32da8e474f}\label{classEntity_ab12111859d1d46c726b42f32da8e474f}} 
+sf\+::\+Clock \mbox{\hyperlink{classEntity_ab12111859d1d46c726b42f32da8e474f}{damage\+\_\+effect\+\_\+timer}}
+\begin{DoxyCompactList}\small\item\em Timer for damage effect duration. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classEntity_a8bc3429858614248fc12c814612d6235}\label{classEntity_a8bc3429858614248fc12c814612d6235}} 
+sf\+::\+Time \mbox{\hyperlink{classEntity_a8bc3429858614248fc12c814612d6235}{damage\+\_\+effect\+\_\+duration}}
+\begin{DoxyCompactList}\small\item\em Duration of the damage effect. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents a generic entity in the game, derived from \mbox{\hyperlink{classGame__Object}{Game\+\_\+\+Object}}. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classEntity_ac3ac0d84f2cea52f038c79e5eeb90e01}\label{classEntity_ac3ac0d84f2cea52f038c79e5eeb90e01}} 
+\index{Entity@{Entity}!Entity@{Entity}}
+\index{Entity@{Entity}!Entity@{Entity}}
+\doxysubsubsection{\texorpdfstring{Entity()}{Entity()}}
+{\footnotesize\ttfamily Entity\+::\+Entity (\begin{DoxyParamCaption}\item[{sf\+::\+Vector2f}]{coordinates,  }\item[{sf\+::\+Texture \&}]{texture,  }\item[{sf\+::\+Render\+Window \&}]{window,  }\item[{int}]{health\+\_\+points = {\ttfamily 3},  }\item[{int}]{damage = {\ttfamily 1},  }\item[{int}]{speed = {\ttfamily 1},  }\item[{double}]{rotation = {\ttfamily 0} }\end{DoxyParamCaption})}
+
+
+
+Constructor for the \mbox{\hyperlink{classEntity}{Entity}} class. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em coordinates} & The initial coordinates of the entity. \\
+\hline
+{\em texture} & The texture used for rendering the entity. \\
+\hline
+{\em window} & The render window where the entity will be drawn. \\
+\hline
+{\em health\+\_\+points} & The health points of the entity. \\
+\hline
+{\em damage} & The damage inflicted by the entity. \\
+\hline
+{\em speed} & The speed at which the entity moves. \\
+\hline
+{\em rotation} & The initial rotation angle of the entity. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classEntity_abdbd64d97d9b4197c3d8a0413c13ebc0}\label{classEntity_abdbd64d97d9b4197c3d8a0413c13ebc0}} 
+\index{Entity@{Entity}!can\_attack@{can\_attack}}
+\index{can\_attack@{can\_attack}!Entity@{Entity}}
+\doxysubsubsection{\texorpdfstring{can\_attack()}{can\_attack()}}
+{\footnotesize\ttfamily bool Entity\+::can\+\_\+attack (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Checks if the entity can attack based on the attack cooldown. 
+
+\begin{DoxyReturn}{Returns}
+True if the entity can attack, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classEntity_a7d1d68cd2783b8836fb2d28cb6e919d9}\label{classEntity_a7d1d68cd2783b8836fb2d28cb6e919d9}} 
+\index{Entity@{Entity}!check\_boundury\_collision@{check\_boundury\_collision}}
+\index{check\_boundury\_collision@{check\_boundury\_collision}!Entity@{Entity}}
+\doxysubsubsection{\texorpdfstring{check\_boundury\_collision()}{check\_boundury\_collision()}}
+{\footnotesize\ttfamily sf\+::\+Vector2f Entity\+::check\+\_\+boundury\+\_\+collision (\begin{DoxyParamCaption}\item[{sf\+::\+Vector2f \&}]{direction,  }\item[{double const}]{distance\+\_\+to\+\_\+move }\end{DoxyParamCaption})}
+
+
+
+Checks and handles collision with the game boundaries. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em direction} & The intended direction of movement. \\
+\hline
+{\em distance\+\_\+to\+\_\+move} & The distance to move in the specified direction. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The adjusted movement direction after collision handling. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classEntity_a0638e0545bdcbea100d278eb8a5e54b9}\label{classEntity_a0638e0545bdcbea100d278eb8a5e54b9}} 
+\index{Entity@{Entity}!handle\_collision@{handle\_collision}}
+\index{handle\_collision@{handle\_collision}!Entity@{Entity}}
+\doxysubsubsection{\texorpdfstring{handle\_collision()}{handle\_collision()}}
+{\footnotesize\ttfamily virtual void Entity\+::handle\+\_\+collision (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classGame__Object}{Game\+\_\+\+Object}} $>$}]{collided }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Handles collision with other game objects (pure virtual). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em collided} & The game object with which the collision occurred. \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{classProjectile_a78e8b9d15208e859c941f5dca2049990}{Projectile}}, \mbox{\hyperlink{classPlayer_a19bcb3e4896be621c5991c190471cc72}{Player}}, and \mbox{\hyperlink{classGrunt_a658297715e1f533486f56cb84171eac4}{Grunt}}.
+
+\mbox{\Hypertarget{classEntity_a2f7e2a5fdc904c884d94d791a0e1ea9b}\label{classEntity_a2f7e2a5fdc904c884d94d791a0e1ea9b}} 
+\index{Entity@{Entity}!handle\_wall\_collision@{handle\_wall\_collision}}
+\index{handle\_wall\_collision@{handle\_wall\_collision}!Entity@{Entity}}
+\doxysubsubsection{\texorpdfstring{handle\_wall\_collision()}{handle\_wall\_collision()}}
+{\footnotesize\ttfamily void Entity\+::handle\+\_\+wall\+\_\+collision (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classWall}{Wall}} $>$}]{wall }\end{DoxyParamCaption})}
+
+
+
+Handles collision with a wall. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em wall} & The wall with which the collision occurred. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classEntity_a04f014e50cc12b91aa4e846ab08c3d40}\label{classEntity_a04f014e50cc12b91aa4e846ab08c3d40}} 
+\index{Entity@{Entity}!is\_dead@{is\_dead}}
+\index{is\_dead@{is\_dead}!Entity@{Entity}}
+\doxysubsubsection{\texorpdfstring{is\_dead()}{is\_dead()}}
+{\footnotesize\ttfamily bool Entity\+::is\+\_\+dead (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Checks if the entity is dead. 
+
+\begin{DoxyReturn}{Returns}
+True if the entity is dead, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classEntity_a1c49ff2650d69083536127dd05c255e5}\label{classEntity_a1c49ff2650d69083536127dd05c255e5}} 
+\index{Entity@{Entity}!kill\_entity@{kill\_entity}}
+\index{kill\_entity@{kill\_entity}!Entity@{Entity}}
+\doxysubsubsection{\texorpdfstring{kill\_entity()}{kill\_entity()}}
+{\footnotesize\ttfamily virtual void Entity\+::kill\+\_\+entity (\begin{DoxyParamCaption}\item[{sf\+::\+Texture const \&}]{dead\+\_\+texture }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Performs the death sequence of the entity (pure virtual). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dead\+\_\+texture} & The texture to set after the entity is killed. \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{classProjectile_acc2e4a98316e33c78ed460959413dd1f}{Projectile}}, \mbox{\hyperlink{classPlayer_a090ec578970484339467e25256a130ba}{Player}}, and \mbox{\hyperlink{classGrunt_ac624e486cc629c85ad55de890e74bcc2}{Grunt}}.
+
+\mbox{\Hypertarget{classEntity_a16a26d1a12da02e4922262da6125de3e}\label{classEntity_a16a26d1a12da02e4922262da6125de3e}} 
+\index{Entity@{Entity}!move@{move}}
+\index{move@{move}!Entity@{Entity}}
+\doxysubsubsection{\texorpdfstring{move()}{move()}}
+{\footnotesize\ttfamily virtual void Entity\+::move (\begin{DoxyParamCaption}\item[{double const}]{delta\+\_\+time }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Moves the entity based on its speed and direction (pure virtual). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em delta\+\_\+time} & The time elapsed since the last move. \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{classProjectile_a4b4c413e5e907043bc5cf072e439865e}{Projectile}}, \mbox{\hyperlink{classPlayer_a5a0f416a9df2aa929f63ec93ba4d6135}{Player}}, and \mbox{\hyperlink{classGrunt_abdb612620064266caef5ad56726b1527}{Grunt}}.
+
+\mbox{\Hypertarget{classEntity_aad775212cbf354ea0cd820580512d959}\label{classEntity_aad775212cbf354ea0cd820580512d959}} 
+\index{Entity@{Entity}!rotate@{rotate}}
+\index{rotate@{rotate}!Entity@{Entity}}
+\doxysubsubsection{\texorpdfstring{rotate()}{rotate()}}
+{\footnotesize\ttfamily void Entity\+::rotate (\begin{DoxyParamCaption}\item[{sf\+::\+Vector2f \&}]{direction }\end{DoxyParamCaption})}
+
+
+
+Rotates the entity based on the given direction. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em direction} & The direction vector to which the entity should be oriented. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classEntity_a0e55bd56f6444abbb874db6e7228a3dd}\label{classEntity_a0e55bd56f6444abbb874db6e7228a3dd}} 
+\index{Entity@{Entity}!set\_attack\_speed@{set\_attack\_speed}}
+\index{set\_attack\_speed@{set\_attack\_speed}!Entity@{Entity}}
+\doxysubsubsection{\texorpdfstring{set\_attack\_speed()}{set\_attack\_speed()}}
+{\footnotesize\ttfamily void Entity\+::set\+\_\+attack\+\_\+speed (\begin{DoxyParamCaption}\item[{double const}]{new\+\_\+speed }\end{DoxyParamCaption})}
+
+
+
+Sets the attack speed of the entity. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+\_\+speed} & The new attack speed to set. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classEntity_a3b4e9f8ae5a90f74cdc02bc0ae58a7ba}\label{classEntity_a3b4e9f8ae5a90f74cdc02bc0ae58a7ba}} 
+\index{Entity@{Entity}!set\_enemies@{set\_enemies}}
+\index{set\_enemies@{set\_enemies}!Entity@{Entity}}
+\doxysubsubsection{\texorpdfstring{set\_enemies()}{set\_enemies()}}
+{\footnotesize\ttfamily void Entity\+::set\+\_\+enemies (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classEnemy}{Enemy}} $>$$>$ \&}]{enemies }\end{DoxyParamCaption})}
+
+
+
+Sets the vector of enemies for the entity to interact with. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em enemies} & The vector of enemies. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classEntity_ab43378178011f61d55bfc599bd5a90a3}\label{classEntity_ab43378178011f61d55bfc599bd5a90a3}} 
+\index{Entity@{Entity}!set\_speed@{set\_speed}}
+\index{set\_speed@{set\_speed}!Entity@{Entity}}
+\doxysubsubsection{\texorpdfstring{set\_speed()}{set\_speed()}}
+{\footnotesize\ttfamily void Entity\+::set\+\_\+speed (\begin{DoxyParamCaption}\item[{int const}]{new\+\_\+speed }\end{DoxyParamCaption})}
+
+
+
+Sets the speed of the entity. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+\_\+speed} & The new speed to set. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classEntity_a575514ac4a4a9a6695527a9c02472692}\label{classEntity_a575514ac4a4a9a6695527a9c02472692}} 
+\index{Entity@{Entity}!set\_texture@{set\_texture}}
+\index{set\_texture@{set\_texture}!Entity@{Entity}}
+\doxysubsubsection{\texorpdfstring{set\_texture()}{set\_texture()}}
+{\footnotesize\ttfamily void Entity\+::set\+\_\+texture (\begin{DoxyParamCaption}\item[{sf\+::\+Texture const \&}]{new\+\_\+texture }\end{DoxyParamCaption})}
+
+
+
+Sets the texture of the entity. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+\_\+texture} & The new texture to set. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classEntity_a957b1ea95e508662a5740dcf7add57ef}\label{classEntity_a957b1ea95e508662a5740dcf7add57ef}} 
+\index{Entity@{Entity}!take\_damage@{take\_damage}}
+\index{take\_damage@{take\_damage}!Entity@{Entity}}
+\doxysubsubsection{\texorpdfstring{take\_damage()}{take\_damage()}}
+{\footnotesize\ttfamily virtual void Entity\+::take\+\_\+damage (\begin{DoxyParamCaption}\item[{int}]{damage\+\_\+to\+\_\+take }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Reduces the health points of the entity based on the given damage. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em damage\+\_\+to\+\_\+take} & The amount of damage the entity should take. \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented in \mbox{\hyperlink{classPlayer_a69f25c4ec3bc74c52270d2a374076beb}{Player}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+entity.\+h\end{DoxyCompactItemize}

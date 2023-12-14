@@ -50,17 +50,16 @@ sf::Vector2f Player::find_direction() const
 }
 
 
-void Player::move(double delta_time)
+void Player::move(double const delta_time)
 {
     sf::Vector2f direction = find_direction();
     double distance_to_move{speed * delta_time};
 
-    last_pos = direction;
-    coordinates = check_boundury_collision(direction, distance_to_move, window_size.x, window_size.y);
+    coordinates = check_boundury_collision(direction, distance_to_move);
 }
 
 
-void Player::update(double delta_time)
+void Player::update(double const delta_time)
 {
     sf::Vector2f mouse_position{sf::Mouse::getPosition(window)};
     rotate(mouse_position);
@@ -162,14 +161,14 @@ void Player::attack() const
 }
 
 
-void Player::kill_entity(sf::Texture& dead_texture)
+void Player::kill_entity(sf::Texture const& dead_texture)
 {
     set_texture(dead_texture);
     dead = true;
 }
 
 
-void Player::take_damage(int damage_to_take)
+void Player::take_damage(int const damage_to_take)
 {
     if ( damage_effect_timer.getElapsedTime() > invul_time )
     {

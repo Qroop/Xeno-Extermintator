@@ -21,7 +21,7 @@ Projectile::Projectile(sf::Vector2f coordinates, sf::Texture& texture, sf::Rende
 Projectile::~Projectile() {}
 
 
-void Projectile::update(double delta_time)
+void Projectile::update(double const delta_time)
 {
     move(delta_time);
     rotation += rotation_speed;
@@ -32,7 +32,7 @@ void Projectile::update(double delta_time)
 void Projectile::attack() const {}
 
 
-void Projectile::move(double delta_time)
+void Projectile::move(double const delta_time)
 {
     double distance_to_move{speed * delta_time};
     coordinates.x += direction_to_move.x * distance_to_move;
@@ -49,7 +49,7 @@ void Projectile::move(double delta_time)
 }
 
 
-void Projectile::kill_entity(sf::Texture& dead_texture)
+void Projectile::kill_entity(sf::Texture const& dead_texture)
 {
     set_texture(dead_texture);
 }

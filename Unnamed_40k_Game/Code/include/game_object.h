@@ -1,36 +1,74 @@
 #pragma once
 
-// #include "enemy.h"
-
 #include <SFML/Graphics.hpp>
-// #include <vector>
-// #include <memory>
 
+/**
+ * @class Game_Object
+ * @brief Represents a generic game object.
+ */
 class Game_Object
 {
     public:
-    Game_Object(sf::Vector2f coordinates, sf::Texture& texture, sf::RenderWindow& window); // ,sf::Texture& dead_texture); 
+    /**
+     * @brief Constructor for the Game_Object class.
+     * @param coordinates The initial coordinates of the game object.
+     * @param texture The texture used for rendering the game object.
+     * @param window The render window where the game object will be drawn.
+     */
+    Game_Object(sf::Vector2f coordinates, sf::Texture& texture, sf::RenderWindow& window);
+
+    /**
+     * @brief Virtual destructor for the Game_Object class.
+     */
     virtual ~Game_Object() = 0;
 
-    // virtual void update(double delta_time) = 0;
-    // virtual bool is_dead() = 0;
+    /**
+     * @brief Gets the coordinates of the game object.
+     * @return The coordinates of the game object.
+     */
     sf::Vector2f get_coordinates() const;
-    void set_coordinates(sf::Vector2f set_coordinates);
+
+    /**
+     * @brief Sets the coordinates of the game object.
+     * @param set_coordinates The new coordinates to set.
+     */
+    void set_coordinates(sf::Vector2f const& set_coordinates);
+
+    /**
+     * @brief Gets the height of the game object.
+     * @return The height of the game object.
+     */
     double get_height() const;
+
+    /**
+     * @brief Gets the width of the game object.
+     * @return The width of the game object.
+     */
     double get_width() const;
-    void set_width(double new_width);
-    void set_height(double new_height);
+
+    /**
+     * @brief Sets the dimensions of the game object.
+     * @param new_dimensions The new dimensions to set.
+     */
+    void set_dimensions(sf::Vector2f const& new_dimensions);
+
+    /**
+     * @brief Draws the game object on the render window.
+     */
     virtual void draw();
+
+    /**
+     * @brief Gets the global bounding rectangle of the game object.
+     * @return The global bounding rectangle of the game object.
+     */
     sf::FloatRect get_global_bounds() const;
-    sf::Vector2f rotate_vector(sf::Vector2f to_rotate, float angle_degrees) const;
-    // virtual void set_enemies(std::vector<std::shared_ptr<Enemy>>& enemies) = 0;
 
     protected:
-    sf::Vector2f coordinates;
-    double width;
-    double height;
-    sf::RectangleShape hitbox;
-    sf::Texture& texture;
-    sf::Sprite sprite;
-    sf::RenderWindow& window;
+    sf::Vector2f coordinates; ///< The coordinates of the game object.
+    double width; ///< The width of the game object.
+    double height; ///< The height of the game object.
+    sf::RectangleShape hitbox; ///< The hitbox of the game object.
+    sf::Texture& texture; ///< The texture used for rendering the game object.
+    sf::Sprite sprite; ///< The sprite of the game object.
+    sf::RenderWindow& window; ///< The render window where the game object will be drawn.
 };

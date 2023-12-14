@@ -43,7 +43,7 @@ sf::Vector2f Game_Object::get_coordinates() const
 }
 
 
-void Game_Object::set_coordinates(sf::Vector2f set_coordinates)
+void Game_Object::set_coordinates(sf::Vector2f const& set_coordinates)
 {
     coordinates = set_coordinates;
 }
@@ -62,17 +62,10 @@ sf::FloatRect Game_Object::get_global_bounds() const
 }
 
 
-void Game_Object::set_width(double new_width)
+void Game_Object::set_dimensions(sf::Vector2f const& new_dimensions)
 {
-    width = new_width;
-    hitbox.setSize(sf::Vector2f(width, height));
-    hitbox.setOrigin(sf::Vector2f(width / 2, height / 2));   
-}
-
-
-void Game_Object::set_height(double new_height)
-{
-    height = new_height;
-    hitbox.setSize(sf::Vector2f(width, height));
-    hitbox.setOrigin(sf::Vector2f(width / 2, height / 2));
+    height = new_dimensions.y;
+    width = new_dimensions.x;
+    hitbox.setSize(sf::Vector2f(height, width));
+    hitbox.setOrigin(sf::Vector2f(height / 2, width / 2));
 }

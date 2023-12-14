@@ -35,7 +35,7 @@ Grunt::Grunt(sf::Vector2f coordinates,
 Grunt::~Grunt() {}
 
 
-double Grunt::get_distance_to_player()
+double Grunt::get_distance_to_player() const
 {
     sf::Vector2f offset_from_player{coordinates.x - player.get_coordinates().x, coordinates.y - player.get_coordinates().y};
     double distance_to_player{length(offset_from_player)};
@@ -55,7 +55,7 @@ void Grunt::update(double delta_time)
     double desired_rotation = std::atan2(player_coordinates.y - coordinates.y, player_coordinates.x - coordinates.x) * (180.0 / M_PI);
 
     time_since_last_attack += delta_time;
-    if(std::abs(shortest_angular_distance(rotation, desired_rotation)) < 20 && get_distance_to_player() > 80 && can_attack())
+    if(std::abs(shortest_angular_distance(rotation, desired_rotation)) < 20 && get_distance_to_player() > 100 && can_attack())
     {
         attack();
         time_since_last_attack = 0;
@@ -79,7 +79,7 @@ sf::Vector2f Grunt::get_lateral_direction() const
 }
 
 
-void Grunt::move(double delta_time)
+void Grunt::move(double const delta_time)
 {
     double distance_to_move{delta_time * speed};
     double distance_to_player{get_distance_to_player()};
@@ -104,7 +104,7 @@ void Grunt::move(double delta_time)
 
         direction = forward_direction + lateral_direction;
     }
-    coordinates = check_boundury_collision(direction, distance_to_move, window_size.x, window_size.y);
+    coordinates = check_boundury_collision(direction, distance_to_move);
 }
 
 
@@ -117,18 +117,16 @@ void Grunt::attack() const
         return;
     }
 
-    auto new_projectile = std::make_shared<Projectile>(coordinates, projectile_texture, window, 1, 1, 450, player, rotation);
+    auto new_projectile = std::make_shared<Projectile>(coordinates, projectile_texture, window, 1, 1, 300, player, rotation);
 
     new_projectile -> set_enemies(*loaded_enemies);
-    new_projectile -> set_height(16);
-    new_projectile -> set_width(16);
+    new_projectile -> set_dimensions(sf::Vector2f(16, 16));
 
     if(!loaded_enemies)
     {
         std::cerr << "Error: Loaded enemies pointer is nullptr";
     }
     loaded_enemies->push_back(new_projectile);
-
 }
 
 void Grunt::handle_collision(std::shared_ptr<Game_Object> collided)
@@ -143,7 +141,7 @@ void Grunt::handle_collision(std::shared_ptr<Game_Object> collided)
     }
 }
 
-void Grunt::kill_entity(sf::Texture& dead_texture)
+void Grunt::kill_entity(sf::Texture const& dead_texture)
 {
     set_texture(dead_texture);
     set_speed(0);

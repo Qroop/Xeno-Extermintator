@@ -28,7 +28,7 @@ Game_Over_State::Game_Over_State(sf::RenderWindow& window ,int level_count)
 Game_Over_State::~Game_Over_State()
 {}
 
-void Game_Over_State::update(double delta_time)
+void Game_Over_State::update(double const delta_time)
 {
     window.clear();
 
@@ -43,7 +43,7 @@ void Game_Over_State::render()
 
 
 
-void Game_Over_State::set_status( bool win )
+void Game_Over_State::set_status( bool const win )
 {
     if ( win && level_count == current_level_index )
     {
@@ -74,7 +74,7 @@ void Game_Over_State::decision_handling()
     text[3].setPosition(lower_text_size);
 }
 
-int Game_Over_State::get_change()
+int Game_Over_State::get_change() const
 {
     return decision;
 }

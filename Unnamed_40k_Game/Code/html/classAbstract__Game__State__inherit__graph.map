@@ -1,0 +1,5 @@
+<map id="Abstract_Game_State" name="Abstract_Game_State">
+<area shape="rect" id="node1" title="Abstract base class for game states." alt="" coords="63,5,226,32"/>
+<area shape="rect" id="node2" href="$classGame__Over__State.html" title="Represents the game state when the game is over, derived from Abstract_Game_State." alt="" coords="5,80,145,107"/>
+<area shape="rect" id="node3" href="$classPlay__State.html" title="Represents the game state during play, derived from Abstract_Game_State." alt="" coords="170,80,261,107"/>
+</map>

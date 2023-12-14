@@ -1,0 +1,124 @@
+\hypertarget{classAbstract__Game__State}{}\doxysection{Abstract\+\_\+\+Game\+\_\+\+State Class Reference}
+\label{classAbstract__Game__State}\index{Abstract\_Game\_State@{Abstract\_Game\_State}}
+
+
+Abstract base class for game states.  
+
+
+
+
+{\ttfamily \#include $<$abstract\+\_\+game\+\_\+state.\+h$>$}
+
+
+
+Inheritance diagram for Abstract\+\_\+\+Game\+\_\+\+State\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=272pt]{classAbstract__Game__State__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classAbstract__Game__State_ad33cb68eb57c7f01bd69abb7d2aee72d}{Abstract\+\_\+\+Game\+\_\+\+State}} (sf\+::\+Render\+Window \&\mbox{\hyperlink{classAbstract__Game__State_a3830eeb4b7eb4e1921b8d1823e473ef9}{window}})
+\begin{DoxyCompactList}\small\item\em Constructor for \mbox{\hyperlink{classAbstract__Game__State}{Abstract\+\_\+\+Game\+\_\+\+State}}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAbstract__Game__State_afdbaf606e58c615486570530dc888ab0}\label{classAbstract__Game__State_afdbaf606e58c615486570530dc888ab0}} 
+\mbox{\hyperlink{classAbstract__Game__State_afdbaf606e58c615486570530dc888ab0}{$\sim$\+Abstract\+\_\+\+Game\+\_\+\+State}} ()
+\begin{DoxyCompactList}\small\item\em Destructor for \mbox{\hyperlink{classAbstract__Game__State}{Abstract\+\_\+\+Game\+\_\+\+State}}. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classAbstract__Game__State_a50e4471328a3ef8636a86c96e8f72e93}{update}} (double const delta\+\_\+time)=0
+\begin{DoxyCompactList}\small\item\em Update function to be implemented by derived classes. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classAbstract__Game__State_a5da4002c297e7363edf96f9e3d0bbf06}{render}} ()=0
+\begin{DoxyCompactList}\small\item\em Render function to be implemented by derived classes. \end{DoxyCompactList}\item 
+virtual int \mbox{\hyperlink{classAbstract__Game__State_a95bc765f0d2d97c80a6c45654e5ff5c0}{get\+\_\+change}} () const =0
+\begin{DoxyCompactList}\small\item\em Get the change in game state. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classAbstract__Game__State_a3830eeb4b7eb4e1921b8d1823e473ef9}\label{classAbstract__Game__State_a3830eeb4b7eb4e1921b8d1823e473ef9}} 
+sf\+::\+Render\+Window \& \mbox{\hyperlink{classAbstract__Game__State_a3830eeb4b7eb4e1921b8d1823e473ef9}{window}}
+\begin{DoxyCompactList}\small\item\em Reference to the SFML Render\+Window. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Abstract base class for game states. 
+
+This class defines the common interface for different game states. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classAbstract__Game__State_ad33cb68eb57c7f01bd69abb7d2aee72d}\label{classAbstract__Game__State_ad33cb68eb57c7f01bd69abb7d2aee72d}} 
+\index{Abstract\_Game\_State@{Abstract\_Game\_State}!Abstract\_Game\_State@{Abstract\_Game\_State}}
+\index{Abstract\_Game\_State@{Abstract\_Game\_State}!Abstract\_Game\_State@{Abstract\_Game\_State}}
+\doxysubsubsection{\texorpdfstring{Abstract\_Game\_State()}{Abstract\_Game\_State()}}
+{\footnotesize\ttfamily Abstract\+\_\+\+Game\+\_\+\+State\+::\+Abstract\+\_\+\+Game\+\_\+\+State (\begin{DoxyParamCaption}\item[{sf\+::\+Render\+Window \&}]{window }\end{DoxyParamCaption})}
+
+
+
+Constructor for \mbox{\hyperlink{classAbstract__Game__State}{Abstract\+\_\+\+Game\+\_\+\+State}}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em window} & Reference to the SFML Render\+Window. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classAbstract__Game__State_a95bc765f0d2d97c80a6c45654e5ff5c0}\label{classAbstract__Game__State_a95bc765f0d2d97c80a6c45654e5ff5c0}} 
+\index{Abstract\_Game\_State@{Abstract\_Game\_State}!get\_change@{get\_change}}
+\index{get\_change@{get\_change}!Abstract\_Game\_State@{Abstract\_Game\_State}}
+\doxysubsubsection{\texorpdfstring{get\_change()}{get\_change()}}
+{\footnotesize\ttfamily virtual int Abstract\+\_\+\+Game\+\_\+\+State\+::get\+\_\+change (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Get the change in game state. 
+
+\begin{DoxyReturn}{Returns}
+An integer representing the change in game state. 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classPlay__State_a39925210b0638785abaeba21ba93e816}{Play\+\_\+\+State}}, and \mbox{\hyperlink{classGame__Over__State_acd5b9e1617ee8f5847de7f11d4f434e7}{Game\+\_\+\+Over\+\_\+\+State}}.
+
+\mbox{\Hypertarget{classAbstract__Game__State_a5da4002c297e7363edf96f9e3d0bbf06}\label{classAbstract__Game__State_a5da4002c297e7363edf96f9e3d0bbf06}} 
+\index{Abstract\_Game\_State@{Abstract\_Game\_State}!render@{render}}
+\index{render@{render}!Abstract\_Game\_State@{Abstract\_Game\_State}}
+\doxysubsubsection{\texorpdfstring{render()}{render()}}
+{\footnotesize\ttfamily virtual void Abstract\+\_\+\+Game\+\_\+\+State\+::render (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Render function to be implemented by derived classes. 
+
+This function is called to render the game state. 
+
+Implemented in \mbox{\hyperlink{classGame__Over__State_ad1e90b979c8b08ac3255b0b4433b3061}{Game\+\_\+\+Over\+\_\+\+State}}, and \mbox{\hyperlink{classPlay__State_ade414944d55b8f2a2173d349389a0546}{Play\+\_\+\+State}}.
+
+\mbox{\Hypertarget{classAbstract__Game__State_a50e4471328a3ef8636a86c96e8f72e93}\label{classAbstract__Game__State_a50e4471328a3ef8636a86c96e8f72e93}} 
+\index{Abstract\_Game\_State@{Abstract\_Game\_State}!update@{update}}
+\index{update@{update}!Abstract\_Game\_State@{Abstract\_Game\_State}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily virtual void Abstract\+\_\+\+Game\+\_\+\+State\+::update (\begin{DoxyParamCaption}\item[{double const}]{delta\+\_\+time }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Update function to be implemented by derived classes. 
+
+This function is called to update the state of the game.
+
+
+\begin{DoxyParams}{Parameters}
+{\em delta\+\_\+time} & Time elapsed since the last update. \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{classPlay__State_a23fc0a4b1752a32607aae7b88d141c6b}{Play\+\_\+\+State}}, and \mbox{\hyperlink{classGame__Over__State_a2e670b16d8aa11f77a75c1d96c53637b}{Game\+\_\+\+Over\+\_\+\+State}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+abstract\+\_\+game\+\_\+state.\+h\end{DoxyCompactItemize}

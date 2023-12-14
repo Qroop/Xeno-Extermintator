@@ -30,7 +30,7 @@ Play_State::~Play_State()
 }
 
 
-void Play_State::load(std::string file_name)
+void Play_State::load(std::string const& file_name)
 {
     std::ifstream fs;
     fs.open("../Static/Levels/" + file_name);
@@ -51,7 +51,7 @@ void Play_State::load(std::string file_name)
     if (!dead_entities.empty()) dead_entities.clear();
 
     sf::Vector2f coords{16, 16};
-    player_pointer = std::make_unique<Player>(coords, player_texture, window, 5, 1, 300, fire_texture);
+    player_pointer = std::make_unique<Player>(coords, player_texture, window, 7, 1, 300, fire_texture);
     loaded.push_back(player_pointer);
     while ( !fs.eof() )
     {
@@ -68,7 +68,7 @@ void Play_State::load(std::string file_name)
                 break;
             case 'X':   // Grunt
             {
-                auto grunt = std::make_shared<Grunt>(coords, grunt_texture, window, projectile_texture, 3, 1, 50, *loaded[0]);
+                auto grunt = std::make_shared<Grunt>(coords, grunt_texture, window, projectile_texture, 3, 1, 40, *loaded[0]);
                 loaded.push_back(grunt);
                 loaded_enemies.push_back(grunt);
                 coords.x += 32;
@@ -114,7 +114,7 @@ void Play_State::render()
 }
 
 
-void Play_State::update(double delta_time)
+void Play_State::update(double const delta_time)
 {
     for (auto it = level.begin(); it != level.end(); )
     {
@@ -206,19 +206,19 @@ void Play_State::update(double delta_time)
 }
 
 
-int Play_State::get_enemy_count()
+int Play_State::get_enemy_count() const
 {
     return enemies.size();
 }
 
 
-bool Play_State::get_player_dead()
+bool Play_State::get_player_dead() const
 {
     return player_pointer -> is_dead();
 }
 
 
-int Play_State::get_change()
+int Play_State::get_change() const
 {
     if ( get_enemy_count() == 0)
     {

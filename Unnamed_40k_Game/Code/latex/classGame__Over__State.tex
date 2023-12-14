@@ -1,0 +1,161 @@
+\hypertarget{classGame__Over__State}{}\doxysection{Game\+\_\+\+Over\+\_\+\+State Class Reference}
+\label{classGame__Over__State}\index{Game\_Over\_State@{Game\_Over\_State}}
+
+
+Represents the game state when the game is over, derived from \mbox{\hyperlink{classAbstract__Game__State}{Abstract\+\_\+\+Game\+\_\+\+State}}.  
+
+
+
+
+{\ttfamily \#include $<$game\+\_\+over\+\_\+state.\+h$>$}
+
+
+
+Inheritance diagram for Game\+\_\+\+Over\+\_\+\+State\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=202pt]{classGame__Over__State__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Game\+\_\+\+Over\+\_\+\+State\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=202pt]{classGame__Over__State__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classGame__Over__State_aceb974bb8750aa5fd36df383ba50481d}{Game\+\_\+\+Over\+\_\+\+State}} (sf\+::\+Render\+Window \&\mbox{\hyperlink{classAbstract__Game__State_a3830eeb4b7eb4e1921b8d1823e473ef9}{window}}, int \mbox{\hyperlink{classGame__Over__State_ae1f165853601c17cfe8fcd8179911861}{level\+\_\+count}})
+\begin{DoxyCompactList}\small\item\em Constructor for the \mbox{\hyperlink{classGame__Over__State}{Game\+\_\+\+Over\+\_\+\+State}} class. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGame__Over__State_a7a2186a7fb65537c30ab04fd274ca166}\label{classGame__Over__State_a7a2186a7fb65537c30ab04fd274ca166}} 
+\mbox{\hyperlink{classGame__Over__State_a7a2186a7fb65537c30ab04fd274ca166}{$\sim$\+Game\+\_\+\+Over\+\_\+\+State}} ()
+\begin{DoxyCompactList}\small\item\em Destructor for the \mbox{\hyperlink{classGame__Over__State}{Game\+\_\+\+Over\+\_\+\+State}} class. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGame__Over__State_a2e670b16d8aa11f77a75c1d96c53637b}{update}} (double const delta\+\_\+time) override
+\begin{DoxyCompactList}\small\item\em Updates the game over state over time. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGame__Over__State_ad1e90b979c8b08ac3255b0b4433b3061}\label{classGame__Over__State_ad1e90b979c8b08ac3255b0b4433b3061}} 
+void \mbox{\hyperlink{classGame__Over__State_ad1e90b979c8b08ac3255b0b4433b3061}{render}} () override
+\begin{DoxyCompactList}\small\item\em Renders the game over state. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGame__Over__State_a78dd176786642689359d5c9ee9b725d3}{set\+\_\+status}} (bool const win)
+\begin{DoxyCompactList}\small\item\em Sets the win/lose status of the game. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classGame__Over__State_acd5b9e1617ee8f5847de7f11d4f434e7}{get\+\_\+change}} () const override
+\begin{DoxyCompactList}\small\item\em Gets the change in the game state. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGame__Over__State_af6dfd852b6535d493a51bf0d85ff93f3}\label{classGame__Over__State_af6dfd852b6535d493a51bf0d85ff93f3}} 
+void \mbox{\hyperlink{classGame__Over__State_af6dfd852b6535d493a51bf0d85ff93f3}{decision\+\_\+handling}} ()
+\begin{DoxyCompactList}\small\item\em Handles decision-\/making logic for the game over state. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classGame__Over__State_ae1f165853601c17cfe8fcd8179911861}\label{classGame__Over__State_ae1f165853601c17cfe8fcd8179911861}} 
+int \mbox{\hyperlink{classGame__Over__State_ae1f165853601c17cfe8fcd8179911861}{level\+\_\+count}}
+\begin{DoxyCompactList}\small\item\em The total number of levels in the game. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGame__Over__State_a8b0f2953edd7f6d25d405f69941340aa}\label{classGame__Over__State_a8b0f2953edd7f6d25d405f69941340aa}} 
+int \mbox{\hyperlink{classGame__Over__State_a8b0f2953edd7f6d25d405f69941340aa}{current\+\_\+level\+\_\+index}}
+\begin{DoxyCompactList}\small\item\em The index of the current level. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGame__Over__State_aa1a9c99199712c23982b30fdc19063b8}\label{classGame__Over__State_aa1a9c99199712c23982b30fdc19063b8}} 
+int \mbox{\hyperlink{classGame__Over__State_aa1a9c99199712c23982b30fdc19063b8}{decision}}
+\begin{DoxyCompactList}\small\item\em The decision made by the player. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGame__Over__State_a4c7326445087960401dce3cb52f3fc46}\label{classGame__Over__State_a4c7326445087960401dce3cb52f3fc46}} 
+sf\+::\+Font \mbox{\hyperlink{classGame__Over__State_a4c7326445087960401dce3cb52f3fc46}{font}}
+\begin{DoxyCompactList}\small\item\em The font used for rendering text. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGame__Over__State_a95842cbcd5777c3cb32864ace89425e4}\label{classGame__Over__State_a95842cbcd5777c3cb32864ace89425e4}} 
+std\+::string \mbox{\hyperlink{classGame__Over__State_a95842cbcd5777c3cb32864ace89425e4}{instructions}}
+\begin{DoxyCompactList}\small\item\em Instructions displayed on the screen. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGame__Over__State_ad3138ac7bf4ddf8a664d1d451b91ce68}\label{classGame__Over__State_ad3138ac7bf4ddf8a664d1d451b91ce68}} 
+std\+::array$<$ sf\+::\+Text, 4 $>$ \mbox{\hyperlink{classGame__Over__State_ad3138ac7bf4ddf8a664d1d451b91ce68}{text}}
+\begin{DoxyCompactList}\small\item\em Array of texts for rendering different options. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGame__Over__State_a282a77badb52e1f0b09c19eb7c3e83b4}\label{classGame__Over__State_a282a77badb52e1f0b09c19eb7c3e83b4}} 
+sf\+::\+Vector2f \mbox{\hyperlink{classGame__Over__State_a282a77badb52e1f0b09c19eb7c3e83b4}{upper\+\_\+text\+\_\+size}}
+\begin{DoxyCompactList}\small\item\em Size of upper text elements. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGame__Over__State_a21068604d955234d1a54145e94bde6c5}\label{classGame__Over__State_a21068604d955234d1a54145e94bde6c5}} 
+sf\+::\+Vector2f \mbox{\hyperlink{classGame__Over__State_a21068604d955234d1a54145e94bde6c5}{lower\+\_\+text\+\_\+size}}
+\begin{DoxyCompactList}\small\item\em Size of lower text elements. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+Represents the game state when the game is over, derived from \mbox{\hyperlink{classAbstract__Game__State}{Abstract\+\_\+\+Game\+\_\+\+State}}. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classGame__Over__State_aceb974bb8750aa5fd36df383ba50481d}\label{classGame__Over__State_aceb974bb8750aa5fd36df383ba50481d}} 
+\index{Game\_Over\_State@{Game\_Over\_State}!Game\_Over\_State@{Game\_Over\_State}}
+\index{Game\_Over\_State@{Game\_Over\_State}!Game\_Over\_State@{Game\_Over\_State}}
+\doxysubsubsection{\texorpdfstring{Game\_Over\_State()}{Game\_Over\_State()}}
+{\footnotesize\ttfamily Game\+\_\+\+Over\+\_\+\+State\+::\+Game\+\_\+\+Over\+\_\+\+State (\begin{DoxyParamCaption}\item[{sf\+::\+Render\+Window \&}]{window,  }\item[{int}]{level\+\_\+count }\end{DoxyParamCaption})}
+
+
+
+Constructor for the \mbox{\hyperlink{classGame__Over__State}{Game\+\_\+\+Over\+\_\+\+State}} class. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em window} & The render window for the game. \\
+\hline
+{\em level\+\_\+count} & The total number of levels in the game. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classGame__Over__State_acd5b9e1617ee8f5847de7f11d4f434e7}\label{classGame__Over__State_acd5b9e1617ee8f5847de7f11d4f434e7}} 
+\index{Game\_Over\_State@{Game\_Over\_State}!get\_change@{get\_change}}
+\index{get\_change@{get\_change}!Game\_Over\_State@{Game\_Over\_State}}
+\doxysubsubsection{\texorpdfstring{get\_change()}{get\_change()}}
+{\footnotesize\ttfamily int Game\+\_\+\+Over\+\_\+\+State\+::get\+\_\+change (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Gets the change in the game state. 
+
+\begin{DoxyReturn}{Returns}
+The change in the game state. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classAbstract__Game__State_a95bc765f0d2d97c80a6c45654e5ff5c0}{Abstract\+\_\+\+Game\+\_\+\+State}}.
+
+\mbox{\Hypertarget{classGame__Over__State_a78dd176786642689359d5c9ee9b725d3}\label{classGame__Over__State_a78dd176786642689359d5c9ee9b725d3}} 
+\index{Game\_Over\_State@{Game\_Over\_State}!set\_status@{set\_status}}
+\index{set\_status@{set\_status}!Game\_Over\_State@{Game\_Over\_State}}
+\doxysubsubsection{\texorpdfstring{set\_status()}{set\_status()}}
+{\footnotesize\ttfamily void Game\+\_\+\+Over\+\_\+\+State\+::set\+\_\+status (\begin{DoxyParamCaption}\item[{bool const}]{win }\end{DoxyParamCaption})}
+
+
+
+Sets the win/lose status of the game. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em win} & True if the player won, false if they lost. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classGame__Over__State_a2e670b16d8aa11f77a75c1d96c53637b}\label{classGame__Over__State_a2e670b16d8aa11f77a75c1d96c53637b}} 
+\index{Game\_Over\_State@{Game\_Over\_State}!update@{update}}
+\index{update@{update}!Game\_Over\_State@{Game\_Over\_State}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily void Game\+\_\+\+Over\+\_\+\+State\+::update (\begin{DoxyParamCaption}\item[{double const}]{delta\+\_\+time }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Updates the game over state over time. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em delta\+\_\+time} & The time elapsed since the last update. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classAbstract__Game__State_a50e4471328a3ef8636a86c96e8f72e93}{Abstract\+\_\+\+Game\+\_\+\+State}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+game\+\_\+over\+\_\+state.\+h\end{DoxyCompactItemize}

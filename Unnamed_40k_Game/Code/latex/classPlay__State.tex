@@ -1,0 +1,198 @@
+\hypertarget{classPlay__State}{}\doxysection{Play\+\_\+\+State Class Reference}
+\label{classPlay__State}\index{Play\_State@{Play\_State}}
+
+
+Represents the game state during play, derived from \mbox{\hyperlink{classAbstract__Game__State}{Abstract\+\_\+\+Game\+\_\+\+State}}.  
+
+
+
+
+{\ttfamily \#include $<$play\+\_\+state.\+h$>$}
+
+
+
+Inheritance diagram for Play\+\_\+\+State\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=202pt]{classPlay__State__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Play\+\_\+\+State\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=202pt]{classPlay__State__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classPlay__State_a1bce0e5544c6d3f8d8fc11527e353b9c}{Play\+\_\+\+State}} (sf\+::\+Render\+Window \&\mbox{\hyperlink{classAbstract__Game__State_a3830eeb4b7eb4e1921b8d1823e473ef9}{window}})
+\begin{DoxyCompactList}\small\item\em Constructor for the \mbox{\hyperlink{classPlay__State}{Play\+\_\+\+State}} class. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classPlay__State_a681fbcf9f02496c3d021762fe4a59341}\label{classPlay__State_a681fbcf9f02496c3d021762fe4a59341}} 
+\mbox{\hyperlink{classPlay__State_a681fbcf9f02496c3d021762fe4a59341}{$\sim$\+Play\+\_\+\+State}} ()
+\begin{DoxyCompactList}\small\item\em Destructor for the \mbox{\hyperlink{classPlay__State}{Play\+\_\+\+State}} class. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classPlay__State_a611fc98d2da0ea60e70d9854a6e24e3c}{load}} (std\+::string const \&file\+\_\+name)
+\begin{DoxyCompactList}\small\item\em Loads a game state from a specified file. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classPlay__State_ade414944d55b8f2a2173d349389a0546}\label{classPlay__State_ade414944d55b8f2a2173d349389a0546}} 
+void \mbox{\hyperlink{classPlay__State_ade414944d55b8f2a2173d349389a0546}{render}} ()
+\begin{DoxyCompactList}\small\item\em Renders the game state. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classPlay__State_a23fc0a4b1752a32607aae7b88d141c6b}{update}} (double const delta\+\_\+time) override
+\begin{DoxyCompactList}\small\item\em Updates the game state over time. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classPlay__State_a20cf507a8f3cf5152d4c412e4abd8a33}{get\+\_\+enemy\+\_\+count}} () const
+\begin{DoxyCompactList}\small\item\em Gets the count of enemies in the game state. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classPlay__State_a3dfb89d064aa6b6cf3758623e625503c}{get\+\_\+player\+\_\+dead}} () const
+\begin{DoxyCompactList}\small\item\em Checks if the player is dead. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classPlay__State_a39925210b0638785abaeba21ba93e816}{get\+\_\+change}} () const override
+\begin{DoxyCompactList}\small\item\em Gets the change in the game state. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classPlay__State_a8afd19dd9ea8a26caacd64755f622526}\label{classPlay__State_a8afd19dd9ea8a26caacd64755f622526}} 
+sf\+::\+Texture {\bfseries grunt\+\_\+texture}
+\item 
+\mbox{\Hypertarget{classPlay__State_aafe910e61da06f92866f2203105cbe75}\label{classPlay__State_aafe910e61da06f92866f2203105cbe75}} 
+sf\+::\+Texture {\bfseries player\+\_\+texture}
+\item 
+\mbox{\Hypertarget{classPlay__State_a01ca65f15d4b7030967d9e89dec6dfc5}\label{classPlay__State_a01ca65f15d4b7030967d9e89dec6dfc5}} 
+sf\+::\+Texture {\bfseries wall\+\_\+texture}
+\item 
+\mbox{\Hypertarget{classPlay__State_aa572f69bb0bfeeea069c1069950f5af7}\label{classPlay__State_aa572f69bb0bfeeea069c1069950f5af7}} 
+sf\+::\+Texture {\bfseries dead\+\_\+grunt\+\_\+texture}
+\item 
+\mbox{\Hypertarget{classPlay__State_a58a4be1242f801f02823e0605f00ef40}\label{classPlay__State_a58a4be1242f801f02823e0605f00ef40}} 
+sf\+::\+Texture {\bfseries projectile\+\_\+texture}
+\item 
+\mbox{\Hypertarget{classPlay__State_ab65838994e1c26117150d0dd9d2dcbdf}\label{classPlay__State_ab65838994e1c26117150d0dd9d2dcbdf}} 
+sf\+::\+Texture {\bfseries dead\+\_\+projectile\+\_\+texture}
+\item 
+\mbox{\Hypertarget{classPlay__State_a5235ce9fb93922fda1e00b5eec830366}\label{classPlay__State_a5235ce9fb93922fda1e00b5eec830366}} 
+sf\+::\+Texture {\bfseries fire\+\_\+texture}
+\item 
+\mbox{\Hypertarget{classPlay__State_ae7ae939a2961dbbe5d51916438a1b578}\label{classPlay__State_ae7ae939a2961dbbe5d51916438a1b578}} 
+std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classGame__Object}{Game\+\_\+\+Object}} $>$ $>$ \mbox{\hyperlink{classPlay__State_ae7ae939a2961dbbe5d51916438a1b578}{level}}
+\begin{DoxyCompactList}\small\item\em The game objects in the current level. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classPlay__State_a5fcaf715da93d6ea6db82fa101b95711}\label{classPlay__State_a5fcaf715da93d6ea6db82fa101b95711}} 
+std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classGame__Object}{Game\+\_\+\+Object}} $>$ $>$ \mbox{\hyperlink{classPlay__State_a5fcaf715da93d6ea6db82fa101b95711}{dead\+\_\+entities}}
+\begin{DoxyCompactList}\small\item\em The dead game objects in the current level. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classPlay__State_ad996f380cf9521f6eb931995980b92e0}\label{classPlay__State_ad996f380cf9521f6eb931995980b92e0}} 
+std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classEnemy}{Enemy}} $>$ $>$ \mbox{\hyperlink{classPlay__State_ad996f380cf9521f6eb931995980b92e0}{enemies}}
+\begin{DoxyCompactList}\small\item\em The enemies in the current level. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classPlay__State_a8e0bfaf483032a3b86d21539142dce1f}\label{classPlay__State_a8e0bfaf483032a3b86d21539142dce1f}} 
+std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classEnemy}{Enemy}} $>$ $>$ \mbox{\hyperlink{classPlay__State_a8e0bfaf483032a3b86d21539142dce1f}{projectiles\+\_\+to\+\_\+add}}
+\begin{DoxyCompactList}\small\item\em The projectiles to be added to the game state. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classPlay__State_a63b98fe5d9ea5bd7cbf82e66aa21728c}\label{classPlay__State_a63b98fe5d9ea5bd7cbf82e66aa21728c}} 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classPlayer}{Player}} $>$ \mbox{\hyperlink{classPlay__State_a63b98fe5d9ea5bd7cbf82e66aa21728c}{player\+\_\+pointer}}
+\begin{DoxyCompactList}\small\item\em Pointer to the player object in the game state. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+Represents the game state during play, derived from \mbox{\hyperlink{classAbstract__Game__State}{Abstract\+\_\+\+Game\+\_\+\+State}}. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classPlay__State_a1bce0e5544c6d3f8d8fc11527e353b9c}\label{classPlay__State_a1bce0e5544c6d3f8d8fc11527e353b9c}} 
+\index{Play\_State@{Play\_State}!Play\_State@{Play\_State}}
+\index{Play\_State@{Play\_State}!Play\_State@{Play\_State}}
+\doxysubsubsection{\texorpdfstring{Play\_State()}{Play\_State()}}
+{\footnotesize\ttfamily Play\+\_\+\+State\+::\+Play\+\_\+\+State (\begin{DoxyParamCaption}\item[{sf\+::\+Render\+Window \&}]{window }\end{DoxyParamCaption})}
+
+
+
+Constructor for the \mbox{\hyperlink{classPlay__State}{Play\+\_\+\+State}} class. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em window} & The render window for the game. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classPlay__State_a39925210b0638785abaeba21ba93e816}\label{classPlay__State_a39925210b0638785abaeba21ba93e816}} 
+\index{Play\_State@{Play\_State}!get\_change@{get\_change}}
+\index{get\_change@{get\_change}!Play\_State@{Play\_State}}
+\doxysubsubsection{\texorpdfstring{get\_change()}{get\_change()}}
+{\footnotesize\ttfamily int Play\+\_\+\+State\+::get\+\_\+change (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Gets the change in the game state. 
+
+\begin{DoxyReturn}{Returns}
+The change in the game state. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classAbstract__Game__State_a95bc765f0d2d97c80a6c45654e5ff5c0}{Abstract\+\_\+\+Game\+\_\+\+State}}.
+
+\mbox{\Hypertarget{classPlay__State_a20cf507a8f3cf5152d4c412e4abd8a33}\label{classPlay__State_a20cf507a8f3cf5152d4c412e4abd8a33}} 
+\index{Play\_State@{Play\_State}!get\_enemy\_count@{get\_enemy\_count}}
+\index{get\_enemy\_count@{get\_enemy\_count}!Play\_State@{Play\_State}}
+\doxysubsubsection{\texorpdfstring{get\_enemy\_count()}{get\_enemy\_count()}}
+{\footnotesize\ttfamily int Play\+\_\+\+State\+::get\+\_\+enemy\+\_\+count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Gets the count of enemies in the game state. 
+
+\begin{DoxyReturn}{Returns}
+The count of enemies. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classPlay__State_a3dfb89d064aa6b6cf3758623e625503c}\label{classPlay__State_a3dfb89d064aa6b6cf3758623e625503c}} 
+\index{Play\_State@{Play\_State}!get\_player\_dead@{get\_player\_dead}}
+\index{get\_player\_dead@{get\_player\_dead}!Play\_State@{Play\_State}}
+\doxysubsubsection{\texorpdfstring{get\_player\_dead()}{get\_player\_dead()}}
+{\footnotesize\ttfamily bool Play\+\_\+\+State\+::get\+\_\+player\+\_\+dead (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Checks if the player is dead. 
+
+\begin{DoxyReturn}{Returns}
+True if the player is dead, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classPlay__State_a611fc98d2da0ea60e70d9854a6e24e3c}\label{classPlay__State_a611fc98d2da0ea60e70d9854a6e24e3c}} 
+\index{Play\_State@{Play\_State}!load@{load}}
+\index{load@{load}!Play\_State@{Play\_State}}
+\doxysubsubsection{\texorpdfstring{load()}{load()}}
+{\footnotesize\ttfamily void Play\+\_\+\+State\+::load (\begin{DoxyParamCaption}\item[{std\+::string const \&}]{file\+\_\+name }\end{DoxyParamCaption})}
+
+
+
+Loads a game state from a specified file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file\+\_\+name} & The name of the file containing the game state information. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classPlay__State_a23fc0a4b1752a32607aae7b88d141c6b}\label{classPlay__State_a23fc0a4b1752a32607aae7b88d141c6b}} 
+\index{Play\_State@{Play\_State}!update@{update}}
+\index{update@{update}!Play\_State@{Play\_State}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily void Play\+\_\+\+State\+::update (\begin{DoxyParamCaption}\item[{double const}]{delta\+\_\+time }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Updates the game state over time. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em delta\+\_\+time} & The time elapsed since the last update. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classAbstract__Game__State_a50e4471328a3ef8636a86c96e8f72e93}{Abstract\+\_\+\+Game\+\_\+\+State}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+play\+\_\+state.\+h\end{DoxyCompactItemize}

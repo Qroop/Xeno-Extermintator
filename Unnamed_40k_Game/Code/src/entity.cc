@@ -12,7 +12,7 @@
 #include <memory>
 
 Entity::Entity(sf::Vector2f coordinates, sf::Texture& texture, sf::RenderWindow& window, int health_points, int damage, int speed, double rotation)
-: Game_Object(coordinates, texture, window), health_points(health_points), damage(damage), speed(speed), loaded_enemies(nullptr), rotation(rotation), last_pos()
+: Game_Object(coordinates, texture, window), health_points(health_points), damage(damage), speed(speed), loaded_enemies(nullptr), rotation(rotation)
 {
     int int_window_width = window.getSize().x;
     int int_window_height = window.getSize().y;
@@ -76,15 +76,15 @@ void Entity::draw()
 }
 
 
-sf::Vector2f Entity::check_boundury_collision(sf::Vector2f direction, double distance_to_move, size_t window_width, size_t window_height)
+sf::Vector2f Entity::check_boundury_collision(sf::Vector2f & direction, double const distance_to_move)
 {
     float new_x = coordinates.x + direction.x * distance_to_move;
     float new_y = coordinates.y + direction.y * distance_to_move;
 
-    if (new_x - (width / 2) >= 0 && new_x + (width / 2) <= window_width)
+    if (new_x - (width / 2) >= 0 && new_x + (width / 2) <= window_size.x)
         coordinates.x = new_x;
 
-    if (new_y - (height / 2) >= 0 && new_y + (height / 2) <= window_height)
+    if (new_y - (height / 2) >= 0 && new_y + (height / 2) <= window_size.y)
         coordinates.y = new_y;
 
     return coordinates;
@@ -97,21 +97,21 @@ bool Entity::is_dead()
 }
 
 
-void Entity::set_speed(int new_speed)
+void Entity::set_speed(int const new_speed)
 {
     speed = new_speed;
 }
 
 
-void Entity::set_texture(sf::Texture& new_texture)
+void Entity::set_texture(sf::Texture const& new_texture)
 {
     sprite.setTexture(new_texture);
 }
 
 
-void Entity::set_attack_speed(double new_cooldown)
+void Entity::set_attack_speed(double const new_speed)
 {
-    attack_cooldown = new_cooldown;
+    attack_cooldown = new_speed;
 }
 
 
@@ -140,4 +140,3 @@ void Entity::set_enemies(std::vector<std::shared_ptr<Enemy>>& enemies)
 {
     loaded_enemies = &enemies;
 }
-

@@ -1,0 +1,214 @@
+\hypertarget{classGrunt}{}\doxysection{Grunt Class Reference}
+\label{classGrunt}\index{Grunt@{Grunt}}
+
+
+Represents a grunt enemy in the game, derived from the \mbox{\hyperlink{classEnemy}{Enemy}} class.  
+
+
+
+
+{\ttfamily \#include $<$grunt.\+h$>$}
+
+
+
+Inheritance diagram for Grunt\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=163pt]{classGrunt__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Grunt\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=207pt]{classGrunt__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classGrunt_a66d3b9b4d7b20da9532fc3ff894f3514}{Grunt}} (sf\+::\+Vector2f \mbox{\hyperlink{classGame__Object_aa990e12aa5e8809f9979dcf16c125ef3}{coordinates}}, sf\+::\+Texture \&\mbox{\hyperlink{classGame__Object_a13560c137a872f261b3cd2a200e865c3}{texture}}, sf\+::\+Render\+Window \&\mbox{\hyperlink{classGame__Object_a4276a95c4ba382362ebf7ab5ac8797c3}{window}}, sf\+::\+Texture \&\mbox{\hyperlink{classGrunt_a426830fc8e745bb0bbff623459bd17a8}{projectile\+\_\+texture}}, int \mbox{\hyperlink{classEntity_aca9a1387fe0401f966b228d13e99a9cb}{health\+\_\+points}}, int \mbox{\hyperlink{classEntity_aff1cfa72efeb33827b90f4006eca01fe}{damage}}, int \mbox{\hyperlink{classEntity_a12ea871d945d59cbf57b8f8f7d2179ed}{speed}}, \mbox{\hyperlink{classGame__Object}{Game\+\_\+\+Object}} \&\mbox{\hyperlink{classEnemy_a53100ba0988d6514427cea90024433a8}{player}}, double \mbox{\hyperlink{classEntity_a4211aecde17ec207f14a260fc5440f1f}{rotation}}=0)
+\begin{DoxyCompactList}\small\item\em Constructor for the \mbox{\hyperlink{classGrunt}{Grunt}} class. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGrunt_aa71bda95850126621b929c8b358309b9}\label{classGrunt_aa71bda95850126621b929c8b358309b9}} 
+\mbox{\hyperlink{classGrunt_aa71bda95850126621b929c8b358309b9}{$\sim$\+Grunt}} ()
+\begin{DoxyCompactList}\small\item\em Destructor for the \mbox{\hyperlink{classGrunt}{Grunt}} class. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGrunt_a60769f9a99af542ca35c16fc94019656}{update}} (double delta\+\_\+time) override
+\begin{DoxyCompactList}\small\item\em Updates the state of the grunt over time. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGrunt_abdb612620064266caef5ad56726b1527}{move}} (double const delta\+\_\+time) override
+\begin{DoxyCompactList}\small\item\em Moves the grunt based on its speed and direction. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGrunt_af4d5749753dcf2ea39ec9bd8ffc2d82b}\label{classGrunt_af4d5749753dcf2ea39ec9bd8ffc2d82b}} 
+void \mbox{\hyperlink{classGrunt_af4d5749753dcf2ea39ec9bd8ffc2d82b}{attack}} () const override
+\begin{DoxyCompactList}\small\item\em Performs the attack behavior of the grunt. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGrunt_a658297715e1f533486f56cb84171eac4}{handle\+\_\+collision}} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classGame__Object}{Game\+\_\+\+Object}} $>$ collided) override
+\begin{DoxyCompactList}\small\item\em Handles collision with other game objects. \end{DoxyCompactList}\item 
+sf\+::\+Vector2f \mbox{\hyperlink{classGrunt_af6ac3c34b6fd3b87a5a15452d6704063}{get\+\_\+lateral\+\_\+direction}} () const
+\begin{DoxyCompactList}\small\item\em Gets the lateral direction vector of the grunt. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classGrunt_a8eec1187c0328fdd79c5ba0f303c66c9}{get\+\_\+distance\+\_\+to\+\_\+player}} () const
+\begin{DoxyCompactList}\small\item\em Gets the distance between the grunt and the player. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGrunt_ac624e486cc629c85ad55de890e74bcc2}{kill\+\_\+entity}} (sf\+::\+Texture const \&dead\+\_\+texture) override
+\begin{DoxyCompactList}\small\item\em Kills the grunt and sets its texture to the specified dead texture. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classGrunt_a0c0fc9d39801a0713bab0972c7f99cd3}\label{classGrunt_a0c0fc9d39801a0713bab0972c7f99cd3}} 
+double \mbox{\hyperlink{classGrunt_a0c0fc9d39801a0713bab0972c7f99cd3}{distance\+\_\+to\+\_\+keep}}
+\begin{DoxyCompactList}\small\item\em The distance the grunt tries to keep from the player. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGrunt_a44cd66eb2830050f94d74dfc84b00b6b}\label{classGrunt_a44cd66eb2830050f94d74dfc84b00b6b}} 
+bool \mbox{\hyperlink{classGrunt_a44cd66eb2830050f94d74dfc84b00b6b}{walk\+\_\+left}}
+\begin{DoxyCompactList}\small\item\em Flag indicating the grunt\textquotesingle{}s walking direction. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGrunt_a426830fc8e745bb0bbff623459bd17a8}\label{classGrunt_a426830fc8e745bb0bbff623459bd17a8}} 
+sf\+::\+Texture \& \mbox{\hyperlink{classGrunt_a426830fc8e745bb0bbff623459bd17a8}{projectile\+\_\+texture}}
+\begin{DoxyCompactList}\small\item\em The texture used for rendering the grunt\textquotesingle{}s projectiles. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+Represents a grunt enemy in the game, derived from the \mbox{\hyperlink{classEnemy}{Enemy}} class. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classGrunt_a66d3b9b4d7b20da9532fc3ff894f3514}\label{classGrunt_a66d3b9b4d7b20da9532fc3ff894f3514}} 
+\index{Grunt@{Grunt}!Grunt@{Grunt}}
+\index{Grunt@{Grunt}!Grunt@{Grunt}}
+\doxysubsubsection{\texorpdfstring{Grunt()}{Grunt()}}
+{\footnotesize\ttfamily Grunt\+::\+Grunt (\begin{DoxyParamCaption}\item[{sf\+::\+Vector2f}]{coordinates,  }\item[{sf\+::\+Texture \&}]{texture,  }\item[{sf\+::\+Render\+Window \&}]{window,  }\item[{sf\+::\+Texture \&}]{projectile\+\_\+texture,  }\item[{int}]{health\+\_\+points,  }\item[{int}]{damage,  }\item[{int}]{speed,  }\item[{\mbox{\hyperlink{classGame__Object}{Game\+\_\+\+Object}} \&}]{player,  }\item[{double}]{rotation = {\ttfamily 0} }\end{DoxyParamCaption})}
+
+
+
+Constructor for the \mbox{\hyperlink{classGrunt}{Grunt}} class. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em coordinates} & The initial coordinates of the grunt. \\
+\hline
+{\em texture} & The texture used for rendering the grunt. \\
+\hline
+{\em window} & The render window where the grunt will be drawn. \\
+\hline
+{\em projectile\+\_\+texture} & The texture used for rendering the grunt\textquotesingle{}s projectiles. \\
+\hline
+{\em health\+\_\+points} & The health points of the grunt. \\
+\hline
+{\em damage} & The damage inflicted by the grunt. \\
+\hline
+{\em speed} & The speed at which the grunt moves. \\
+\hline
+{\em player} & The player \mbox{\hyperlink{classGame__Object}{Game\+\_\+\+Object}} that the grunt targets. \\
+\hline
+{\em rotation} & The initial rotation angle of the grunt. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classGrunt_a8eec1187c0328fdd79c5ba0f303c66c9}\label{classGrunt_a8eec1187c0328fdd79c5ba0f303c66c9}} 
+\index{Grunt@{Grunt}!get\_distance\_to\_player@{get\_distance\_to\_player}}
+\index{get\_distance\_to\_player@{get\_distance\_to\_player}!Grunt@{Grunt}}
+\doxysubsubsection{\texorpdfstring{get\_distance\_to\_player()}{get\_distance\_to\_player()}}
+{\footnotesize\ttfamily double Grunt\+::get\+\_\+distance\+\_\+to\+\_\+player (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Gets the distance between the grunt and the player. 
+
+\begin{DoxyReturn}{Returns}
+The distance to the player. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classGrunt_af6ac3c34b6fd3b87a5a15452d6704063}\label{classGrunt_af6ac3c34b6fd3b87a5a15452d6704063}} 
+\index{Grunt@{Grunt}!get\_lateral\_direction@{get\_lateral\_direction}}
+\index{get\_lateral\_direction@{get\_lateral\_direction}!Grunt@{Grunt}}
+\doxysubsubsection{\texorpdfstring{get\_lateral\_direction()}{get\_lateral\_direction()}}
+{\footnotesize\ttfamily sf\+::\+Vector2f Grunt\+::get\+\_\+lateral\+\_\+direction (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Gets the lateral direction vector of the grunt. 
+
+\begin{DoxyReturn}{Returns}
+The normalized lateral direction vector. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classGrunt_a658297715e1f533486f56cb84171eac4}\label{classGrunt_a658297715e1f533486f56cb84171eac4}} 
+\index{Grunt@{Grunt}!handle\_collision@{handle\_collision}}
+\index{handle\_collision@{handle\_collision}!Grunt@{Grunt}}
+\doxysubsubsection{\texorpdfstring{handle\_collision()}{handle\_collision()}}
+{\footnotesize\ttfamily void Grunt\+::handle\+\_\+collision (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classGame__Object}{Game\+\_\+\+Object}} $>$}]{collided }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Handles collision with other game objects. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em collided} & The game object with which the collision occurred. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classEntity_a0638e0545bdcbea100d278eb8a5e54b9}{Entity}}.
+
+\mbox{\Hypertarget{classGrunt_ac624e486cc629c85ad55de890e74bcc2}\label{classGrunt_ac624e486cc629c85ad55de890e74bcc2}} 
+\index{Grunt@{Grunt}!kill\_entity@{kill\_entity}}
+\index{kill\_entity@{kill\_entity}!Grunt@{Grunt}}
+\doxysubsubsection{\texorpdfstring{kill\_entity()}{kill\_entity()}}
+{\footnotesize\ttfamily void Grunt\+::kill\+\_\+entity (\begin{DoxyParamCaption}\item[{sf\+::\+Texture const \&}]{dead\+\_\+texture }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Kills the grunt and sets its texture to the specified dead texture. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dead\+\_\+texture} & The texture to set after the grunt is killed. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classEntity_a1c49ff2650d69083536127dd05c255e5}{Entity}}.
+
+\mbox{\Hypertarget{classGrunt_abdb612620064266caef5ad56726b1527}\label{classGrunt_abdb612620064266caef5ad56726b1527}} 
+\index{Grunt@{Grunt}!move@{move}}
+\index{move@{move}!Grunt@{Grunt}}
+\doxysubsubsection{\texorpdfstring{move()}{move()}}
+{\footnotesize\ttfamily void Grunt\+::move (\begin{DoxyParamCaption}\item[{double const}]{delta\+\_\+time }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Moves the grunt based on its speed and direction. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em delta\+\_\+time} & The time elapsed since the last move. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classEntity_a16a26d1a12da02e4922262da6125de3e}{Entity}}.
+
+\mbox{\Hypertarget{classGrunt_a60769f9a99af542ca35c16fc94019656}\label{classGrunt_a60769f9a99af542ca35c16fc94019656}} 
+\index{Grunt@{Grunt}!update@{update}}
+\index{update@{update}!Grunt@{Grunt}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily void Grunt\+::update (\begin{DoxyParamCaption}\item[{double}]{delta\+\_\+time }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Updates the state of the grunt over time. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em delta\+\_\+time} & The time elapsed since the last update. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classEnemy_a8783b3f7f5a47d40dbab7d7cdf0a95ce}{Enemy}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+grunt.\+h\end{DoxyCompactItemize}

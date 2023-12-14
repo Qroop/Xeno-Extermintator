@@ -1,0 +1,183 @@
+\hypertarget{classGame__Object}{}\doxysection{Game\+\_\+\+Object Class Reference}
+\label{classGame__Object}\index{Game\_Object@{Game\_Object}}
+
+
+Represents a generic game object.  
+
+
+
+
+{\ttfamily \#include $<$game\+\_\+object.\+h$>$}
+
+
+
+Inheritance diagram for Game\+\_\+\+Object\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=249pt]{classGame__Object__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classGame__Object_a209947d562381082d17e952bf4d025e6}{Game\+\_\+\+Object}} (sf\+::\+Vector2f \mbox{\hyperlink{classGame__Object_aa990e12aa5e8809f9979dcf16c125ef3}{coordinates}}, sf\+::\+Texture \&\mbox{\hyperlink{classGame__Object_a13560c137a872f261b3cd2a200e865c3}{texture}}, sf\+::\+Render\+Window \&\mbox{\hyperlink{classGame__Object_a4276a95c4ba382362ebf7ab5ac8797c3}{window}})
+\begin{DoxyCompactList}\small\item\em Constructor for the \mbox{\hyperlink{classGame__Object}{Game\+\_\+\+Object}} class. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGame__Object_af9acaa664e585173372ffb4b373536af}\label{classGame__Object_af9acaa664e585173372ffb4b373536af}} 
+virtual \mbox{\hyperlink{classGame__Object_af9acaa664e585173372ffb4b373536af}{$\sim$\+Game\+\_\+\+Object}} ()=0
+\begin{DoxyCompactList}\small\item\em Virtual destructor for the \mbox{\hyperlink{classGame__Object}{Game\+\_\+\+Object}} class. \end{DoxyCompactList}\item 
+sf\+::\+Vector2f \mbox{\hyperlink{classGame__Object_a575ce49094c3335911d1ffc5707c0cc8}{get\+\_\+coordinates}} () const
+\begin{DoxyCompactList}\small\item\em Gets the coordinates of the game object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGame__Object_a892c465c392c1583eabf1364bb18eb92}{set\+\_\+coordinates}} (sf\+::\+Vector2f const \&set\+\_\+coordinates)
+\begin{DoxyCompactList}\small\item\em Sets the coordinates of the game object. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classGame__Object_af34cf806524f6f566d7f20c9c8629025}{get\+\_\+height}} () const
+\begin{DoxyCompactList}\small\item\em Gets the height of the game object. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classGame__Object_a5f3a7ff9ea5c32d35cc39ec84dbe5712}{get\+\_\+width}} () const
+\begin{DoxyCompactList}\small\item\em Gets the width of the game object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGame__Object_a2912b69c54ee5427a189866fa8cd72ab}{set\+\_\+dimensions}} (sf\+::\+Vector2f const \&new\+\_\+dimensions)
+\begin{DoxyCompactList}\small\item\em Sets the dimensions of the game object. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGame__Object_aa9289b63a2943214ed12d4562e43f5cd}\label{classGame__Object_aa9289b63a2943214ed12d4562e43f5cd}} 
+virtual void \mbox{\hyperlink{classGame__Object_aa9289b63a2943214ed12d4562e43f5cd}{draw}} ()
+\begin{DoxyCompactList}\small\item\em Draws the game object on the render window. \end{DoxyCompactList}\item 
+sf\+::\+Float\+Rect \mbox{\hyperlink{classGame__Object_a1445152a9eb3e65cd614d4670911bbb3}{get\+\_\+global\+\_\+bounds}} () const
+\begin{DoxyCompactList}\small\item\em Gets the global bounding rectangle of the game object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classGame__Object_aa990e12aa5e8809f9979dcf16c125ef3}\label{classGame__Object_aa990e12aa5e8809f9979dcf16c125ef3}} 
+sf\+::\+Vector2f \mbox{\hyperlink{classGame__Object_aa990e12aa5e8809f9979dcf16c125ef3}{coordinates}}
+\begin{DoxyCompactList}\small\item\em The coordinates of the game object. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGame__Object_a243628d44af4180365a31444d2e45645}\label{classGame__Object_a243628d44af4180365a31444d2e45645}} 
+double \mbox{\hyperlink{classGame__Object_a243628d44af4180365a31444d2e45645}{width}}
+\begin{DoxyCompactList}\small\item\em The width of the game object. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGame__Object_a0131534b52fa00d3db6bad2a386aa925}\label{classGame__Object_a0131534b52fa00d3db6bad2a386aa925}} 
+double \mbox{\hyperlink{classGame__Object_a0131534b52fa00d3db6bad2a386aa925}{height}}
+\begin{DoxyCompactList}\small\item\em The height of the game object. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGame__Object_a0d0a9c94f32fce01cd358fe810963ab7}\label{classGame__Object_a0d0a9c94f32fce01cd358fe810963ab7}} 
+sf\+::\+Rectangle\+Shape \mbox{\hyperlink{classGame__Object_a0d0a9c94f32fce01cd358fe810963ab7}{hitbox}}
+\begin{DoxyCompactList}\small\item\em The hitbox of the game object. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGame__Object_a13560c137a872f261b3cd2a200e865c3}\label{classGame__Object_a13560c137a872f261b3cd2a200e865c3}} 
+sf\+::\+Texture \& \mbox{\hyperlink{classGame__Object_a13560c137a872f261b3cd2a200e865c3}{texture}}
+\begin{DoxyCompactList}\small\item\em The texture used for rendering the game object. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGame__Object_a4cb045641315c3c81f3f6081a35e1ac6}\label{classGame__Object_a4cb045641315c3c81f3f6081a35e1ac6}} 
+sf\+::\+Sprite \mbox{\hyperlink{classGame__Object_a4cb045641315c3c81f3f6081a35e1ac6}{sprite}}
+\begin{DoxyCompactList}\small\item\em The sprite of the game object. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGame__Object_a4276a95c4ba382362ebf7ab5ac8797c3}\label{classGame__Object_a4276a95c4ba382362ebf7ab5ac8797c3}} 
+sf\+::\+Render\+Window \& \mbox{\hyperlink{classGame__Object_a4276a95c4ba382362ebf7ab5ac8797c3}{window}}
+\begin{DoxyCompactList}\small\item\em The render window where the game object will be drawn. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents a generic game object. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classGame__Object_a209947d562381082d17e952bf4d025e6}\label{classGame__Object_a209947d562381082d17e952bf4d025e6}} 
+\index{Game\_Object@{Game\_Object}!Game\_Object@{Game\_Object}}
+\index{Game\_Object@{Game\_Object}!Game\_Object@{Game\_Object}}
+\doxysubsubsection{\texorpdfstring{Game\_Object()}{Game\_Object()}}
+{\footnotesize\ttfamily Game\+\_\+\+Object\+::\+Game\+\_\+\+Object (\begin{DoxyParamCaption}\item[{sf\+::\+Vector2f}]{coordinates,  }\item[{sf\+::\+Texture \&}]{texture,  }\item[{sf\+::\+Render\+Window \&}]{window }\end{DoxyParamCaption})}
+
+
+
+Constructor for the \mbox{\hyperlink{classGame__Object}{Game\+\_\+\+Object}} class. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em coordinates} & The initial coordinates of the game object. \\
+\hline
+{\em texture} & The texture used for rendering the game object. \\
+\hline
+{\em window} & The render window where the game object will be drawn. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classGame__Object_a575ce49094c3335911d1ffc5707c0cc8}\label{classGame__Object_a575ce49094c3335911d1ffc5707c0cc8}} 
+\index{Game\_Object@{Game\_Object}!get\_coordinates@{get\_coordinates}}
+\index{get\_coordinates@{get\_coordinates}!Game\_Object@{Game\_Object}}
+\doxysubsubsection{\texorpdfstring{get\_coordinates()}{get\_coordinates()}}
+{\footnotesize\ttfamily sf\+::\+Vector2f Game\+\_\+\+Object\+::get\+\_\+coordinates (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Gets the coordinates of the game object. 
+
+\begin{DoxyReturn}{Returns}
+The coordinates of the game object. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classGame__Object_a1445152a9eb3e65cd614d4670911bbb3}\label{classGame__Object_a1445152a9eb3e65cd614d4670911bbb3}} 
+\index{Game\_Object@{Game\_Object}!get\_global\_bounds@{get\_global\_bounds}}
+\index{get\_global\_bounds@{get\_global\_bounds}!Game\_Object@{Game\_Object}}
+\doxysubsubsection{\texorpdfstring{get\_global\_bounds()}{get\_global\_bounds()}}
+{\footnotesize\ttfamily sf\+::\+Float\+Rect Game\+\_\+\+Object\+::get\+\_\+global\+\_\+bounds (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Gets the global bounding rectangle of the game object. 
+
+\begin{DoxyReturn}{Returns}
+The global bounding rectangle of the game object. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classGame__Object_af34cf806524f6f566d7f20c9c8629025}\label{classGame__Object_af34cf806524f6f566d7f20c9c8629025}} 
+\index{Game\_Object@{Game\_Object}!get\_height@{get\_height}}
+\index{get\_height@{get\_height}!Game\_Object@{Game\_Object}}
+\doxysubsubsection{\texorpdfstring{get\_height()}{get\_height()}}
+{\footnotesize\ttfamily double Game\+\_\+\+Object\+::get\+\_\+height (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Gets the height of the game object. 
+
+\begin{DoxyReturn}{Returns}
+The height of the game object. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classGame__Object_a5f3a7ff9ea5c32d35cc39ec84dbe5712}\label{classGame__Object_a5f3a7ff9ea5c32d35cc39ec84dbe5712}} 
+\index{Game\_Object@{Game\_Object}!get\_width@{get\_width}}
+\index{get\_width@{get\_width}!Game\_Object@{Game\_Object}}
+\doxysubsubsection{\texorpdfstring{get\_width()}{get\_width()}}
+{\footnotesize\ttfamily double Game\+\_\+\+Object\+::get\+\_\+width (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Gets the width of the game object. 
+
+\begin{DoxyReturn}{Returns}
+The width of the game object. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classGame__Object_a892c465c392c1583eabf1364bb18eb92}\label{classGame__Object_a892c465c392c1583eabf1364bb18eb92}} 
+\index{Game\_Object@{Game\_Object}!set\_coordinates@{set\_coordinates}}
+\index{set\_coordinates@{set\_coordinates}!Game\_Object@{Game\_Object}}
+\doxysubsubsection{\texorpdfstring{set\_coordinates()}{set\_coordinates()}}
+{\footnotesize\ttfamily void Game\+\_\+\+Object\+::set\+\_\+coordinates (\begin{DoxyParamCaption}\item[{sf\+::\+Vector2f const \&}]{set\+\_\+coordinates }\end{DoxyParamCaption})}
+
+
+
+Sets the coordinates of the game object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em set\+\_\+coordinates} & The new coordinates to set. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classGame__Object_a2912b69c54ee5427a189866fa8cd72ab}\label{classGame__Object_a2912b69c54ee5427a189866fa8cd72ab}} 
+\index{Game\_Object@{Game\_Object}!set\_dimensions@{set\_dimensions}}
+\index{set\_dimensions@{set\_dimensions}!Game\_Object@{Game\_Object}}
+\doxysubsubsection{\texorpdfstring{set\_dimensions()}{set\_dimensions()}}
+{\footnotesize\ttfamily void Game\+\_\+\+Object\+::set\+\_\+dimensions (\begin{DoxyParamCaption}\item[{sf\+::\+Vector2f const \&}]{new\+\_\+dimensions }\end{DoxyParamCaption})}
+
+
+
+Sets the dimensions of the game object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+\_\+dimensions} & The new dimensions to set. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+game\+\_\+object.\+h\end{DoxyCompactItemize}

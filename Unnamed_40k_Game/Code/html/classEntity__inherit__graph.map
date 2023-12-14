@@ -1,0 +1,8 @@
+<map id="Entity" name="Entity">
+<area shape="rect" id="node1" title="Represents a generic entity in the game, derived from Game_Object." alt="" coords="95,80,155,107"/>
+<area shape="rect" id="node3" href="$classEnemy.html" title="Base class for enemy entities." alt="" coords="48,155,115,181"/>
+<area shape="rect" id="node6" href="$classPlayer.html" title="Represents the player in the game, derived from the Entity class." alt="" coords="139,155,202,181"/>
+<area shape="rect" id="node2" href="$classGame__Object.html" title="Represents a generic game object." alt="" coords="70,5,181,32"/>
+<area shape="rect" id="node4" href="$classGrunt.html" title="Represents a grunt enemy in the game, derived from the Enemy class." alt="" coords="5,229,64,256"/>
+<area shape="rect" id="node5" href="$classProjectile.html" title="Represents a projectile fired by an enemy, derived from the Enemy class." alt="" coords="88,229,171,256"/>
+</map>

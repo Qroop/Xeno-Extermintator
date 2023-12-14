@@ -110,8 +110,7 @@ int Game_Engine::while_running(sf::Event & event,
 }
 
 
-
-void Game_Engine::change_state(int index, bool win)
+void Game_Engine::change_state(int const index, bool const win)
 {
     active_state = index;
     if ( index == 1 )

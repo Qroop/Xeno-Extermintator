@@ -1,0 +1,174 @@
+\hypertarget{classEnemy}{}\doxysection{Enemy Class Reference}
+\label{classEnemy}\index{Enemy@{Enemy}}
+
+
+Base class for enemy entities.  
+
+
+
+
+{\ttfamily \#include $<$enemy.\+h$>$}
+
+
+
+Inheritance diagram for Enemy\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=204pt]{classEnemy__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Enemy\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=207pt]{classEnemy__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classEnemy_ad529490db0732f73017b47390e1bb908}{Enemy}} (sf\+::\+Vector2f \mbox{\hyperlink{classGame__Object_aa990e12aa5e8809f9979dcf16c125ef3}{coordinates}}, sf\+::\+Texture \&\mbox{\hyperlink{classGame__Object_a13560c137a872f261b3cd2a200e865c3}{texture}}, sf\+::\+Render\+Window \&\mbox{\hyperlink{classGame__Object_a4276a95c4ba382362ebf7ab5ac8797c3}{window}}, int \mbox{\hyperlink{classEntity_aca9a1387fe0401f966b228d13e99a9cb}{health\+\_\+points}}, int \mbox{\hyperlink{classEntity_aff1cfa72efeb33827b90f4006eca01fe}{damage}}, int \mbox{\hyperlink{classEntity_a12ea871d945d59cbf57b8f8f7d2179ed}{speed}}, \mbox{\hyperlink{classGame__Object}{Game\+\_\+\+Object}} \&\mbox{\hyperlink{classEnemy_a53100ba0988d6514427cea90024433a8}{player}}, double \mbox{\hyperlink{classEntity_a4211aecde17ec207f14a260fc5440f1f}{rotation}}=0)
+\begin{DoxyCompactList}\small\item\em Constructor for the \mbox{\hyperlink{classEnemy}{Enemy}} class. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classEnemy_ab4d2671cf01ea1986d803ed081034596}\label{classEnemy_ab4d2671cf01ea1986d803ed081034596}} 
+virtual \mbox{\hyperlink{classEnemy_ab4d2671cf01ea1986d803ed081034596}{$\sim$\+Enemy}} ()=0
+\begin{DoxyCompactList}\small\item\em Virtual destructor for the \mbox{\hyperlink{classEnemy}{Enemy}} class. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classEnemy_a8783b3f7f5a47d40dbab7d7cdf0a95ce}{update}} (double delta\+\_\+time)=0
+\begin{DoxyCompactList}\small\item\em Pure virtual function for updating the enemy state. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classEnemy_a0787856ba75389b4b03d5eb0659bf9de}{rotate}} (sf\+::\+Vector2f \&direction, double delta\+\_\+time)
+\begin{DoxyCompactList}\small\item\em Rotate the enemy based on the given direction and delta time. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classEnemy_ae738be7e51cd689e3ec9901a5df6b77a}{shortest\+\_\+angular\+\_\+distance}} (double from, double to) const
+\begin{DoxyCompactList}\small\item\em Calculate the shortest angular distance between two angles. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classEnemy_a5f9673559be6e44eb2442751fd98b598}{set\+\_\+rotation\+\_\+speed}} (double new\+\_\+rotation\+\_\+speed)
+\begin{DoxyCompactList}\small\item\em Set the rotation speed of the enemy. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classEnemy_a53100ba0988d6514427cea90024433a8}\label{classEnemy_a53100ba0988d6514427cea90024433a8}} 
+\mbox{\hyperlink{classGame__Object}{Game\+\_\+\+Object}} \& \mbox{\hyperlink{classEnemy_a53100ba0988d6514427cea90024433a8}{player}}
+\begin{DoxyCompactList}\small\item\em Reference to the \mbox{\hyperlink{classGame__Object}{Game\+\_\+\+Object}} representing the player. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classEnemy_a4c28fc347393b467e424f3b5e5a2ce4d}\label{classEnemy_a4c28fc347393b467e424f3b5e5a2ce4d}} 
+double \mbox{\hyperlink{classEnemy_a4c28fc347393b467e424f3b5e5a2ce4d}{rotation\+\_\+speed}}
+\begin{DoxyCompactList}\small\item\em Rotation speed of the enemy. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Base class for enemy entities. 
+
+This class inherits from the \mbox{\hyperlink{classEntity}{Entity}} class and provides common functionalities for enemy entities. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classEnemy_ad529490db0732f73017b47390e1bb908}\label{classEnemy_ad529490db0732f73017b47390e1bb908}} 
+\index{Enemy@{Enemy}!Enemy@{Enemy}}
+\index{Enemy@{Enemy}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{Enemy()}{Enemy()}}
+{\footnotesize\ttfamily Enemy\+::\+Enemy (\begin{DoxyParamCaption}\item[{sf\+::\+Vector2f}]{coordinates,  }\item[{sf\+::\+Texture \&}]{texture,  }\item[{sf\+::\+Render\+Window \&}]{window,  }\item[{int}]{health\+\_\+points,  }\item[{int}]{damage,  }\item[{int}]{speed,  }\item[{\mbox{\hyperlink{classGame__Object}{Game\+\_\+\+Object}} \&}]{player,  }\item[{double}]{rotation = {\ttfamily 0} }\end{DoxyParamCaption})}
+
+
+
+Constructor for the \mbox{\hyperlink{classEnemy}{Enemy}} class. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em coordinates} & Initial position of the enemy. \\
+\hline
+{\em texture} & Reference to the SFML Texture used for rendering. \\
+\hline
+{\em window} & Reference to the SFML Render\+Window. \\
+\hline
+{\em health\+\_\+points} & Initial health points of the enemy. \\
+\hline
+{\em damage} & Amount of damage the enemy can inflict. \\
+\hline
+{\em speed} & Movement speed of the enemy. \\
+\hline
+{\em player} & Reference to the \mbox{\hyperlink{classGame__Object}{Game\+\_\+\+Object}} representing the player. \\
+\hline
+{\em rotation} & Initial rotation of the enemy (default is 0). \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classEnemy_a0787856ba75389b4b03d5eb0659bf9de}\label{classEnemy_a0787856ba75389b4b03d5eb0659bf9de}} 
+\index{Enemy@{Enemy}!rotate@{rotate}}
+\index{rotate@{rotate}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{rotate()}{rotate()}}
+{\footnotesize\ttfamily void Enemy\+::rotate (\begin{DoxyParamCaption}\item[{sf\+::\+Vector2f \&}]{direction,  }\item[{double}]{delta\+\_\+time }\end{DoxyParamCaption})}
+
+
+
+Rotate the enemy based on the given direction and delta time. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em direction} & The direction to rotate towards. \\
+\hline
+{\em delta\+\_\+time} & Time elapsed since the last rotation. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classEnemy_a5f9673559be6e44eb2442751fd98b598}\label{classEnemy_a5f9673559be6e44eb2442751fd98b598}} 
+\index{Enemy@{Enemy}!set\_rotation\_speed@{set\_rotation\_speed}}
+\index{set\_rotation\_speed@{set\_rotation\_speed}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{set\_rotation\_speed()}{set\_rotation\_speed()}}
+{\footnotesize\ttfamily void Enemy\+::set\+\_\+rotation\+\_\+speed (\begin{DoxyParamCaption}\item[{double}]{new\+\_\+rotation\+\_\+speed }\end{DoxyParamCaption})}
+
+
+
+Set the rotation speed of the enemy. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+\_\+rotation\+\_\+speed} & The new rotation speed. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classEnemy_ae738be7e51cd689e3ec9901a5df6b77a}\label{classEnemy_ae738be7e51cd689e3ec9901a5df6b77a}} 
+\index{Enemy@{Enemy}!shortest\_angular\_distance@{shortest\_angular\_distance}}
+\index{shortest\_angular\_distance@{shortest\_angular\_distance}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{shortest\_angular\_distance()}{shortest\_angular\_distance()}}
+{\footnotesize\ttfamily double Enemy\+::shortest\+\_\+angular\+\_\+distance (\begin{DoxyParamCaption}\item[{double}]{from,  }\item[{double}]{to }\end{DoxyParamCaption}) const}
+
+
+
+Calculate the shortest angular distance between two angles. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em from} & Starting angle. \\
+\hline
+{\em to} & Target angle. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The shortest angular distance between the two angles. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classEnemy_a8783b3f7f5a47d40dbab7d7cdf0a95ce}\label{classEnemy_a8783b3f7f5a47d40dbab7d7cdf0a95ce}} 
+\index{Enemy@{Enemy}!update@{update}}
+\index{update@{update}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily virtual void Enemy\+::update (\begin{DoxyParamCaption}\item[{double}]{delta\+\_\+time }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Pure virtual function for updating the enemy state. 
+
+This function must be implemented by derived classes to update the state of the enemy.
+
+
+\begin{DoxyParams}{Parameters}
+{\em delta\+\_\+time} & Time elapsed since the last update. \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{classGrunt_a60769f9a99af542ca35c16fc94019656}{Grunt}}, and \mbox{\hyperlink{classProjectile_a4c16771b3c1f071197e99f1c7dce0032}{Projectile}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+enemy.\+h\end{DoxyCompactItemize}

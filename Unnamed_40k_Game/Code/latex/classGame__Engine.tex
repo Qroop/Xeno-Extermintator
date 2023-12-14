@@ -1,0 +1,105 @@
+\hypertarget{classGame__Engine}{}\doxysection{Game\+\_\+\+Engine Class Reference}
+\label{classGame__Engine}\index{Game\_Engine@{Game\_Engine}}
+
+
+The main game engine class.  
+
+
+
+
+{\ttfamily \#include $<$game\+\_\+engine.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classGame__Engine_afbc8148fa47f2f1e96b91cace32d703c}\label{classGame__Engine_afbc8148fa47f2f1e96b91cace32d703c}} 
+\mbox{\hyperlink{classGame__Engine_afbc8148fa47f2f1e96b91cace32d703c}{Game\+\_\+\+Engine}} ()
+\begin{DoxyCompactList}\small\item\em Constructor for the \mbox{\hyperlink{classGame__Engine}{Game\+\_\+\+Engine}} class. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGame__Engine_a79696699f847784f1b3ec5cbd115822c}\label{classGame__Engine_a79696699f847784f1b3ec5cbd115822c}} 
+\mbox{\hyperlink{classGame__Engine_a79696699f847784f1b3ec5cbd115822c}{$\sim$\+Game\+\_\+\+Engine}} ()
+\begin{DoxyCompactList}\small\item\em Destructor for the \mbox{\hyperlink{classGame__Engine}{Game\+\_\+\+Engine}} class. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGame__Engine_a2b53d222750d14766fba51e038cb8b8f}{run}} ()
+\begin{DoxyCompactList}\small\item\em Run the game engine. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classGame__Engine_a679bf78b7edc820e1b3f8a8fd5588a44}{while\+\_\+running}} (sf\+::\+Event \&event, sf\+::\+Render\+Window \&window, sf\+::\+Clock \&clock, std\+::array$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classAbstract__Game__State}{Abstract\+\_\+\+Game\+\_\+\+State}} $>$, 2 $>$ \&\mbox{\hyperlink{classGame__Engine_ae9aa9e5df2052d9ba50356ec9a85c78e}{states}})
+\begin{DoxyCompactList}\small\item\em Main loop for handling events and updating the game state. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGame__Engine_a9af37e7300f3d04aa136227ea9b19322}{change\+\_\+state}} (int const index, bool const win\+\_\+or\+\_\+lose)
+\begin{DoxyCompactList}\small\item\em Change the active game state. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classGame__Engine_ae9aa9e5df2052d9ba50356ec9a85c78e}\label{classGame__Engine_ae9aa9e5df2052d9ba50356ec9a85c78e}} 
+std\+::array$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classAbstract__Game__State}{Abstract\+\_\+\+Game\+\_\+\+State}} $>$, 2 $>$ \mbox{\hyperlink{classGame__Engine_ae9aa9e5df2052d9ba50356ec9a85c78e}{states}}
+\begin{DoxyCompactList}\small\item\em Array of shared pointers to \mbox{\hyperlink{classAbstract__Game__State}{Abstract\+\_\+\+Game\+\_\+\+State}} objects representing different game states. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGame__Engine_a14ca4b44d05f40df7c8cfecd28870b40}\label{classGame__Engine_a14ca4b44d05f40df7c8cfecd28870b40}} 
+bool \mbox{\hyperlink{classGame__Engine_a14ca4b44d05f40df7c8cfecd28870b40}{running}}
+\begin{DoxyCompactList}\small\item\em Flag indicating whether the game engine is running. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGame__Engine_ab0d4a57502d9f81a0ae53a2f293de5af}\label{classGame__Engine_ab0d4a57502d9f81a0ae53a2f293de5af}} 
+bool \mbox{\hyperlink{classGame__Engine_ab0d4a57502d9f81a0ae53a2f293de5af}{stop}}
+\begin{DoxyCompactList}\small\item\em Flag indicating whether the game engine should stop. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGame__Engine_a60cbf28be105bd4fb5eef8ee0c75548e}\label{classGame__Engine_a60cbf28be105bd4fb5eef8ee0c75548e}} 
+int \mbox{\hyperlink{classGame__Engine_a60cbf28be105bd4fb5eef8ee0c75548e}{active\+\_\+state}}
+\begin{DoxyCompactList}\small\item\em Index of the currently active game state. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The main game engine class. 
+
+This class manages the game loop and state transitions. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classGame__Engine_a9af37e7300f3d04aa136227ea9b19322}\label{classGame__Engine_a9af37e7300f3d04aa136227ea9b19322}} 
+\index{Game\_Engine@{Game\_Engine}!change\_state@{change\_state}}
+\index{change\_state@{change\_state}!Game\_Engine@{Game\_Engine}}
+\doxysubsubsection{\texorpdfstring{change\_state()}{change\_state()}}
+{\footnotesize\ttfamily void Game\+\_\+\+Engine\+::change\+\_\+state (\begin{DoxyParamCaption}\item[{int const}]{index,  }\item[{bool const}]{win\+\_\+or\+\_\+lose }\end{DoxyParamCaption})}
+
+
+
+Change the active game state. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & Index of the new active game state. \\
+\hline
+{\em win\+\_\+or\+\_\+lose} & Indicates whether the game was won or lost (used for specific state transitions). \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classGame__Engine_a2b53d222750d14766fba51e038cb8b8f}\label{classGame__Engine_a2b53d222750d14766fba51e038cb8b8f}} 
+\index{Game\_Engine@{Game\_Engine}!run@{run}}
+\index{run@{run}!Game\_Engine@{Game\_Engine}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily void Game\+\_\+\+Engine\+::run (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Run the game engine. 
+
+This function starts and manages the main game loop. \mbox{\Hypertarget{classGame__Engine_a679bf78b7edc820e1b3f8a8fd5588a44}\label{classGame__Engine_a679bf78b7edc820e1b3f8a8fd5588a44}} 
+\index{Game\_Engine@{Game\_Engine}!while\_running@{while\_running}}
+\index{while\_running@{while\_running}!Game\_Engine@{Game\_Engine}}
+\doxysubsubsection{\texorpdfstring{while\_running()}{while\_running()}}
+{\footnotesize\ttfamily int Game\+\_\+\+Engine\+::while\+\_\+running (\begin{DoxyParamCaption}\item[{sf\+::\+Event \&}]{event,  }\item[{sf\+::\+Render\+Window \&}]{window,  }\item[{sf\+::\+Clock \&}]{clock,  }\item[{std\+::array$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classAbstract__Game__State}{Abstract\+\_\+\+Game\+\_\+\+State}} $>$, 2 $>$ \&}]{states }\end{DoxyParamCaption})}
+
+
+
+Main loop for handling events and updating the game state. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em event} & Reference to the SFML Event. \\
+\hline
+{\em window} & Reference to the SFML Render\+Window. \\
+\hline
+{\em clock} & Reference to the SFML Clock. \\
+\hline
+{\em states} & Array of shared pointers to \mbox{\hyperlink{classAbstract__Game__State}{Abstract\+\_\+\+Game\+\_\+\+State}} objects. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+An integer representing the next active state index. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+game\+\_\+engine.\+h\end{DoxyCompactItemize}

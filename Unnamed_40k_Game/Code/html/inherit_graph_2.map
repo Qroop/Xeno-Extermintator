@@ -1,0 +1,9 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$classGame__Object.html" title="Represents a generic game object." alt="" coords="5,81,116,108"/>
+<area shape="rect" id="node2" href="$classEntity.html" title="Represents a generic entity in the game, derived from Game_Object." alt="" coords="164,56,224,83"/>
+<area shape="rect" id="node7" href="$classWall.html" title="Represents a wall in the game, derived from Game_Object." alt="" coords="169,107,219,133"/>
+<area shape="rect" id="node3" href="$classEnemy.html" title="Base class for enemy entities." alt="" coords="272,31,339,57"/>
+<area shape="rect" id="node6" href="$classPlayer.html" title="Represents the player in the game, derived from the Entity class." alt="" coords="274,81,337,108"/>
+<area shape="rect" id="node4" href="$classGrunt.html" title="Represents a grunt enemy in the game, derived from the Enemy class." alt="" coords="399,5,457,32"/>
+<area shape="rect" id="node5" href="$classProjectile.html" title="Represents a projectile fired by an enemy, derived from the Enemy class." alt="" coords="387,56,469,83"/>
+</map>
