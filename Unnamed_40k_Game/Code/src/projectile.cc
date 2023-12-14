@@ -1,6 +1,8 @@
 #include "projectile.h"
 #include "enemy.h"
 #include "game_object.h"
+#include "wall.h"
+#include "player.h"
 
 #include "point.h"
 #include "SFML/Graphics.hpp"
@@ -16,10 +18,7 @@ Projectile::Projectile(sf::Vector2f coordinates, sf::Texture& texture, sf::Rende
 }
 
 
-Projectile::~Projectile() 
-{
-    // std::cerr << "Projectile was destroyed\n";
-}
+Projectile::~Projectile() {}
 
 
 void Projectile::update(double delta_time)
@@ -29,15 +28,24 @@ void Projectile::update(double delta_time)
     hitbox.setPosition(coordinates);
 }
 
-void Projectile::attack() const
-{
-}
+
+void Projectile::attack() const {}
+
 
 void Projectile::move(double delta_time)
 {
     double distance_to_move{speed * delta_time};
     coordinates.x += direction_to_move.x * distance_to_move;
     coordinates.y += direction_to_move.y * distance_to_move;
+
+    if(coordinates.x - width >= window_size.x || coordinates.x + width <= 0)
+    {
+        dead = true;
+    }
+    if(coordinates.y - height >= window_size.y || coordinates.y + height <= 0)
+    {
+        dead = true;
+    }
 }
 
 
@@ -46,7 +54,19 @@ void Projectile::kill_entity(sf::Texture& dead_texture)
     set_texture(dead_texture);
 }
 
+
 void Projectile::handle_collision(std::shared_ptr<Game_Object> collided)
 {
-    std::cerr << "projectile collided";
+    std::shared_ptr<Wall> wall = std::dynamic_pointer_cast<Wall> (collided);
+    std::shared_ptr<Player> player = std::dynamic_pointer_cast<Player> (collided);
+
+    if(wall)
+    {
+        dead = true;
+    }
+    if(player)
+    {
+        player -> take_damage(damage);
+        dead = true;
+    }
 }

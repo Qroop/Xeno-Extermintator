@@ -1,6 +1,5 @@
 #include "enemy.h"
 #include "player.h"
-#include "standard.h"
 
 #include <SFML/Graphics.hpp>
 #include <cmath>

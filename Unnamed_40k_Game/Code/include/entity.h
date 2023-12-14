@@ -1,5 +1,6 @@
 #pragma once
 #include "game_object.h"
+#include "wall.h"
 
 #include <SFML/Graphics.hpp>
 #include <string>
@@ -27,6 +28,7 @@ class Entity : public Game_Object
     virtual void attack() const = 0;
     virtual void move(double delta_time) = 0;
     virtual void handle_collision(std::shared_ptr<Game_Object> collided) = 0;
+    void handle_wall_collision(std::shared_ptr<Wall> wall);
     void rotate(sf::Vector2f& direction);
     sf::Vector2f check_boundury_collision(sf::Vector2f direction, double distance_to_move, size_t window_width, size_t window_height);
     bool is_dead();
@@ -34,10 +36,10 @@ class Entity : public Game_Object
     void set_texture(sf::Texture& new_texture);
     void set_attack_speed(double new_speed);
     bool can_attack() const;
-    void take_damage(int damage_to_take);
     void set_enemies(std::vector<std::shared_ptr<Enemy>>& enemies);
     std::string check_set_enemies() const;
     virtual void kill_entity(sf::Texture& dead_texture) = 0;
+    virtual void take_damage(int damage_to_take);
 
 
     protected:
@@ -51,9 +53,9 @@ class Entity : public Game_Object
     double time_since_last_attack;
     std::vector<std::shared_ptr<Enemy>>* loaded_enemies;
     sf::Vector2i window_size;
-    sf::Vector2f last_pos;
     double rotation;
-
+    sf::Vector2f last_pos;
+    
     sf::Clock damage_effect_timer;
     sf::Time damage_effect_duration;
 }; 

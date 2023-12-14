@@ -10,15 +10,4 @@ Wall::Wall(sf::Vector2f coordinates, sf::Texture& texture, sf::RenderWindow& win
     hitbox.setFillColor(sf::Color::Black);
 }
 
-Wall::~Wall()
-{}
-
-// void Wall::update(double delta_time)
-// {
-
-// }
-
-// bool Wall::is_dead()
-// {
-//     return false;
-// }
+Wall::~Wall() {}

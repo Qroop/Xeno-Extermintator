@@ -23,12 +23,13 @@ Play_State::Play_State(sf::RenderWindow& window)
     fire_texture.loadFromFile("../Static/Textures/fire.png");
 }
 
+
 Play_State::~Play_State()
 {
     level.clear();
 }
 
-// Creates a vector containing all game objects
+
 void Play_State::load(std::string file_name)
 {
     std::ifstream fs;
@@ -36,7 +37,7 @@ void Play_State::load(std::string file_name)
 
     if (!fs.is_open())
     {
-        std::cerr << "Error: no file with such name";
+        throw std::invalid_argument("Error: no file with such name");
     }
     
     if(!dead_entities.empty())
@@ -77,7 +78,7 @@ void Play_State::load(std::string file_name)
                 coords.y += 32;
                 coords.x = 16;
                 break;
-            default :   // Whitespace
+            default :   // Anything else
                 coords.x += 32;
                 break;
         }
@@ -94,7 +95,6 @@ void Play_State::load(std::string file_name)
         enemy->set_enemies(projectiles_to_add);
     }
 
-    // enemy_count = enemies.size();
     
     enemies = std::move(loaded_enemies);
     level = std::move(loaded);
@@ -118,13 +118,15 @@ void Play_State::update(double delta_time)
 {
     for (auto it = level.begin(); it != level.end(); )
     {
-        Player* player = dynamic_cast<Player*>(it->get());
-        Grunt* grunt = dynamic_cast<Grunt*>(it->get());
-        Projectile* projectile = dynamic_cast<Projectile*>(it->get());
+        std::shared_ptr<Player> player = std::dynamic_pointer_cast<Player>(*it);
+        std::shared_ptr<Grunt> grunt = std::dynamic_pointer_cast<Grunt>(*it);
+        std::shared_ptr<Projectile> projectile = std::dynamic_pointer_cast<Projectile>(*it);
+
         if (player)
         {
             player->update(delta_time);
             auto player_bounds = player->get_global_bounds();
+            
             for (auto it_temp = level.begin() ; it_temp != level.end() ; it_temp++)
             {
                 if ( player_bounds.intersects((*it_temp)->get_global_bounds()) )
@@ -135,20 +137,38 @@ void Play_State::update(double delta_time)
         }
         if(grunt)
         {
-            if(grunt -> is_dead())
-            {
-                grunt->kill_entity(dead_grunt_texture);
-                dead_entities.push_back(std::move(*it));
-                level.erase(it);
-            }
-            else
+            if(!grunt -> is_dead())
             {
                 grunt->update(delta_time);
+                auto grunt_bounds = grunt->get_global_bounds();
+                for (auto it_temp = level.begin() ; it_temp != level.end() ; it_temp++)
+                {
+                    if ( grunt_bounds.intersects((*it_temp)->get_global_bounds()) )
+                    {
+                        grunt->handle_collision(*it_temp);
+                    }
+                }
+            }
+            else if(grunt -> is_dead())
+            {
+                grunt->kill_entity(dead_grunt_texture);
+                dead_entities.push_back(*it);
             }
         }
         if(projectile)
         {
-            projectile -> update(delta_time);
+            if(!projectile->is_dead())
+            {
+                projectile -> update(delta_time);
+                for (auto it_temp = level.begin(); it_temp != level.end(); it_temp++)
+                {
+                    auto projectile_bounds{projectile->get_global_bounds()};
+                    if(projectile_bounds.intersects((*it_temp)-> get_global_bounds()))
+                    {
+                        projectile->handle_collision(*it_temp);
+                    }
+                }
+            }
         }
         ++it;
     }
@@ -157,7 +177,7 @@ void Play_State::update(double delta_time)
     {
         if ((*it)->is_dead())
         {
-            it = enemies.erase(it);
+            enemies.erase(it);
         }
         else
         {
@@ -165,23 +185,38 @@ void Play_State::update(double delta_time)
         }
     }
 
-    for (auto it = projectiles_to_add.begin(); it != projectiles_to_add.end(); )
+    if(!projectiles_to_add.empty())
     {
-        level.push_back(std::move(*it));
+        for (auto it = projectiles_to_add.begin(); it != projectiles_to_add.end(); )
+        {
+        level.push_back(*it);
         it = projectiles_to_add.erase(it);
+        }   
     }
 
+    level.erase(
+    std::remove_if(level.begin(), level.end(), 
+        [](std::shared_ptr<Game_Object> const& enemy)
+        {
+            if (std::shared_ptr<Enemy> to_remove = std::dynamic_pointer_cast<Enemy> (enemy))
+            return to_remove->is_dead();
+            else return false;
+        }),
+    level.end());
 }
+
 
 int Play_State::get_enemy_count()
 {
     return enemies.size();
 }
 
+
 bool Play_State::get_player_dead()
 {
     return player_pointer -> is_dead();
 }
+
 
 int Play_State::get_change()
 {
@@ -197,9 +232,4 @@ int Play_State::get_change()
     {
         return 0;
     }
-}
-
-void Play_State::set_player_dead()
-{
-    player_pointer -> take_damage(100000);
 }

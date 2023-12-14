@@ -1,6 +1,7 @@
 #include "entity.h"
 #include "enemy.h"
 #include "grunt.h"
+#include "wall.h"
 
 #include <iostream>
 #include <SFML/Window/Mouse.hpp>
@@ -29,6 +30,31 @@ Entity::~Entity()
     loaded_enemies = nullptr;
 }
 
+void Entity::handle_wall_collision(std::shared_ptr<Wall> wall)
+{
+    float x_pos_difference{coordinates.x - wall->get_coordinates().x};
+    float y_pos_difference{coordinates.y - wall->get_coordinates().y};
+        
+    if(std::abs(x_pos_difference) < std::abs(y_pos_difference))
+    {
+        sf::Vector2f new_pos{coordinates.x, wall->get_coordinates().y};
+        if(y_pos_difference > 0)
+            new_pos.y += height / 2 + wall->get_height() / 2;
+        else
+            new_pos.y -= height / 2 + wall->get_height() / 2;
+        coordinates = new_pos;
+    }
+    else
+    {
+        sf::Vector2f new_pos{wall->get_coordinates().x, coordinates.y};
+        if(x_pos_difference > 0)
+            new_pos.x += width / 2 + wall->get_width() / 2;
+        else
+            new_pos.x -= width / 2 + wall->get_width() / 2;
+        coordinates = new_pos;
+    }
+    hitbox.setPosition(coordinates);
+}
 
 void Entity::rotate(sf::Vector2f& direction)
 {
@@ -46,7 +72,6 @@ void Entity::draw()
     sprite.setRotation(rotation + 90.0);
 
     // Draw the sprite
-    window.draw(hitbox);
     window.draw(sprite);
 }
 
@@ -98,7 +123,6 @@ bool Entity::can_attack() const
 
 void Entity::take_damage(int damage_to_take)
 {
-    // std::cerr << "Damage taken: " << damage_to_take << " Health left: " << health_points <<"\n";
     health_points -= damage_to_take;
 
     sprite.setColor(sf::Color(255, 0, 0));
@@ -115,23 +139,5 @@ void Entity::take_damage(int damage_to_take)
 void Entity::set_enemies(std::vector<std::shared_ptr<Enemy>>& enemies)
 {
     loaded_enemies = &enemies;
-    // std::cout << "Set enemies for Entity: " << this << "\n";
 }
 
-std::string Entity::check_set_enemies() const
-{
-    std::string error_message{};
-    if(loaded_enemies -> empty())
-    {
-        error_message += "loaded_enemies is empty\n";
-    }
-    if(!loaded_enemies)
-    {
-        error_message += "loaded_enemies pointer is nullptr\n";
-    }
-    else
-    {
-        return "No errors\n";
-    }
-    return error_message;
-}

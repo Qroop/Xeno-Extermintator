@@ -4,6 +4,7 @@
 #include "grunt.h"
 #include "enemy.h"
 #include "player.h"
+#include "projectile.h"
 
 #include <vector>
 #include <memory>
@@ -14,23 +15,16 @@ class Play_State : public Abstract_Game_State
     public:
     Play_State(sf::RenderWindow& window);
     ~Play_State();
-    Play_State(Play_State & other) = delete;
-    Play_State& operator=(Play_State & other) = delete;
-    Play_State(Play_State && other) = delete;
-    Play_State& operator=(Play_State && other) = delete;
-
+    
     void load(std::string file_name);
     void render();
     void update(double delta_time) override;
     int get_enemy_count();
     bool get_player_dead();
-    void set_player_dead();
     int get_change() override;
 
 
     private:
-    // int enemy_count;
-
     sf::Texture grunt_texture;
     sf::Texture player_texture;
     sf::Texture wall_texture;

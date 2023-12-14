@@ -1,6 +1,5 @@
 #include "player.h"
 #include "point.h"
-#include "standard.h"
 #include "wall.h"
 
 #include <SFML/Window/Keyboard.hpp>
@@ -13,21 +12,22 @@ Player::Player(sf::Vector2f coordinates, sf::Texture& texture, sf::RenderWindow&
     : Entity(coordinates, texture, window, health_points, damage, speed, rotation), fire_texture(fire_texture)
 {
 
-
-    texture_scale = 2;
-    width = width * texture_scale / 2;
-    height = height * texture_scale / 2;
+    texture_scale = 2.3;
+    width = 40;
+    height = 40;
     attack_distance = 80;
     attack_cooldown = 0.5;
     time_since_last_attack = 0.0;
+    invul_time = sf::seconds(2.5f);
+    damage_effect_timer.restart();
     
-    // Set the sprite scale
     sprite.setScale(texture_scale, texture_scale);
 
-    // Set the hitbox size and position (considering scaling)
     hitbox.setSize(sf::Vector2f(width, height));
     hitbox.setOrigin(width / 2.0f, height / 2.0f);
     hitbox.setPosition(coordinates);
+
+    
 }
 
 
@@ -74,52 +74,52 @@ void Player::update(double delta_time)
         time_since_last_attack = 0.0;
     }
 
-    if( health_points == 0)
+    if(damage_effect_timer.getElapsedTime() < damage_effect_duration)
     {
-        cout << "dead but not in fact dieing" << endl;
+        sprite.setColor(sf::Color(255, 0, 0));
+    }
+    else
+    {
+        sprite.setColor(sf::Color::White);
+    }
+
+    if( health_points <= 0)
+    {
+        dead = true;
     }
 }
 
+
 void Player::handle_collision(std::shared_ptr<Game_Object> collided)
 {
-    int x = last_pos.x;
-    int y = last_pos.y;
     std::shared_ptr<Wall> wall = std::dynamic_pointer_cast<Wall> (collided);
     if (wall)
     {
-        sf::FloatRect wall_bounds = wall->get_global_bounds();
-        sf::FloatRect player_bounds = this->get_global_bounds();
-        // switch(x)
-        // {
-        //     case 1:
-        //     coordinates.x = (wall->get_coordinates().x - ((wall->get_width() / 2) + (width / 2)));
-        //     // case -1:
-        //     // coordinates.x = (wall->get_coordinates().x + ((wall->get_width() / 2) + (width / 2)));
-        //     default:
-        //     break;
-        // }
-        // switch (y)
-        // {
-        //     case 1:
-        //     coordinates.y = (wall->get_coordinates().y - ((wall->get_width() / 2) + (height / 2)));
-        //     // case -1:
-        //     // coordinates.y = (wall->get_coordinates().y + ((wall->get_width() / 2) + (height / 2)));
-        //     default:
-        //     break;
-        // }
-        if (wall_bounds.contains(coordinates.x - (width / 2), coordinates.y ) || wall_bounds.contains(coordinates.x + (width / 2), coordinates.y ))
+        float x_pos_difference{coordinates.x - wall->get_coordinates().x};
+        float y_pos_difference{coordinates.y - wall->get_coordinates().y};
+        
+        if(std::abs(x_pos_difference) < std::abs(y_pos_difference))
         {
-            if (x > 0) coordinates.x = (wall->get_coordinates().x - ((wall->get_width() / 2) + (width / 2)));
-            else if (x < 0) coordinates.x = (wall->get_coordinates().x + ((wall->get_width() / 2) + (width / 2)));
+            sf::Vector2f new_pos{coordinates.x, wall->get_coordinates().y};
+            if(y_pos_difference > 0)
+                new_pos.y += height / 2 + wall->get_height() / 2;
+            else
+                new_pos.y -= height / 2 + wall->get_height() / 2;
+            coordinates = new_pos;
         }
-        else if (wall_bounds.contains(coordinates.x, coordinates.y  - (height / 2) ) || wall_bounds.contains(coordinates.x, coordinates.y + (height / 2) ))
+        else
         {
-            if (y > 0) coordinates.y = (wall->get_coordinates().y - ((wall->get_width() / 2) + (height / 2)));
-            else if (y < 0) coordinates.y = (wall->get_coordinates().y + ((wall->get_width() / 2) + (height / 2)));
+            sf::Vector2f new_pos{wall->get_coordinates().x, coordinates.y};
+            if(x_pos_difference > 0)
+                new_pos.x += width / 2 + wall->get_width() / 2;
+            else
+                new_pos.x -= width / 2 + wall->get_width() / 2;
+            coordinates = new_pos;
         }
-        // cout << 
+        hitbox.setPosition(coordinates);
     }
 }
+
 
 void Player::attack() const 
 {
@@ -135,22 +135,30 @@ void Player::attack() const
     attack_hitbox.setFillColor(sf::Color::Black);
     attack_hitbox.setOrigin(-width / 2, hitbox_width / 2);
     attack_hitbox.setSize(size);
-    attack_hitbox.setTexture(&fire_texture);
+
+
+    sf::RectangleShape texture_attack_hitbox;
+    sf::Vector2f texture_size{hitbox_width, hitbox_height};
+    texture_attack_hitbox.setSize(texture_size);
+    texture_attack_hitbox.setOrigin(texture_size.x / 2, texture_size.y + width / 2);
+    texture_attack_hitbox.setRotation(rotation + 90);
+    texture_attack_hitbox.setPosition(coordinates);
+    texture_attack_hitbox.setTexture(&fire_texture);
 
     if (loaded_enemies)
     {
         for (auto it = loaded_enemies->begin(); it != loaded_enemies->end(); ++it)
         {
-            sf::FloatRect enemy_bounds = (*it) -> get_global_bounds();
+            sf::FloatRect enemy_bounds = (*it)->get_global_bounds();
             sf::FloatRect attack_bounds = attack_hitbox.getGlobalBounds();
 
             if (enemy_bounds.intersects(attack_bounds))
             {
-                (*it) -> take_damage(damage);
+                (*it)->take_damage(damage);
             }
         }
     }
-    window.draw(attack_hitbox);
+    window.draw(texture_attack_hitbox);
 }
 
 
@@ -158,4 +166,15 @@ void Player::kill_entity(sf::Texture& dead_texture)
 {
     set_texture(dead_texture);
     dead = true;
+}
+
+
+void Player::take_damage(int damage_to_take)
+{
+    if ( damage_effect_timer.getElapsedTime() > invul_time )
+    {
+        health_points -= damage_to_take;   
+        damage_effect_timer.restart();
+        sprite.setColor(sf::Color(255, 0, 0)); 
+    }
 }

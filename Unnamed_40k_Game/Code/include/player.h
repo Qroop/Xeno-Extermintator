@@ -26,8 +26,9 @@ class Player : public Entity
     void attack() const override;
     void move(double delta_time) override;
     void kill_entity(sf::Texture& dead_texture) override;
-    void set_health(int hp);
+    void take_damage(int damage_to_take) override;
 
     private:
+    sf::Time invul_time;
     sf::Texture& fire_texture;
 };

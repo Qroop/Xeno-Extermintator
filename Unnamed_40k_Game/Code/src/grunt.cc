@@ -1,14 +1,15 @@
 #include "grunt.h"
-#include "standard.h"
 #include "point.h"
 #include "player.h"
 #include "projectile.h"
+#include "wall.h"
 
 #include <cmath>
 #include <ctime>
 #include <cstdlib>
 #include <random>
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 Grunt::Grunt(sf::Vector2f coordinates, 
         sf::Texture& texture,
@@ -20,13 +21,12 @@ Grunt::Grunt(sf::Vector2f coordinates,
     : Enemy(coordinates, texture, window, health_points, damage, speed, player, rotation), projectile_texture{projectile_texture}
 {
     rotation = 0;
-    // Initialize the random number generator seed
-    srand(coordinates.x);
+    srand(coordinates.x + coordinates.y * 100000);
     int max_distance{500};
     int min_distance{350};
     distance_to_keep = (std::rand() % (max_distance - min_distance + 1) + min_distance);
     
-    time_since_last_attack = 0;
+    time_since_last_attack = static_cast<float>(std::rand() % 3000) / 1000;
     attack_cooldown = 3;
     walk_left = rand() % 2 == 0;
     rotation_speed = 50;
@@ -53,7 +53,6 @@ void Grunt::update(double delta_time)
     hitbox.setPosition(coordinates);
 
     double desired_rotation = std::atan2(player_coordinates.y - coordinates.y, player_coordinates.x - coordinates.x) * (180.0 / M_PI);
-    // std::cerr << "Rotation : " << rotation << " Desired rotation : " << desired_rotation << "\n";
 
     time_since_last_attack += delta_time;
     if(std::abs(shortest_angular_distance(rotation, desired_rotation)) < 20 && get_distance_to_player() > 80 && can_attack())
@@ -130,12 +129,18 @@ void Grunt::attack() const
     }
     loaded_enemies->push_back(new_projectile);
 
-    // std::cout << "Amount of enemies in the vector: " << loaded_enemies->size() << std::endl;
 }
 
 void Grunt::handle_collision(std::shared_ptr<Game_Object> collided)
 {
-    cout << "grunt collision" << endl;
+    if (std::shared_ptr<Wall> wall = std::dynamic_pointer_cast<Wall>(collided))
+    {
+        handle_wall_collision(wall);
+    }
+    else if(std::shared_ptr<Player> player = std::dynamic_pointer_cast<Player>(collided))
+    {
+        player -> take_damage(damage);
+    }
 }
 
 void Grunt::kill_entity(sf::Texture& dead_texture)
