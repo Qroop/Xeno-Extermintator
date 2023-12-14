@@ -69,7 +69,7 @@ int Game_Engine::while_running(sf::Event & event,
         }
         
         int the_change = states[active_state]->get_change();
-        if( !running || sf::Keyboard::isKeyPressed(sf::Keyboard::Q) )
+        if( !running || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) )
         {
             return 0;
         }

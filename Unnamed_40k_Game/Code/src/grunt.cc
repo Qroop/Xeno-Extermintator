@@ -79,7 +79,7 @@ sf::Vector2f Grunt::get_lateral_direction() const
 }
 
 
-void Grunt::move(double delta_time)
+void Grunt::move(double const delta_time)
 {
     double distance_to_move{delta_time * speed};
     double distance_to_player{get_distance_to_player()};
@@ -104,7 +104,7 @@ void Grunt::move(double delta_time)
 
         direction = forward_direction + lateral_direction;
     }
-    coordinates = check_boundury_collision(direction, distance_to_move, window_size.x, window_size.y);
+    coordinates = check_boundury_collision(direction, distance_to_move);
 }
 
 
@@ -143,7 +143,7 @@ void Grunt::handle_collision(std::shared_ptr<Game_Object> collided)
     }
 }
 
-void Grunt::kill_entity(sf::Texture& dead_texture)
+void Grunt::kill_entity(sf::Texture const& dead_texture)
 {
     set_texture(dead_texture);
     set_speed(0);

@@ -11,7 +11,7 @@
 const size_t window_width = 1536;
 const size_t window_height = 1024;
 
-int main()
+int main(void)
 {
     Game_Engine game;
     game.run();
