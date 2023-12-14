@@ -51,7 +51,7 @@ int Game_Engine::while_running(sf::Event & event,
                                 sf::Clock & clock, 
                                 std::array<std::shared_ptr<Abstract_Game_State>, 2>& states)
 {
-    sf::Color grey(40, 40, 40);
+    sf::Color color(46, 34, 26);
 
     while ( running )
     {
@@ -69,7 +69,7 @@ int Game_Engine::while_running(sf::Event & event,
         }
         
         int the_change = states[active_state]->get_change();
-        if( !running || sf::Keyboard::isKeyPressed(sf::Keyboard::Q) )
+        if( !running || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) )
         {
             return 0;
         }
@@ -90,7 +90,7 @@ int Game_Engine::while_running(sf::Event & event,
         double delta_time{clock.restart().asSeconds()};
 
         //updates the window
-        window.clear(grey);
+        window.clear(color);
         
         states[active_state] -> update(delta_time);
 

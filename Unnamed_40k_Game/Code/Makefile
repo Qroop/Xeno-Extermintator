@@ -1,5 +1,3 @@
-# Makefile for SFML C++ Game
-
 # Compiler and compiler flags
 CXX := g++
 CXXFLAGS := -g -std=c++17 -Wall -Wextra

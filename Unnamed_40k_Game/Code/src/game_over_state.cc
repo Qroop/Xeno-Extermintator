@@ -48,18 +48,18 @@ void Game_Over_State::set_status( bool win )
     if ( win && level_count == current_level_index )
     {
         decision = 1;
-        instructions = "Press Q to exit.";
+        instructions = "Press Esc to exit.";
     }
     else if( win )
     {
         decision = 2;
-        instructions = "Press SPACE to continue or Q to exit.";
+        instructions = "Press SPACE to continue or Esc to exit.";
         current_level_index++;
     }
     else if( !win )
     {
         decision = 3;
-        instructions = "Press SPACE to restart or Q to exit.";
+        instructions = "Press SPACE to restart or Esc to exit.";
     }
 }
 
