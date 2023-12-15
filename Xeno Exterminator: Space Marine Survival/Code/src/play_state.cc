@@ -51,7 +51,7 @@ void Play_State::load(std::string const& file_name)
     if (!dead_entities.empty()) dead_entities.clear();
 
     sf::Vector2f coords{16, 16};
-    player_pointer = std::make_unique<Player>(coords, player_texture, window, 7, 1, 300, fire_texture);
+    player_pointer = std::make_unique<Player>(coords, player_texture, window, 7, 1, 275, fire_texture);
     loaded.push_back(player_pointer);
     while ( !fs.eof() )
     {

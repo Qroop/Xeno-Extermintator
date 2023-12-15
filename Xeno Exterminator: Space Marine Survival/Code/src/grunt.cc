@@ -117,7 +117,7 @@ void Grunt::attack() const
         return;
     }
 
-    auto new_projectile = std::make_shared<Projectile>(coordinates, projectile_texture, window, 1, 1, 300, player, rotation);
+    auto new_projectile = std::make_shared<Projectile>(coordinates, projectile_texture, window, 1, 1, 350, player, rotation);
 
     new_projectile -> set_enemies(*loaded_enemies);
     new_projectile -> set_dimensions(sf::Vector2f(16, 16));
@@ -134,10 +134,6 @@ void Grunt::handle_collision(std::shared_ptr<Game_Object> collided)
     if (std::shared_ptr<Wall> wall = std::dynamic_pointer_cast<Wall>(collided))
     {
         handle_wall_collision(wall);
-    }
-    else if(std::shared_ptr<Player> player = std::dynamic_pointer_cast<Player>(collided))
-    {
-        player -> take_damage(damage);
     }
 }
 

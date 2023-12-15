@@ -15,7 +15,7 @@ Player::Player(sf::Vector2f coordinates, sf::Texture& texture, sf::RenderWindow&
     texture_scale = 2.3;
     width = 40;
     height = 40;
-    attack_distance = 80;
+    attack_distance = 120;
     attack_cooldown = 0.5;
     time_since_last_attack = 0.0;
     invul_time = sf::seconds(1.5f);
@@ -137,7 +137,7 @@ void Player::attack() const
 
 
     sf::RectangleShape texture_attack_hitbox;
-    sf::Vector2f texture_size{hitbox_width, hitbox_height};
+    sf::Vector2f texture_size{hitbox_width + 20, attack_distance};
     texture_attack_hitbox.setSize(texture_size);
     texture_attack_hitbox.setOrigin(texture_size.x / 2, texture_size.y + width / 2);
     texture_attack_hitbox.setRotation(rotation + 90);

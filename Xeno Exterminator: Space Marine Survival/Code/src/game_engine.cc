@@ -22,7 +22,7 @@ void Game_Engine::run()
         window.setKeyRepeatEnabled(true);
         window.setVerticalSyncEnabled(true);
 
-        std::array<std::string, 3> levels = {"level_1.txt", "level_2.txt", "level_3.txt"};
+        std::array<std::string, 4> levels = {"level_1.txt", "level_2.txt", "level_3.txt", "level_4.txt"};
         states[0] = std::make_shared<Play_State> (window);
         states[1] = std::make_shared<Game_Over_State> (window, levels.size() );
         std::shared_ptr<Play_State> current_level = std::static_pointer_cast<Play_State>(states[0]);
