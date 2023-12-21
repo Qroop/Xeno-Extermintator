@@ -110,7 +110,6 @@ void Grunt::move(double const delta_time)
 
 void Grunt::attack() const
 {
-    /*Spawn a projectile object in an enemies to add vector*/
     if(!loaded_enemies)
     {
         std::cerr << "Error: Loaded enemies is nullptr\n";

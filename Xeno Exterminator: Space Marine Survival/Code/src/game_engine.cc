@@ -40,7 +40,10 @@ void Game_Engine::run()
                     break;
                 }
             }
-            else{ break; }
+            else
+            { 
+                break; 
+            }
         }
     }
 }

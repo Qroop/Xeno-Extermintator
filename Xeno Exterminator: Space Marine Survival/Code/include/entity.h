@@ -41,6 +41,15 @@ class Entity : public Game_Object
     virtual ~Entity();
 
     /**
+     * @brief Pure virtual function for updating the enitty state.
+     * 
+     * This function must be implemented by derived classes to update the state of the entity.
+     * 
+     * @param delta_time Time elapsed since the last update.
+     */
+    virtual void update(double delta_time) = 0;
+
+    /**
      * @brief Draws the entity on the render window.
      */
     void draw() override;
