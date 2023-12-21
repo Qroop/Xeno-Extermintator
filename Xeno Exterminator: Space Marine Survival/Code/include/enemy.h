@@ -35,15 +35,6 @@ class Enemy : public Entity
     virtual ~Enemy() = 0;
 
     /**
-     * @brief Pure virtual function for updating the enemy state.
-     * 
-     * This function must be implemented by derived classes to update the state of the enemy.
-     * 
-     * @param delta_time Time elapsed since the last update.
-     */
-    virtual void update(double delta_time) = 0;
-
-    /**
      * @brief Rotate the enemy based on the given direction and delta time.
      * 
      * @param direction The direction to rotate towards.

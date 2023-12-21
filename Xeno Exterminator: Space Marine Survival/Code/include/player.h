@@ -49,7 +49,7 @@ class Player : public Entity
      * @brief Updates the player's state over time.
      * @param delta_time The time elapsed since the last update.
      */
-    void update(double const delta_time);
+    void update(double const delta_time) override;
 
     /**
      * @brief Handles collision with other game objects.

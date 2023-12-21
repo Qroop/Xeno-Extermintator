@@ -73,6 +73,7 @@ class Play_State : public Abstract_Game_State
     sf::Texture fire_texture;
 
     std::vector<std::shared_ptr<Game_Object>> level; ///< The game objects in the current level.
+    std::vector<std::shared_ptr<Entity>> alive_entities; ///< The alive objects with the update functionality.
     std::vector<std::shared_ptr<Game_Object>> dead_entities; ///< The dead game objects in the current level.
     std::vector<std::shared_ptr<Enemy>> enemies; ///< The enemies in the current level.
     std::vector<std::shared_ptr<Enemy>> projectiles_to_add; ///< The projectiles to be added to the game state.

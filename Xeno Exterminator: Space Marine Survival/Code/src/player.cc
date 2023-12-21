@@ -16,7 +16,7 @@ Player::Player(sf::Vector2f coordinates, sf::Texture& texture, sf::RenderWindow&
     width = 40;
     height = 40;
     attack_distance = 120;
-    attack_cooldown = 0.5;
+    attack_cooldown = 0.1;
     time_since_last_attack = 0.0;
     invul_time = sf::seconds(1.5f);
     damage_effect_timer.restart();
