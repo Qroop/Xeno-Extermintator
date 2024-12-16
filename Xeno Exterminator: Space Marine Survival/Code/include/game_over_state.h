@@ -2,6 +2,7 @@
 
 #include "abstract_game_state.h"
 #include <SFML/Graphics.hpp>
+#include <array>
 
 /**
  * @class Game_Over_State
