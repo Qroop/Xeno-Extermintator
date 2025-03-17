@@ -1,9 +1,0 @@
-# Ignore all executable files
-*.exe
-*.out
-*.app
-*.dll
-*.so
-*.dylib
-*.o
-*.vscode
